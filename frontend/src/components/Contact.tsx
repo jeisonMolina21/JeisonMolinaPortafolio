@@ -10,7 +10,8 @@ const Contact = () => {
         const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
         fetch(`${API_URL}/profile`)
             .then(res => res.json())
-            .then(setContactInfo);
+            .then(data => setContactInfo(data && !data.error ? data : null))
+            .catch(() => setContactInfo(null));
     }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

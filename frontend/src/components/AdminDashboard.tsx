@@ -32,13 +32,18 @@ const AdminDashboard = ({ token, onLogout }: { token: string, onLogout: () => vo
         setLoading(true);
         try {
             if (mainView === 'messages') {
-                setMessages(await api.getAuthenticated('messages', token));
+                const data = await api.getAuthenticated('messages', token);
+                setMessages(Array.isArray(data) ? data : []);
             } else {
-                if (activeTab === 'skills') setSkills(await api.get('skills'));
-                else if (activeTab === 'profile') setProfile(await api.get('profile'));
-                else {
-                    const data = await api.get(activeTab, 'es'); // We only fetch ES now as it is the source of truth
-                    setItems(data);
+                if (activeTab === 'skills') {
+                    const data = await api.get('skills');
+                    setSkills(Array.isArray(data) ? data : []);
+                } else if (activeTab === 'profile') {
+                    const data = await api.get('profile');
+                    setProfile(data && !data.error ? data : profile);
+                } else {
+                    const data = await api.get(activeTab, 'es');
+                    setItems(Array.isArray(data) ? data : []);
                 }
             }
         } catch (err) {

@@ -28,21 +28,23 @@ const HomePage = () => {
 
   return (
     <LanguageProvider>
-      <Navigation onLogin={(t) => setToken(t)} onLogout={handleLogout} isAdmin={!!token} />
-      <main className="space-y-12 pb-24">
-        <Hero />
-        <Skills />
-        {token && (
-          <section id="admin-dashboard" className="bg-midnight-dark/50 border-y border-white/5">
-            <AdminDashboard token={token} onLogout={handleLogout} />
-          </section>
-        )}
-        <Experience />
-        <Education />
-        <ProjectList />
-        <Contact />
-      </main>
-      <WhatsAppButton />
+      <div className="min-h-screen bg-midnight text-white">
+        <Navigation onLogin={(t) => setToken(t)} onLogout={handleLogout} isAdmin={!!token} />
+        <main className="space-y-12 pb-24 relative z-0">
+          <Hero />
+          <Skills />
+          {token && (
+            <section id="admin-dashboard" className="bg-midnight-dark/50 border-y border-white/5">
+              <AdminDashboard token={token} onLogout={handleLogout} />
+            </section>
+          )}
+          <Experience />
+          <Education />
+          <ProjectList />
+          <Contact />
+        </main>
+        <WhatsAppButton />
+      </div>
     </LanguageProvider>
   );
 };

@@ -12,7 +12,8 @@ const Skills = () => {
         const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
         fetch(`${API_URL}/skills`)
             .then(res => res.json())
-            .then(setSkills);
+            .then(data => setSkills(Array.isArray(data) ? data : []))
+            .catch(() => setSkills([]));
     }, []);
 
     const categories = [
@@ -67,7 +68,7 @@ const Skills = () => {
                         </div>
 
                         <div className="flex flex-wrap gap-5 flex-grow">
-                            {skills.filter(s => cat.list.some(l => s.name.toLowerCase().includes(l.toLowerCase()))).map(skill => {
+                            {(Array.isArray(skills) ? skills : []).filter(s => cat.list.some(l => s.name.toLowerCase().includes(l.toLowerCase()))).map(skill => {
                                 const info = getSkillIcon(skill.name);
                                 return (
                                     <div key={skill.id} className="flex flex-col items-center gap-3 group/item cursor-pointer">

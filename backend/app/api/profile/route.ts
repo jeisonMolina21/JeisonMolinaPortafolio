@@ -30,11 +30,11 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await req.json();
-    const { full_name, title, bio, location, whatsapp, email, linkedin, image_url } = data;
+    const { full_name, title, bio, location, whatsapp, email, linkedin, github, image_url } = data;
 
     await pool.query(
-      'UPDATE profile_settings SET full_name = ?, title = ?, bio = ?, location = ?, whatsapp = ?, email = ?, linkedin = ?, image_url = ? WHERE id = 1',
-      [full_name, title, bio, location, whatsapp || null, email || null, linkedin || null, image_url || null]
+      'UPDATE profile_settings SET full_name = ?, title = ?, bio = ?, location = ?, whatsapp = ?, email = ?, linkedin = ?, github = ?, image_url = ? WHERE id = 1',
+      [full_name, title, bio, location, whatsapp || null, email || null, linkedin || null, github || null, image_url || null]
     );
 
     return NextResponse.json({ message: 'Profile updated successfully' });

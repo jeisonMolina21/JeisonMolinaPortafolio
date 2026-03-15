@@ -1,11 +1,14 @@
 import React from 'react';
 import { LanguageProvider } from './context/LanguageContext';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const AppWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <LanguageProvider>
-      {children}
-    </LanguageProvider>
+    <ErrorBoundary>
+      <LanguageProvider>
+        {children}
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 };
 

@@ -60,21 +60,21 @@ const ProjectList = () => {
                  className="group relative flex flex-col h-full reveal-up"
                >
                  <div className="relative aspect-[16/10] rounded-[3rem] overflow-hidden border-white/5 bg-midnight shadow-2xl transition-all duration-700 group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.5)] group-hover:border-primary/20">
-                    <img 
-                      src={project.image_url?.startsWith('/') ? `${import.meta.env.PUBLIC_API_URL?.replace('/api','') || 'http://localhost:3000'}${project.image_url}` : project.image_url} 
-                      alt={project.title} 
-                      className="w-full h-full object-cover grayscale brightness-75 transition-all duration-1000 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-[1.03]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-                    
-                    {/* Tech Stack Floating Badges */}
-                    <div className="absolute top-8 left-8 flex flex-wrap gap-2 max-w-[80%]">
-                      {project.tech_stack.split(',').map(tag => (
-                        <span key={tag} className="text-[8px] font-black uppercase tracking-widest bg-black/60 backdrop-blur-xl px-4 py-2 rounded-xl border border-white/5 text-white/80 shadow-lg">
-                          {tag.trim()}
-                        </span>
-                      ))}
-                    </div>
+                     <img 
+                       src={project.image_url?.startsWith('/') ? `${import.meta.env.PUBLIC_API_URL?.replace('/api','') || 'http://localhost:3000'}${project.image_url}` : (project.image_url || '')} 
+                       alt={project.title} 
+                       className="w-full h-full object-cover grayscale brightness-75 transition-all duration-1000 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-[1.03]"
+                     />
+                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                     
+                     {/* Tech Stack Floating Badges */}
+                     <div className="absolute top-8 left-8 flex flex-wrap gap-2 max-w-[80%]">
+                       {(project.tech_stack || '').split(',').map(tag => (
+                         <span key={tag} className="text-[8px] font-black uppercase tracking-widest bg-black/60 backdrop-blur-xl px-4 py-2 rounded-xl border border-white/5 text-white/80 shadow-lg">
+                           {tag.trim()}
+                         </span>
+                       ))}
+                     </div>
 
                     {/* Metric Highlight (The WOW part) */}
                     {metric && (

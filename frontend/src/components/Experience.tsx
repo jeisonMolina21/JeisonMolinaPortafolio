@@ -72,7 +72,7 @@ const Experience = () => {
                   
                   {item.skills && (
                     <div className={`flex flex-wrap gap-3 ${idx % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
-                      {item.skills.split(',').map(s => (
+                      {(item.skills || '').split(',').map(s => (
                         <span key={s} className="px-4 py-2 glass bg-white/5 rounded-xl text-[9px] font-black uppercase tracking-widest text-text-dim group-hover:text-white transition-all border-white/5 hover:bg-primary/20 hover:border-primary/30">
                           {s.trim()}
                         </span>

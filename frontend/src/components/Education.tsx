@@ -49,7 +49,7 @@ const Education = () => {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    {items.map((edu) => (
+                    {items && Array.isArray(items) && items.map((edu) => (
                         <div key={edu.id} className="glass p-12 rounded-[3.5rem] border-white/5 relative group hover:border-primary/20 transition-all duration-700 overflow-hidden reveal-up">
                             <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 blur-[120px] -z-10 group-hover:bg-primary/20 transition-all"></div>
                             
@@ -59,7 +59,7 @@ const Education = () => {
                                 </div>
                                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary-bright italic">{edu.period}</span>
                             </div>
-
+ 
                             <h3 className="text-3xl font-display font-black text-white/95 mb-2 group-hover:text-white transition-colors tracking-tight">{edu.degree}</h3>
                             <p className="text-white/30 font-display font-black uppercase tracking-[0.1em] mb-8 text-xs">{edu.institution}</p>
                             <p className="text-text-dim text-lg leading-relaxed font-light hover:text-text-muted transition-colors">{edu.description}</p>
