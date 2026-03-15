@@ -48,3 +48,20 @@ CREATE TABLE IF NOT EXISTS education (
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE IF NOT EXISTS profile_settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    title TEXT,
+    bio TEXT,
+    location VARCHAR(255),
+    whatsapp VARCHAR(50),
+    email VARCHAR(255),
+    linkedin VARCHAR(255),
+    github VARCHAR(255),
+    image_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert initial profile if not exists
+INSERT IGNORE INTO profile_settings (id, full_name, title, bio, location) 
+VALUES (1, 'User Name', 'Professional Title', 'Bio description', 'Location');

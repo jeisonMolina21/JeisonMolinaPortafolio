@@ -8,7 +8,7 @@ interface Profile {
     whatsapp: string; 
     email: string; 
     linkedin: string; 
-    image_url: string;
+    image_url?: string;
 }
 interface ProfileManagerProps {
     profile: Profile;
