@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #991b1b;
+  --color-secondary: #450a0a;
+  --color-midnight: #0a0a0a;
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui;
+  --font-display: "Outfit", ui-sans-serif, system-ui;
+}
+
+@import "./base.css";
+@import "./components/Hero.css";
+@import "./components/Navigation.css";
+@import "./components/Cards.css";
+@import "./components/Forms.css";
+

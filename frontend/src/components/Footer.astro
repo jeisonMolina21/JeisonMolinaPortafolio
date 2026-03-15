@@ -1,0 +1,26 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="py-12 px-6 border-t border-white/5 bg-midnight relative overflow-hidden">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+    <div class="flex flex-col items-center md:items-start gap-4">
+      <a href="#" class="text-xl font-display font-extrabold text-white tracking-tighter">
+        PORT<span class="text-primary italic">AFOLIO</span>
+      </a>
+      <p class="text-slate-500 text-sm max-w-xs text-center md:text-left">
+        Creando experiencias digitales excepcionales con pasión por el detalle y el rendimiento.
+      </p>
+    </div>
+
+    <div class="flex gap-6">
+      <a href="#" class="text-slate-400 hover:text-primary transition-colors">Twitter</a>
+      <a href="#" class="text-slate-400 hover:text-primary transition-colors">GitHub</a>
+      <a href="#" class="text-slate-400 hover:text-primary transition-colors">LinkedIn</a>
+    </div>
+
+    <div class="text-slate-500 text-sm">
+      © {currentYear} Todos los derechos reservados.
+    </div>
+  </div>
+</footer>

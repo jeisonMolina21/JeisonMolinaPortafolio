@@ -1,0 +1,38 @@
+/* Navigation Styles */
+.nav-container {
+  @apply fixed top-0 left-0 right-0 z-50 transition-all duration-300;
+}
+
+.nav-active {
+  @apply py-3 bg-midnight/80 backdrop-blur-md border-b border-white/10 shadow-lg;
+}
+
+.nav-idle {
+  @apply py-6 bg-transparent;
+}
+
+.nav-link {
+  @apply text-sm font-medium text-slate-300 hover:text-white transition-colors relative group;
+}
+
+.nav-link-underline {
+  @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full;
+}
+
+.nav-cta {
+  @apply px-5 py-2 rounded-full bg-primary text-midnight font-bold text-sm hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(56,189,248,0.3)];
+}
+
+.mobile-menu {
+  @apply fixed inset-0 bg-midnight/95 backdrop-blur-xl z-40 transition-transform duration-500 md:hidden;
+}
+
+.mobile-link {
+  @apply text-2xl font-display font-bold text-white hover:text-primary transition-colors;
+}
+
+@media (min-width: 768px) {
+  .mobile-link {
+    @apply text-3xl;
+  }
+}

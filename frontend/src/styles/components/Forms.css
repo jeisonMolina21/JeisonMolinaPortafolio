@@ -1,0 +1,37 @@
+/* Forms and Admin UI Styling */
+.admin-card {
+  @apply mt-8 p-6 sm:p-8 bg-white/5 border border-white/10 rounded-[2rem] backdrop-blur-md animate-fade-in shadow-2xl;
+}
+
+.form-group {
+  @apply space-y-2;
+}
+
+.form-label {
+  @apply text-sm font-medium text-slate-300 ml-1;
+}
+
+.form-input {
+  @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all placeholder:text-slate-600;
+}
+
+.form-textarea {
+  @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none resize-none transition-all placeholder:text-slate-600;
+}
+
+.form-submit-btn {
+  @apply w-full py-4 bg-primary text-midnight font-bold rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 shadow-[0_0_30px_rgba(56,189,248,0.2)];
+}
+
+.admin-toggle-btn {
+  @apply px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-primary font-bold hover:bg-white/10 transition-all;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
