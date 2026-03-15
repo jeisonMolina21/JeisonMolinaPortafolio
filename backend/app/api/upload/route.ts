@@ -17,17 +17,28 @@ export async function POST(req: NextRequest) {
     }
 
     // Upload to Vercel Blob
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      console.error('BLOB_READ_WRITE_TOKEN is missing');
+      return NextResponse.json({ error: 'Configuración de almacenamiento incompleta' }, { status: 500 });
+    }
+
     const blob = await put(file.name, file, {
       access: 'public',
-      addRandomSuffix: true, // Prevents collisions
+      addRandomSuffix: true,
     });
+
+    console.log('File uploaded to:', blob.url);
 
     return NextResponse.json({ 
       message: 'File uploaded successfully',
       url: blob.url
     });
   } catch (error: any) {
-    console.error('Upload error:', error);
+    console.error('Upload error detail:', {
+        message: error.message,
+        stack: error.stack,
+        cause: error.cause
+    });
     return NextResponse.json({ 
       error: 'Error uploading file',
       details: error.message 

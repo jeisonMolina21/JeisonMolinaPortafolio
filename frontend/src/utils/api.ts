@@ -1,19 +1,37 @@
-const API_BASE_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL = typeof window !== 'undefined' 
+    ? (import.meta.env.PUBLIC_API_URL || '/api') 
+    : (import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api');
+
+if (typeof window !== 'undefined' && !import.meta.env.PUBLIC_API_URL) {
+    console.warn('PUBLIC_API_URL is not defined. Falling back to /api');
+}
+
+const handleResponse = async (res: Response, endpoint: string) => {
+    if (!res.ok) {
+        let errorMessage = `Failed to ${endpoint}`;
+        try {
+            const errorData = await res.json();
+            errorMessage = errorData.details || errorData.error || errorMessage;
+        } catch (e) {
+            // No JSON body
+        }
+        throw new Error(errorMessage);
+    }
+    return res.json();
+};
 
 export const api = {
     async get(endpoint: string, lang?: string) {
         const url = lang ? `${API_BASE_URL}/${endpoint}?lang=${lang}` : `${API_BASE_URL}/${endpoint}`;
         const res = await fetch(url);
-        if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
-        return res.json();
+        return handleResponse(res, `fetch ${endpoint}`);
     },
 
     async getAuthenticated(endpoint: string, token: string) {
         const res = await fetch(`${API_BASE_URL}/${endpoint}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
-        if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
-        return res.json();
+        return handleResponse(res, `fetch ${endpoint}`);
     },
 
     async post(endpoint: string, data: any, token?: string) {
@@ -25,8 +43,7 @@ export const api = {
             headers,
             body: JSON.stringify(data)
         });
-        if (!res.ok) throw new Error(`Failed to post to ${endpoint}`);
-        return res.json();
+        return handleResponse(res, `post to ${endpoint}`);
     },
 
     async put(endpoint: string, id: number, data: any, token: string) {
@@ -38,8 +55,7 @@ export const api = {
             },
             body: JSON.stringify(data)
         });
-        if (!res.ok) throw new Error(`Failed to update ${endpoint}`);
-        return res.json();
+        return handleResponse(res, `update ${endpoint}`);
     },
 
     async delete(endpoint: string, id: number, token: string) {
@@ -47,8 +63,7 @@ export const api = {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         });
-        if (!res.ok) throw new Error(`Failed to delete ${endpoint}`);
-        return res.json();
+        return handleResponse(res, `delete ${endpoint}`);
     },
 
     async upload(file: File, token: string) {
@@ -60,7 +75,6 @@ export const api = {
             headers: { 'Authorization': `Bearer ${token}` },
             body: formData
         });
-        if (!res.ok) throw new Error('Failed to upload file');
-        return res.json();
+        return handleResponse(res, 'upload file');
     }
 };

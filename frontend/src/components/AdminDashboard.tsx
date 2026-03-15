@@ -87,8 +87,8 @@ const AdminDashboard = ({ token, onLogout }: { token: string, onLogout: () => vo
             alert('Guardado!');
             setEditingItem(null);
             loadData();
-        } catch (err) {
-            alert('Error al guardar');
+        } catch (err: any) {
+            alert('Error al guardar: ' + err.message);
         }
     };
 
@@ -109,8 +109,8 @@ const AdminDashboard = ({ token, onLogout }: { token: string, onLogout: () => vo
             await api.post('profile', data, token);
             alert('Perfil actualizado!');
             loadData();
-        } catch (err) {
-            alert('Error al actualizar perfil');
+        } catch (err: any) {
+            alert('Error al actualizar perfil: ' + err.message);
         } finally {
             setLoading(false);
         }
