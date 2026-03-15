@@ -91,17 +91,31 @@ h1, h2, h3, h4, .font-display {
 .reveal-up { opacity: 0; }
 .reveal-up.active { animation: revealUp 1s var(--anim-ease) forwards; }
 
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.animate-pulse-slow { animation: pulse-slow 8s infinite var(--anim-ease); }
+
+::selection {
+  background: var(--primary);
+  color: white;
+}
+
 .wine-gradient {
-  background: linear-gradient(to right, #fff, var(--wine-light));
+  background: linear-gradient(135deg, #fff 0%, var(--wine-light) 50%, var(--primary-bright) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-glow-sm { text-shadow: 0 0 10px rgba(153, 27, 27, 0.3); }
-
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }
-::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+::-webkit-scrollbar-thumb { 
+  background: rgba(255, 255, 255, 0.1); 
+  border-radius: 100px;
+  border: 2px solid var(--bg-deep);
+}
 ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
