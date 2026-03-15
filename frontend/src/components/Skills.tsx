@@ -9,7 +9,8 @@ const Skills = () => {
     const [skills, setSkills] = React.useState<Skill[]>([]);
 
     React.useEffect(() => {
-        fetch('http://localhost:3000/api/skills')
+        const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
+        fetch(`${API_URL}/skills`)
             .then(res => res.json())
             .then(setSkills);
     }, []);

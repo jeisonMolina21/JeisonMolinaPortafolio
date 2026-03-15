@@ -17,7 +17,8 @@ const AddProjectForm = ({ onProjectAdded }: { onProjectAdded: () => void }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:3000/api/projects', {
+      const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
+      const response = await fetch(`${API_URL}/projects`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

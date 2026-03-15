@@ -17,7 +17,8 @@ const ProjectList = () => {
 
   React.useEffect(() => {
     setIsLoading(true);
-    fetch(`http://localhost:3000/api/projects?lang=${lang}`)
+    const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
+    fetch(`${API_URL}/projects?lang=${lang}`)
       .then(res => res.json())
       .then(data => {
         setProjects(Array.isArray(data) ? data : []);
@@ -48,7 +49,7 @@ const ProjectList = () => {
              >
                <div className="h-[300px] overflow-hidden relative">
                  <img 
-                   src={project.image_url?.startsWith('/') ? `http://localhost:3000${project.image_url}` : project.image_url} 
+                   src={project.image_url?.startsWith('/') ? `${import.meta.env.PUBLIC_API_URL?.replace('/api','') || 'http://localhost:3000'}${project.image_url}` : project.image_url} 
                    alt={project.title} 
                    className="w-full h-full object-cover grayscale opacity-50 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
                  />

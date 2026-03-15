@@ -4,7 +4,8 @@ const WhatsAppButton = () => {
     const [whatsapp, setWhatsapp] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/profile')
+        const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
+        fetch(`${API_URL}/profile`)
             .then(res => res.json())
             .then(data => setWhatsapp(data.whatsapp));
     }, []);

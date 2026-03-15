@@ -16,7 +16,8 @@ const Education = () => {
 
     React.useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:3000/api/education?lang=${lang}`)
+        const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
+        fetch(`${API_URL}/education?lang=${lang}`)
             .then(res => res.json())
             .then(data => {
                 setItems(Array.isArray(data) ? data : []);

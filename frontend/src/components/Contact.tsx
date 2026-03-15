@@ -7,7 +7,8 @@ const Contact = () => {
     const [contactInfo, setContactInfo] = React.useState<any>(null);
 
     React.useEffect(() => {
-        fetch('http://localhost:3000/api/profile')
+        const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
+        fetch(`${API_URL}/profile`)
             .then(res => res.json())
             .then(setContactInfo);
     }, []);
@@ -18,7 +19,8 @@ const Contact = () => {
         const data = Object.fromEntries(formData);
 
         try {
-            const response = await fetch('http://localhost:3000/api/messages', {
+            const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
+            const response = await fetch(`${API_URL}/messages`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

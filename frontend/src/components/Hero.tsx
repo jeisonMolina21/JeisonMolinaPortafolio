@@ -21,11 +21,12 @@ const Hero = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/profile?lang=${lang}`)
+    const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
+    fetch(`${API_URL}/profile?lang=${lang}`)
       .then(res => res.json())
       .then(setProfile);
 
-    fetch('http://localhost:3000/api/skills')
+    fetch(`${API_URL}/skills`)
       .then(res => res.json())
       .then(setSkills);
   }, [lang]);
@@ -91,7 +92,7 @@ const Hero = () => {
                         <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
                         <div className="relative glass p-4 rounded-[3rem] overflow-hidden border-white/5 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]">
                             <img 
-                                src={profile?.image_url ? (profile.image_url.startsWith('/') ? `http://localhost:3000${profile.image_url}` : profile.image_url) : "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800"} 
+                                src={profile?.image_url ? (profile.image_url.startsWith('/') ? `${import.meta.env.PUBLIC_API_URL?.replace('/api','') || 'http://localhost:3000'}${profile.image_url}` : profile.image_url) : "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800"} 
                                 alt={profile?.full_name} 
                                 className="w-full h-auto rounded-[2.5rem] object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                             />
