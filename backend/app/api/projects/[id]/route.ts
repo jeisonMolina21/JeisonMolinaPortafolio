@@ -16,7 +16,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       [title, description, image_url, video_url || null, github_url || null, demo_url || null, tech_stack, id]
     );
 
-    return NextResponse.json({ message: 'Project updated' });
+    return NextResponse.json({ message: 'Project updated successfully' });
   } catch (error) {
     return NextResponse.json({ error: 'Error updating project' }, { status: 500 });
   }
