@@ -41,7 +41,17 @@ const Hero = () => {
   const firstName = (profile.full_name || 'Jeison').split(' ')[0];
   const lastName = (profile.full_name || 'Molina').split(' ').slice(1).join(' ');
 
-  return (
+    const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800";
+
+    const getProfileImage = () => {
+        if (!profile?.image_url) return DEFAULT_IMAGE;
+        if (profile.image_url.startsWith('http')) return profile.image_url;
+        // Handle relative paths if any
+        const apiBase = import.meta.env.PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:3000';
+        return `${apiBase}${profile.image_url}`;
+    };
+
+    return (
         <section id="hero" className="relative min-h-[90vh] flex flex-col justify-center px-6 overflow-hidden">
             {/* Background Digital Architecture Decor */}
             <div className="absolute top-0 right-0 w-full h-full opacity-20 pointer-events-none -z-10">
@@ -118,8 +128,14 @@ const Hero = () => {
                     <div className="relative group">
                         <div className="relative w-[450px] aspect-[4/5] glass rounded-[4rem] overflow-hidden border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.5)] transition-transform duration-[1.5s] ease-out group-hover:scale-[1.03]">
                             <img 
-                                src={profile?.image_url ? (profile.image_url.startsWith('/') ? `${import.meta.env.PUBLIC_API_URL?.replace('/api','') || 'http://localhost:3000'}${profile.image_url}` : profile.image_url) : "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800"} 
+                                src={getProfileImage()} 
                                 alt={profile?.full_name} 
+                                onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    if (target.src !== DEFAULT_IMAGE) {
+                                        target.src = DEFAULT_IMAGE;
+                                    }
+                                }}
                                 className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[1.5s]"
                             />
                             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-bg-midnight via-transparent to-transparent opacity-60"></div>

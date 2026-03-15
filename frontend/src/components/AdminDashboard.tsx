@@ -104,6 +104,7 @@ const AdminDashboard = ({ token, onLogout }: { token: string, onLogout: () => vo
             if (imageFile && imageFile.name) {
                 const uploadRes = await api.upload(imageFile, token);
                 data.image_url = uploadRes.url;
+                console.log('Saved image URL:', data.image_url);
             }
 
             await api.post('profile', data, token);
