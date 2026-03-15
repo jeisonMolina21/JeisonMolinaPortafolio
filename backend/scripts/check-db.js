@@ -15,14 +15,8 @@ async function check() {
 
     console.log('--- Checking Database Content ---');
     
-    const [profile] = await connection.query('SELECT * FROM profile_settings WHERE id = 1');
-    console.log('Profile:', JSON.stringify(profile, null, 2));
-
-    const [projects] = await connection.query('SELECT COUNT(*) as count FROM projects');
-    console.log('Projects count:', projects[0].count);
-
-    const [experience] = await connection.query('SELECT COUNT(*) as count FROM experience');
-    console.log('Experience count:', experience[0].count);
+    const [users] = await connection.query('SELECT id, username FROM users');
+    console.log('Users in DB:', JSON.stringify(users, null, 2));
 
     await connection.end();
   } catch (error) {
