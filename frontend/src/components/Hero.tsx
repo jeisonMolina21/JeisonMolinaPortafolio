@@ -31,7 +31,7 @@ const Hero = () => {
       .then(setSkills);
   }, [lang]);
 
-  if (!profile) return null;
+  if (!profile || !profile.full_name) return null;
 
   const title = profile.title;
   const bio = profile.bio;
