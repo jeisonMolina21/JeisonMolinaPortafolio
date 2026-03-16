@@ -53,7 +53,7 @@ const Hero = () => {
   ];
 
   return (
-    <section id="hero" className="relative min-h-[90vh] flex flex-col justify-center px-6 py-20 lg:py-0 overflow-hidden">
+    <section id="hero" className="relative min-h-[90vh] lg:min-h-screen flex flex-col lg:justify-center px-6 pt-32 lg:pt-0 overflow-hidden">
         {/* Background Digital Architecture Decor */}
         <div className="absolute top-0 right-0 w-full h-full opacity-20 pointer-events-none -z-10">
             <div className="absolute top-[10%] right-[5%] w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-primary/10 rounded-full blur-[80px] md:blur-[120px] animate-pulse"></div>
@@ -63,8 +63,10 @@ const Hero = () => {
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             {/* Image for Mobile (Visible only on small screens) */}
-            <div className="lg:hidden flex justify-center mb-8">
-                <HeroAvatar imageUrl={profile.image_url} fullName={profile.full_name} />
+            <div className="lg:hidden flex justify-center mb-10 w-full">
+                <div className="w-[280px] sm:w-[320px]">
+                    <HeroAvatar imageUrl={profile.image_url} fullName={profile.full_name} />
+                </div>
             </div>
 
             <div className="lg:col-span-7 space-y-8 md:space-y-10 animate-fade-in text-center lg:text-left">
@@ -75,7 +77,7 @@ const Hero = () => {
                 <div className="space-y-6">
                     <div className="space-y-2">
                          <p className="text-primary-bright font-black uppercase tracking-[0.3em] text-[10px] md:text-[11px] mb-2">{t('hero.subtitle') || 'Architecting Efficiency'}</p>
-                         <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-black leading-[0.85] tracking-tighter">
+                         <h1 className="text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-black leading-[0.85] tracking-tighter break-words">
                             {firstName}<span className="wine-gradient block">{lastName}</span>
                         </h1>
                     </div>

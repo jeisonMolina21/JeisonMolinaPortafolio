@@ -67,7 +67,7 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: { onLogin: (t: string) => vo
               {lang === 'es' ? 'EN' : 'ES'}
             </button>
 
-            {/* Desktop Actions */}
+            {/* Desktop Actions - Hide on mobile, show from md upwards */}
             <div className="hidden md:block">
               {isAdmin ? (
                 <button onClick={onLogout} className="px-6 py-3 bg-red-500/10 text-red-500 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all border border-red-500/20 hover:bg-red-500 hover:text-white">
@@ -80,10 +80,10 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: { onLogin: (t: string) => vo
               )}
             </div>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile Menu Toggle - Visible on lg- screens */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-10 h-10 glass rounded-lg flex items-center justify-center text-white"
+              className="lg:hidden w-10 h-10 glass rounded-lg flex items-center justify-center text-white border border-white/10"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMobileMenuOpen ? (
