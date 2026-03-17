@@ -5,8 +5,9 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
+  //    "build": "astro build",
   publicDir: 'static_assets',
-  outDir: 'public_dist',
+  outDir: 'public',
   vite: {
     plugins: [tailwindcss()],
   },
