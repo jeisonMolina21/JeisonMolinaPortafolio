@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Globe, LogOut, Code, User, ArrowRight } from 'lucide-react';
 import LoginModal from './LoginModal';
 import MobileMenu from './navigation-parts/MobileMenu';
 import { useLanguage } from '../context/LanguageContext';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 const Navigation = ({ onLogin, onLogout, isAdmin }: { onLogin: (t: string) => void, onLogout: () => void, isAdmin: boolean }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,7 +18,7 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: { onLogin: (t: string) => vo
   const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -20,89 +28,109 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: { onLogin: (t: string) => vo
     setIsLoginModalOpen(false);
   };
 
+  const navItems = [
+    { key: 'nav.about', href: '#hero' },
+    { key: 'nav.projects', href: '#projects' },
+    { key: 'nav.experience', href: '#experience' },
+    { key: 'nav.education', href: '#education' },
+    { key: 'nav.contact', href: '#contact' }
+  ];
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${isScrolled ? 'py-3' : 'py-5 md:py-8'}`}>
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className={`relative px-4 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[2.5rem] flex items-center justify-between transition-all duration-700 ${isScrolled || isMobileMenuOpen ? 'bg-black/40 backdrop-blur-3xl border border-white/10 shadow-2xl' : 'bg-transparent border border-transparent'}`}>
-          
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+      isScrolled ? "py-4" : "py-8"
+    )}>
+      <div className="container-custom">
+        <motion.div 
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className={cn(
+            "relative px-6 py-3 rounded-full flex items-center justify-between transition-all duration-500",
+            isScrolled ? "glass shadow-2xl" : "bg-transparent border border-transparent"
+          )}
+        >
+          {/* Logo */}
           <div className="flex items-center gap-4">
             <button 
               onClick={() => !isAdmin && setIsLoginModalOpen(true)}
-              className="group flex items-center gap-3 focus:outline-none"
+              className="group flex items-center gap-2.5 focus:outline-none"
             >
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-lg md:rounded-xl flex items-center justify-center font-black text-white transform rotate-3 transition-transform group-hover:rotate-0 text-sm md:text-base">
-                JM
+              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center font-black text-white transform rotate-6 transition-all group-hover:rotate-0 group-hover:scale-110 shadow-lg shadow-primary/20">
+                <Code size={20} />
               </div>
-              <p className="text-lg md:text-xl font-display font-black tracking-tighter text-white">
+              <p className="text-xl font-display font-black tracking-tighter text-white">
                 JEI<span className="wine-gradient italic">SON</span>
               </p>
             </button>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8 px-8 py-3 glass rounded-full border-white/5">
-            {[
-              { key: 'nav.about', href: '#hero' },
-              { key: 'nav.projects', href: '#projects' },
-              { key: 'nav.experience', href: '#experience' },
-              { key: 'nav.education', href: '#education' },
-              { key: 'nav.contact', href: '#contact' }
-            ].map((item) => (
+          <div className="hidden lg:flex items-center gap-1.5 p-1 bg-white/5 backdrop-blur-md rounded-full border border-white/10">
+            {navItems.map((item) => (
               <a 
                 key={item.key} 
                 href={item.href} 
-                className="text-[9px] font-black uppercase tracking-[0.2em] text-text-dim hover:text-white transition-all relative group"
+                className="px-5 py-2 text-[10px] font-bold uppercase tracking-widest text-text-dim hover:text-white hover:bg-white/5 rounded-full transition-all relative group"
               >
                 {t(item.key)}
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all group-hover:w-full"></span>
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-primary transition-all group-hover:w-1/2"></span>
               </a>
             ))}
           </div>
 
-          <div className="flex items-center gap-3 md:gap-5">
+          <div className="flex items-center gap-4">
+            {/* Language Switcher */}
             <button 
               onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
-              className="w-10 h-10 md:w-12 md:h-12 glass rounded-lg md:rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest text-white hover:border-primary/40 transition-all flex items-center justify-center"
+              className="w-10 h-10 glass rounded-full text-[10px] font-bold text-white hover:border-primary/40 transition-all flex items-center justify-center group"
+              title={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
             >
-              {lang === 'es' ? 'EN' : 'ES'}
+              <Globe size={16} className="group-hover:rotate-12 transition-transform" />
             </button>
 
-            {/* Desktop Actions - Hide on mobile, show from md upwards */}
+            {/* Desktop Actions */}
             <div className="hidden md:block">
               {isAdmin ? (
-                <button onClick={onLogout} className="px-6 py-3 bg-red-500/10 text-red-500 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all border border-red-500/20 hover:bg-red-500 hover:text-white">
-                    {t('admin.logout')}
+                <button 
+                  onClick={onLogout} 
+                  className="flex items-center gap-2 px-6 py-2.5 bg-red-500/10 text-red-500 text-[10px] font-bold uppercase tracking-widest rounded-full transition-all border border-red-500/20 hover:bg-red-500 hover:text-white"
+                >
+                  <LogOut size={14} />
+                  {t('admin.logout')}
                 </button>
               ) : (
-                  <a href="#contact" className="group relative px-8 py-3.5 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-[1.25rem] transition-all hover:bg-primary hover:text-white hover:shadow-[0_0_30px_rgba(153,27,27,0.4)] overflow-hidden inline-block">
-                      <span className="relative z-10">{t('nav.hire')}</span>
-                  </a>
+                <a 
+                  href="#contact" 
+                  className="group relative px-6 py-2.5 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full transition-all hover:bg-primary hover:text-white hover:shadow-[0_0_30px_rgba(153,27,27,0.4)] overflow-hidden flex items-center gap-2"
+                >
+                  <span className="relative z-10">{t('nav.hire')}</span>
+                  <ArrowRight size={14} className="relative z-10 group-hover:translate-x-1 transition-transform" />
+                </a>
               )}
             </div>
 
-            {/* Mobile Menu Toggle - Visible on lg- screens */}
+            {/* Mobile Menu Toggle */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-10 h-10 glass rounded-lg flex items-center justify-center text-white border border-white/10"
+              className="lg:hidden w-10 h-10 glass rounded-full flex items-center justify-center text-white border border-white/10"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isMobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      <MobileMenu 
-        isOpen={isMobileMenuOpen} 
-        onClose={() => setIsMobileMenuOpen(false)} 
-        isAdmin={isAdmin}
-        onLogout={onLogout}
-      />
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <MobileMenu 
+            isOpen={isMobileMenuOpen} 
+            onClose={() => setIsMobileMenuOpen(false)} 
+            isAdmin={isAdmin}
+            onLogout={onLogout}
+          />
+        )}
+      </AnimatePresence>
 
       <LoginModal 
         isOpen={isLoginModalOpen} 

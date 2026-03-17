@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface SocialLink {
   icon: React.ReactNode;
@@ -11,19 +12,21 @@ interface SocialLinksProps {
 
 const SocialLinks: React.FC<SocialLinksProps> = ({ links }) => {
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-4">
       {links.map((social, idx) => (
-        <a 
+        <motion.a 
           key={idx} 
           href={social.url} 
           target="_blank" 
           rel="noopener noreferrer"
-          className="w-14 h-14 md:w-16 md:h-16 glass rounded-[1.25rem] flex items-center justify-center text-text-dim hover:text-white hover:bg-white/5 transition-all transform hover:-translate-y-1.5 border-white/5 shadow-xl group"
+          whileHover={{ y: -5, scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="w-12 h-12 glass rounded-2xl flex items-center justify-center text-text-dim hover:text-white hover:border-primary/40 transition-all border-white/5 shadow-xl group"
         >
-          <div className="transition-transform group-hover:scale-110 w-6 h-6 flex items-center justify-center">
+          <div className="w-5 h-5 flex items-center justify-center text-xl">
             {social.icon}
           </div>
-        </a>
+        </motion.a>
       ))}
     </div>
   );

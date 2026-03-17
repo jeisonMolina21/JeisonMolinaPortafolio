@@ -1,26 +1,82 @@
 ---
+import { Github, Linkedin, Twitter, Mail, ArrowUpCircle } from 'lucide-react';
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="py-12 px-6 border-t border-white/5 bg-midnight relative overflow-hidden">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-    <div class="flex flex-col items-center md:items-start gap-4">
-      <a href="#" class="text-xl font-display font-extrabold text-white tracking-tighter">
-        PORT<span class="text-primary italic">AFOLIO</span>
-      </a>
-      <p class="text-slate-500 text-sm max-w-xs text-center md:text-left">
-        Creando experiencias digitales excepcionales con pasión por el detalle y el rendimiento.
-      </p>
+<footer class="py-20 px-6 border-t border-white/5 bg-bg-deep relative overflow-hidden">
+  {/* Background Glow */}
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-primary/5 blur-[120px] rounded-[100%] pointer-events-none" />
+
+  <div class="container-custom relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start mb-20">
+      <div class="md:col-span-5 space-y-8">
+        <a href="#" class="text-3xl font-display font-black text-white tracking-tighter group flex items-center gap-2">
+          PORT<span class="wine-gradient italic">AFOLIO</span>
+        </a>
+        <p class="text-text-muted text-lg font-medium max-w-sm leading-relaxed">
+          Diseñando el futuro a través de la <span class="text-white">automatización</span> y la excelencia técnica en cada línea de código.
+        </p>
+        <div class="flex gap-4">
+          {[
+            { icon: <Github size={20} />, href: "https://github.com/jeisonMolina21" },
+            { icon: <Linkedin size={20} />, href: "https://linkedin.com/in/jeisonmolina" },
+            { icon: <Twitter size={20} />, href: "#" },
+            { icon: <Mail size={20} />, href: "mailto:andreyyeisonmg@gmail.com" }
+          ].map(social => (
+            <a 
+              href={social.href} 
+              target="_blank" 
+              class="w-12 h-12 glass rounded-xl flex items-center justify-center text-text-muted hover:text-white hover:bg-primary transition-all duration-300 border-white/5"
+            >
+              {social.icon}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12">
+        <div class="space-y-6">
+          <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-primary-bright">Navigation</h4>
+          <ul class="space-y-4">
+            {['Hero', 'Experience', 'Projects', 'Skills'].map(item => (
+              <li>
+                <a href={`#${item.toLowerCase()}`} class="text-sm font-bold text-text-muted hover:text-white transition-colors">{item}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        <div class="space-y-6">
+          <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-primary-bright">Legal</h4>
+          <ul class="space-y-4">
+            {['Privacy', 'Terms', 'Security'].map(item => (
+              <li>
+                <a href="#" class="text-sm font-bold text-text-muted hover:text-white transition-colors">{item}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="col-span-2 md:col-span-1 space-y-6">
+          <button 
+            onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="group flex items-center gap-3 text-sm font-black uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+          >
+            Back to Top
+            <ArrowUpCircle size={20} class="group-hover:-translate-y-1 transition-transform" />
+          </button>
+        </div>
+      </div>
     </div>
 
-    <div class="flex gap-6">
-      <a href="#" class="text-slate-400 hover:text-primary transition-colors">Twitter</a>
-      <a href="#" class="text-slate-400 hover:text-primary transition-colors">GitHub</a>
-      <a href="#" class="text-slate-400 hover:text-primary transition-colors">LinkedIn</a>
-    </div>
-
-    <div class="text-slate-500 text-sm">
-      © {currentYear} Todos los derechos reservados.
+    <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-[10px] font-black uppercase tracking-[0.2em] text-text-muted/50">
+        © {currentYear} Molina Jam. All systems operational.
+      </div>
+      <div class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-text-muted/50 italic">
+        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+        Bogotá Hub Protocol
+      </div>
     </div>
   </div>
 </footer>
