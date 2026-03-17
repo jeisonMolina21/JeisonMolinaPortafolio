@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoginModal from './LoginModal';
-import MobileMenu from './navigation/MobileMenu';
+import MobileMenu from './navigation-parts/MobileMenu';
 import { useLanguage } from '../context/LanguageContext';
 
 const Navigation = ({ onLogin, onLogout, isAdmin }: { onLogin: (t: string) => void, onLogout: () => void, isAdmin: boolean }) => {

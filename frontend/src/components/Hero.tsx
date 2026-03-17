@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import HeroBadge from './hero/HeroBadge';
-import HeroAvatar from './hero/HeroAvatar';
-import SocialLinks from './hero/SocialLinks';
+import HeroBadge from './hero-parts/HeroBadge';
+import HeroAvatar from './hero-parts/HeroAvatar';
+import SocialLinks from './hero-parts/SocialLinks';
 
 interface Profile {
   full_name: string;

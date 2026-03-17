@@ -1,4 +1,9 @@
 @import "tailwindcss";
+@import "./base.css";
+@import "./components/Hero.css";
+@import "./components/Navigation.css";
+@import "./components/Cards.css";
+@import "./components/Forms.css";
 
 @theme {
   --color-primary: #991b1b;
@@ -7,11 +12,14 @@
   
   --font-sans: "Inter", ui-sans-serif, system-ui;
   --font-display: "Outfit", ui-sans-serif, system-ui;
-}
 
-@import "./base.css";
-@import "./components/Hero.css";
-@import "./components/Navigation.css";
-@import "./components/Cards.css";
-@import "./components/Forms.css";
+  --animate-fade-in: fade-in 1s ease-out forwards;
+  --animate-fade-in-slow: fade-in 1.5s ease-out forwards;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes fade-in {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
 
