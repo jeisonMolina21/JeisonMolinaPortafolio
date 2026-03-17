@@ -12,11 +12,14 @@
 }
 
 .nav-link {
-  @apply text-sm font-medium text-slate-300 hover:text-white transition-colors relative group;
+  @apply text-sm font-medium text-slate-300 hover:text-white transition-colors relative;
 }
 
 .nav-link-underline {
-  @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full;
+  @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+}
+.nav-link:hover .nav-link-underline {
+  @apply w-full;
 }
 
 .nav-cta {

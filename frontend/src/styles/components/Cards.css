@@ -1,10 +1,10 @@
 /* Component Cards Styling */
 .project-card {
-  @apply group relative bg-white/5 border border-white/10 rounded-[2rem] overflow-hidden hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 flex flex-col;
+  @apply relative bg-white/5 border border-white/10 rounded-[2rem] overflow-hidden hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 flex flex-col;
 }
 
 .card-media {
-  @apply aspect-video overflow-hidden bg-midnight relative group;
+  @apply aspect-video overflow-hidden bg-midnight relative;
 }
 
 .card-content {
@@ -16,7 +16,10 @@
 }
 
 .project-title {
-  @apply text-xl sm:text-2xl font-display font-bold mb-3 group-hover:text-primary transition-colors text-white;
+  @apply text-xl sm:text-2xl font-display font-bold mb-3 transition-colors text-white;
+}
+.project-card:hover .project-title {
+  @apply text-primary;
 }
 
 .project-desc {
@@ -24,11 +27,14 @@
 }
 
 .project-btn {
-  @apply inline-flex items-center gap-2 text-sm font-bold text-white group/btn;
+  @apply inline-flex items-center gap-2 text-sm font-bold text-white;
 }
 
 .btn-icon-wrapper {
-  @apply w-8 h-8 rounded-full bg-white/5 flex items-center justify-center transition-all group-hover/btn:bg-primary group-hover/btn:text-midnight;
+  @apply w-8 h-8 rounded-full bg-white/5 flex items-center justify-center transition-all;
+}
+.project-btn:hover .btn-icon-wrapper {
+  @apply bg-primary text-midnight;
 }
 
 @media (max-width: 640px) {
