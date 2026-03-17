@@ -35,6 +35,11 @@ const Skills = () => {
             name: 'DevOps & Tooling', 
             description: 'Infrastructure & Lifecycle',
             list: ['Docker', 'Git', 'Linux', 'VS Code'] 
+        },
+        { 
+            name: 'Infrastructure & Support', 
+            description: 'Helpdesk & Enterprise Systems',
+            list: ['Helpdesk', 'O365', 'Office 365', 'Microsoft 365', 'Active Directory', 'Networking', 'IT Support', 'ServiceNow'] 
         }
     ];
 
