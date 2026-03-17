@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { api } from '../utils/api';
 
 interface ExpItem {
   id: number;
@@ -17,9 +18,7 @@ const Experience = () => {
 
   React.useEffect(() => {
     setLoading(true);
-    const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
-    fetch(`${API_URL}/experience?lang=${lang}`)
-      .then(res => res.json())
+    api.get('experience', lang)
       .then(data => {
         setItems(Array.isArray(data) ? data : []);
         setLoading(false);
