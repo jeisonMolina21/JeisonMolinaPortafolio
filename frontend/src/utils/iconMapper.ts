@@ -32,6 +32,9 @@ const iconMap: Record<string, { icon: string; color: string; label: string }> = 
 };
 
 export const getSkillIcon = (name: string) => {
-  const cleanName = name.toLowerCase().trim();
-  return iconMap[cleanName] || { icon: '🛠️', color: 'text-white', label: name };
+  const n = name.toLowerCase().trim();
+  for (const [key, value] of Object.entries(iconMap)) {
+    if (n.includes(key.toLowerCase())) return value;
+  }
+  return { icon: '🛠️', color: 'text-white', label: name };
 };
