@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { api } from '../utils/api';
 
 interface Project {
   id: number;
@@ -17,9 +18,7 @@ const ProjectList = () => {
 
   React.useEffect(() => {
     setIsLoading(true);
-    const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
-    fetch(`${API_URL}/projects?lang=${lang}`)
-      .then(res => res.json())
+    api.get('projects', lang)
       .then(data => {
         setProjects(Array.isArray(data) ? data : []);
         setIsLoading(false);
