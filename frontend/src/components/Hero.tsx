@@ -3,6 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import HeroBadge from './hero-parts/HeroBadge';
 import HeroAvatar from './hero-parts/HeroAvatar';
 import SocialLinks from './hero-parts/SocialLinks';
+import { api } from '../utils/api';
 
 interface Profile {
   full_name: string;
@@ -24,14 +25,11 @@ const Hero = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
 
   useEffect(() => {
-    const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
-    fetch(`${API_URL}/profile?lang=${lang}`)
-      .then(res => res.json())
+    api.get('profile', lang)
       .then(data => setProfile(data && !data.error ? data : null))
       .catch(() => setProfile(null));
 
-    fetch(`${API_URL}/skills`)
-      .then(res => res.json())
+    api.get('skills')
       .then(data => setSkills(Array.isArray(data) ? data : []))
       .catch(() => setSkills([]));
   }, [lang]);

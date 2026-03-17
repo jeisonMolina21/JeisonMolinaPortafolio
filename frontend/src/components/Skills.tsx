@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { getSkillIcon } from '../utils/iconMapper';
+import { api } from '../utils/api';
 
 interface Skill { id: number; name: string; }
 
@@ -9,9 +10,7 @@ const Skills = () => {
     const [skills, setSkills] = React.useState<Skill[]>([]);
 
     React.useEffect(() => {
-        const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
-        fetch(`${API_URL}/skills`)
-            .then(res => res.json())
+        api.get('skills')
             .then(data => setSkills(Array.isArray(data) ? data : []))
             .catch(() => setSkills([]));
     }, []);
@@ -68,7 +67,14 @@ const Skills = () => {
                         </div>
 
                         <div className="flex flex-wrap gap-5 flex-grow">
-                            {(Array.isArray(skills) ? skills : []).filter(s => cat.list.some(l => s.name.toLowerCase().includes(l.toLowerCase()))).map(skill => {
+                            {(Array.isArray(skills) ? skills : [])
+                              .filter(s => {
+                                  // If the skill has a category that matches, or if it's in the hardcoded list
+                                  const skillCat = (s as any).category?.toLowerCase();
+                                  const catName = cat.name.toLowerCase();
+                                  return skillCat === catName || cat.list.some(l => s.name.toLowerCase().includes(l.toLowerCase()));
+                              })
+                              .map(skill => {
                                 const info = getSkillIcon(skill.name);
                                 return (
                                     <div key={skill.id} className="flex flex-col items-center gap-3 group/item cursor-pointer">
