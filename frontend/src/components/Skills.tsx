@@ -3,9 +3,18 @@ import { useLanguage } from '../context/LanguageContext';
 import { getSkillIcon } from '../utils/iconMapper';
 import { api } from '../utils/api';
 
-interface Skill { id: number; name: string; }
+interface Skill { id: number; name: string; category?: string; }
+interface Category {
+    name: string;
+    description: string;
+    list: string[];
+}
 
-const Skills = () => {
+interface SkillsProps {
+    categories?: Category[];
+}
+
+const Skills = ({ categories: customCategories }: SkillsProps) => {
     const { t } = useLanguage();
     const [skills, setSkills] = React.useState<Skill[]>([]);
 
@@ -15,48 +24,44 @@ const Skills = () => {
             .catch(() => setSkills([]));
     }, []);
 
-    const categories = [
+    const defaultCategories: Category[] = [
         { 
-            name: 'Automation Engineering', 
+            name: 'Python Engine & Automation', 
             description: 'Workflows & Process Optimization',
-            list: ['Python Automation', 'n8n', 'Excel Automation', 'ServiceNow', 'Jira'] 
+            list: ['Python Automation', 'n8n', 'Excel Automation', 'ServiceNow', 'Jira', 'PowerShell'] 
         },
         { 
-            name: 'Software Architecture', 
+            name: 'Enterprise Architecture', 
             description: 'Scalable Backend Systems',
-            list: ['Node.js', 'REST API Integration', 'JavaScript', 'SQL', 'PHP'] 
+            list: ['Node.js', 'Django', 'Laravel', 'PHP', 'SQL', 'REST API'] 
         },
         { 
             name: 'Data Intelligence', 
             description: 'Data Processing & Analytics',
-            list: ['Pandas', 'Python', 'Power BI', 'MySQL', 'PostgreSQL'] 
+            list: ['Pandas', 'Python', 'Power BI', 'MySQL', 'PostgreSQL', 'Excel'] 
         },
         { 
-            name: 'DevOps & Tooling', 
-            description: 'Infrastructure & Lifecycle',
-            list: ['Docker', 'Git', 'Linux', 'VS Code'] 
-        },
-        { 
-            name: 'Infrastructure & Support', 
-            description: 'Helpdesk & Enterprise Systems',
-            list: ['Helpdesk', 'O365', 'Office 365', 'Microsoft 365', 'Active Directory', 'Networking', 'IT Support', 'ServiceNow'] 
+            name: 'Infrastructure & Cloud', 
+            description: 'Lifecycle & Support',
+            list: ['Docker', 'Git', 'Linux', 'AWS', 'O365', 'Microsoft 365', 'Active Directory'] 
         }
     ];
+
+    const categories = customCategories || defaultCategories;
 
     return (
         <section id="skills" className="py-24 px-6 max-w-7xl mx-auto reveal-up">
             <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
                 <div>
                    <div className="inline-flex items-center gap-2 px-3 py-1 glass rounded-full border-primary/20 mb-4">
-                        <span className="text-[9px] font-black uppercase tracking-widest text-primary-bright">Tech Stack v4.0</span>
+                        <span className="text-[9px] font-black uppercase tracking-widest text-primary-bright">Tech Stack v5.0</span>
                    </div>
                    <h2 className="text-5xl md:text-7xl font-display font-black leading-[0.9] tracking-tighter">
                         Mastering the<br/><span className="wine-gradient italic">Digital Forge</span>
                    </h2>
                    <p className="text-text-dim mt-6 max-w-lg text-lg font-light leading-relaxed">
-                        Una arquitectura de herramientas diseñada para la <span className="text-white font-bold">escalabilidad</span>, 
-                        la <span className="text-white font-bold">automatización</span> de procesos complejos y la 
-                        <span className="text-white font-bold"> integridad de datos</span>.
+                        Arquitectura diseñada para la <span className="text-white font-bold">escalabilidad</span> y la 
+                        <span className="text-white font-bold"> automatización</span> de procesos complejos.
                    </p>
                 </div>
             </div>
@@ -74,8 +79,7 @@ const Skills = () => {
                         <div className="flex flex-wrap gap-5 flex-grow">
                             {(Array.isArray(skills) ? skills : [])
                               .filter(s => {
-                                  // If the skill has a category that matches, or if it's in the hardcoded list
-                                  const skillCat = (s as any).category?.toLowerCase();
+                                  const skillCat = s.category?.toLowerCase();
                                   const catName = cat.name.toLowerCase();
                                   return skillCat === catName || cat.list.some(l => s.name.toLowerCase().includes(l.toLowerCase()));
                               })

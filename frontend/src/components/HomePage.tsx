@@ -6,8 +6,6 @@ import Experience from './Experience';
 import Education from './Education';
 import ProjectList from './ProjectList';
 import Contact from './Contact';
-import AdminSection from './AdminSection';
-import AdminDashboard from './AdminDashboard';
 import WhatsAppButton from './WhatsAppButton';
 import Skills from './Skills';
 import { useReveal } from '../hooks/useReveal';
@@ -28,16 +26,11 @@ const HomePage = () => {
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-midnight text-white">
+      <div className="min-h-screen bg-bg-deep text-white selection:bg-primary-bright selection:text-white">
         <Navigation onLogin={(t) => setToken(t)} onLogout={handleLogout} isAdmin={!!token} />
         <main className="space-y-12 pb-24 relative z-0">
           <Hero />
           <Skills />
-          {token && (
-            <section id="admin-dashboard" className="bg-midnight-dark/50 border-y border-white/5">
-              <AdminDashboard token={token} onLogout={handleLogout} />
-            </section>
-          )}
           <Experience />
           <Education />
           <ProjectList />

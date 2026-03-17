@@ -43,6 +43,17 @@ const Hero = () => {
     );
   }
 
+  const socialLinks = [
+    { 
+      icon: <span className="text-xl">🐙</span>, 
+      url: profile.github || 'https://github.com/jeisonmolina' 
+    },
+    { 
+      icon: <span className="text-xl">💼</span>, 
+      url: profile.linkedin || 'https://linkedin.com/in/jeison-molina12' 
+    }
+  ];
+
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center px-6 pt-32 lg:pt-0 overflow-hidden bg-bg-deep">
       {/* Premium Background Layer */}
@@ -101,13 +112,13 @@ const Hero = () => {
             >
               {t('hero.talk') || 'Ver Proyectos'}
             </a>
-            <SocialLinks />
+            <SocialLinks links={socialLinks} />
           </div>
         </div>
 
         <div className="relative hidden lg:flex justify-center">
           <div className="relative z-10 w-[450px]">
-            <HeroAvatar imageUrl={profile.profile_picture} fullName={profile.full_name} />
+             <HeroAvatar imageUrl={profile.profile_picture} fullName={profile.full_name} />
           </div>
           {/* Floating Skills in Hero */}
           <div className="absolute top-0 right-0 flex flex-col gap-3">
