@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && (if exist public rd /s /q public) && ren public_dist public",
     "preview": "astro preview",
     "astro": "astro"
   },
