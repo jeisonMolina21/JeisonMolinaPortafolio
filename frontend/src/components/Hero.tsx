@@ -3,7 +3,6 @@ import { useLanguage } from '../context/LanguageContext';
 import HeroBadge from './hero-parts/HeroBadge';
 import HeroAvatar from './hero-parts/HeroAvatar';
 import SocialLinks from './hero-parts/SocialLinks';
-import LinkButton from './LinkButton'; // Added LinkButton import
 import { api } from '../utils/api';
 
 interface Profile {
@@ -12,8 +11,8 @@ interface Profile {
   summary: string;
   location: string;
   profile_picture?: string;
-  linkedin?: string; // Kept for social links if needed
-  github?: string; // Kept for social links if needed
+  github?: string;
+  linkedin?: string;
 }
 
 interface Skill {
@@ -36,67 +35,102 @@ const Hero = () => {
       .catch(() => setSkills([]));
   }, [lang]);
 
-  if (!profile || !profile.full_name) return null;
-
-  // firstName and lastName calculations are no longer needed with the new H1 structure
-  // const firstName = (profile.full_name || 'Jeison').split(' ')[0];
-  // const lastName = (profile.full_name || 'Molina').split(' ').slice(1).join(' ');
-
-  // socialLinks array definition is no longer needed as SocialLinks component is called without props
-  // const socialLinks = [
-  //   { 
-  //     icon: <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>, 
-  //     url: profile?.github || 'https://github.com/jeisonmolina' 
-  //   },
-  //   { 
-  //     icon: <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>, 
-  //     url: profile?.linkedin || '#' 
-  //   },
-  // ];
+  if (!profile || !profile.full_name) {
+    return (
+      <section id="hero" className="relative min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-primary font-display font-black text-4xl italic">Loading Architecture...</div>
+      </section>
+    );
+  }
 
   return (
-    <section id="hero" className="relative min-h-[90vh] lg:min-h-screen flex flex-col lg:justify-center px-6 pt-32 lg:pt-0 overflow-hidden">
-        {/* Background Digital Architecture Decor */}
-        <div className="absolute top-0 right-0 w-full h-full opacity-20 pointer-events-none -z-10">
-            <div className="absolute top-[10%] right-[5%] w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-primary/10 rounded-full blur-[80px] md:blur-[120px] animate-pulse"></div>
-            <div className="absolute bottom-[20%] left-[10%] w-[200px] h-[200px] md:w-[300px] md:h-[300px] bg-emerald-500/5 rounded-full blur-[60px] md:blur-[100px] animate-pulse-slow"></div>
+    <section id="hero" className="relative min-h-screen flex flex-col justify-center px-6 pt-32 lg:pt-0 overflow-hidden bg-bg-deep">
+      {/* Premium Background Layer */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none" 
+        style={{ backgroundImage: "url('/assets/hero_bg.png')" }}
+      ></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-deep/50 to-bg-deep pointer-events-none"></div>
+
+      {/* Decorative Orbs */}
+      <div className="absolute top-[10%] right-[10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-pulse pointer-events-none"></div>
+      <div className="absolute bottom-[10%] left-[5%] w-[300px] h-[300px] bg-wine-muted/10 rounded-full blur-[100px] animate-pulse-slow pointer-events-none"></div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        
+        <div className="space-y-10 text-center lg:text-left">
+          <div className="flex justify-center lg:justify-start">
+            <HeroBadge text={`${t('hero.available')} — Junior High Performance`} />
+          </div>
+          
+          <div className="space-y-4">
+            <p className="text-primary-bright font-black uppercase tracking-[0.4em] text-[11px]">
+              {profile.role || 'Junior Software Developer & IT Automation Specialist'}
+            </p>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-display font-black leading-[0.8] tracking-tighter">
+              {profile.full_name.split(' ')[0]}<br/>
+              <span className="wine-gradient italic">{profile.full_name.split(' ').slice(1).join(' ')}</span>
+            </h1>
+          </div>
+
+          <p className="text-lg md:text-xl text-text-dim max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+            Transformando tareas manuales en <span className="text-white font-bold italic">soluciones escalables</span>. 
+            Especialista en automatización con Python enfocado en impacto real y eficiencia.
+          </p>
+
+          {/* Quantifiable Impacts */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto lg:mx-0">
+            <div className="glass p-5 rounded-[2rem] border-white/5 hover:border-primary/30 transition-all group">
+              <span className="block text-3xl font-black text-primary-bright group-hover:scale-110 transition-transform">12 Días</span>
+              <p className="text-[9px] font-bold text-text-muted uppercase tracking-widest mt-1">Ahorrados al mes</p>
+            </div>
+            <div className="glass p-5 rounded-[2rem] border-white/5 hover:border-primary/30 transition-all group">
+              <span className="block text-3xl font-black text-primary-bright group-hover:scale-110 transition-transform">60%</span>
+              <p className="text-[9px] font-bold text-text-muted uppercase tracking-widest mt-1">Mejora en Reportes</p>
+            </div>
+            <div className="glass p-5 rounded-[2rem] border-white/5 hover:border-primary/30 transition-all group">
+              <span className="block text-3xl font-black text-primary-bright group-hover:scale-110 transition-transform">&lt;1 Hora</span>
+              <p className="text-[9px] font-bold text-text-muted uppercase tracking-widest mt-1">Gestión de Cuentas</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-6 items-center justify-center lg:justify-start pt-4">
+            <a 
+              href="#projects" 
+              className="px-10 py-5 bg-primary text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-primary-bright hover:shadow-[0_0_40px_rgba(220,38,38,0.3)] transition-all"
+            >
+              {t('hero.talk') || 'Ver Proyectos'}
+            </a>
+            <SocialLinks />
+          </div>
         </div>
 
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
-            {/* Image for Mobile (Visible only on small screens) */}
-            <div className="lg:hidden flex justify-center mb-10 w-full">
-                <div className="w-[280px] sm:w-[320px]">
-                    <HeroAvatar imageUrl={profile.profile_picture} fullName={profile.full_name} />
-                </div>
-            </div>
-
-            <div className="lg:col-span-7 space-y-8 md:space-y-10 animate-fade-in text-center lg:text-left">
-                <div className="flex justify-center lg:justify-start">
-                    <HeroBadge text={`${t('hero.available')} — High Performance Computing`} />
-                </div>
-
-                            </span>
-                        );
-                    })}
-                </p>
-
-                <div className="flex flex-col sm:flex-row flex-wrap gap-6 items-center justify-center lg:justify-start pt-6">
-                    <a href="#projects" className="group relative w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 bg-primary text-white font-black uppercase tracking-widest text-xs rounded-2xl overflow-hidden transition-all hover:shadow-[0_0_60px_rgba(153,27,27,0.4)] text-center">
-                        <span className="relative z-10">{t('hero.talk')}</span>
-                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-                    </a>
-                    
-                    <SocialLinks links={socialLinks} />
-                </div>
-            </div>
-
-            {/* Image for Desktop (Hidden on small screens) */}
-            <div className="lg:col-span-5 hidden lg:flex justify-center relative">
-                <HeroAvatar imageUrl={profile.image_url} fullName={profile.full_name} />
-            </div>
-
+        <div className="relative hidden lg:flex justify-center">
+          <div className="relative z-10 w-[450px]">
+            <HeroAvatar imageUrl={profile.profile_picture} fullName={profile.full_name} />
+          </div>
+          {/* Floating Skills in Hero */}
+          <div className="absolute top-0 right-0 flex flex-col gap-3">
+             {skills.slice(0, 5).map(skill => (
+               <div key={skill.id} className="glass px-4 py-2 rounded-full text-[10px] font-bold text-white/50 animate-pulse-slow">
+                 {skill.name}
+               </div>
+             ))}
+          </div>
         </div>
+
+      </div>
+
+      {/* Floating Bottom Skills Bar */}
+      <div className="absolute bottom-10 left-0 w-full overflow-hidden pointer-events-none opacity-40">
+        <div className="flex gap-8 animate-shine whitespace-nowrap px-6">
+          {skills.concat(skills).map((skill, i) => (
+            <span key={i} className="text-[10px] font-black uppercase tracking-[0.3em] text-text-muted">
+              {skill.name} •
+            </span>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
