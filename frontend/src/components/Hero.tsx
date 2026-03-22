@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, ArrowRight, Sparkles, Zap, Clock } from 'lucide-react';
+import { Github, Linkedin, ArrowRight, Sparkles, Zap, Clock, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import HeroBadge from './hero-parts/HeroBadge';
 import HeroAvatar from './hero-parts/HeroAvatar';
@@ -24,29 +24,72 @@ interface Skill {
 
 const Hero = () => {
   const { lang, t } = useLanguage();
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [skills, setSkills] = useState<Skill[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    api.get('profile', lang)
-      .then(data => setProfile(data && !data.error ? data : null))
-      .catch(() => setProfile(null));
+    const fetchProfile = async () => {
+      try {
+        const data = await api.get('profile', lang);
+        if (data && !data.error) {
+          setProfile(data);
+          setError(null);
+        } else {
+          setError('Unable to load profile data. The server might be initializing.');
+        }
+      } catch (err) {
+        console.error('Fetch error:', err);
+        setError('Connection timed out or server unavailable. Please try again.');
+      }
+    };
+
+    fetchProfile();
 
     api.get('skills')
       .then(data => setSkills(Array.isArray(data) ? data : []))
       .catch(() => setSkills([]));
   }, [lang]);
 
+  if (error) {
+    return (
+      <section id="hero" className="relative min-h-screen flex items-center justify-center bg-bg-deep p-6 text-center">
+        <div className="max-w-md space-y-6">
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center text-primary mx-auto mb-8 border border-primary/20"
+          >
+            <AlertCircle size={40} />
+          </motion.div>
+          <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter italic">Sincronización Fallida</h2>
+          <p className="text-text-dim font-medium text-sm leading-relaxed">{error}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="px-8 py-3 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-primary hover:text-white transition-all shadow-2xl hover:shadow-primary/20"
+          >
+            Reintentar Conexión
+          </button>
+        </div>
+      </section>
+    );
+  }
+
   if (!profile || !profile.full_name) {
     return (
       <section id="hero" className="relative min-h-screen flex items-center justify-center bg-bg-deep">
-        <motion.div 
-          animate={{ opacity: [0.4, 1, 0.4] }} 
-          transition={{ duration: 2, repeat: Infinity }}
-          className="text-primary font-display font-black text-4xl italic tracking-tighter"
-        >
-          LOADING...
-        </motion.div>
+        <div className="flex flex-col items-center gap-8">
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full shadow-[0_0_30px_rgba(153,27,27,0.2)]"
+          />
+          <motion.div 
+            animate={{ opacity: [0.4, 1, 0.4] }} 
+            transition={{ duration: 2, repeat: Infinity }}
+            className="text-primary font-display font-black text-2xl italic tracking-tighter uppercase"
+          >
+            Arquitectura en Proceso...
+          </motion.div>
+        </div>
       </section>
     );
   }
