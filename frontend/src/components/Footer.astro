@@ -1,19 +1,19 @@
 ---
 import { Github, Linkedin, Twitter, Mail, ArrowUpCircle } from 'lucide-react';
+import '../styles/components/Footer.css';
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="py-20 px-6 border-t border-white/5 bg-bg-deep relative overflow-hidden">
-  {/* Background Glow */}
-  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-primary/5 blur-[120px] rounded-[100%] pointer-events-none" />
+<footer class="footer-root">
+  <div class="footer-glow"></div>
 
   <div class="container-custom relative z-10">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start mb-20">
       <div class="md:col-span-5 space-y-8">
-        <a href="#" class="text-3xl font-display font-black text-white tracking-tighter group flex items-center gap-2">
+        <a href="#" class="footer-logo">
           PORT<span class="wine-gradient italic">AFOLIO</span>
         </a>
-        <p class="text-text-muted text-lg font-medium max-w-sm leading-relaxed">
+        <p class="footer-bio">
           Diseñando el futuro a través de la <span class="text-white">automatización</span> y la excelencia técnica en cada línea de código.
         </p>
         <div class="flex gap-4">
@@ -26,7 +26,7 @@ const currentYear = new Date().getFullYear();
             <a 
               href={social.href} 
               target="_blank" 
-              class="w-12 h-12 glass rounded-xl flex items-center justify-center text-text-muted hover:text-white hover:bg-primary transition-all duration-300 border-white/5"
+              class="footer-social-link"
             >
               {social.icon}
             </a>
@@ -36,22 +36,22 @@ const currentYear = new Date().getFullYear();
 
       <div class="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12">
         <div class="space-y-6">
-          <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-primary-bright">Navigation</h4>
+          <h4 class="footer-nav-title">Navigation</h4>
           <ul class="space-y-4">
             {['Hero', 'Experience', 'Projects', 'Skills'].map(item => (
               <li>
-                <a href={`#${item.toLowerCase()}`} class="text-sm font-bold text-text-muted hover:text-white transition-colors">{item}</a>
+                <a href={`#${item.toLowerCase()}`} class="footer-nav-link">{item}</a>
               </li>
             ))}
           </ul>
         </div>
         
         <div class="space-y-6">
-          <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-primary-bright">Legal</h4>
+          <h4 class="footer-nav-title">Legal</h4>
           <ul class="space-y-4">
             {['Privacy', 'Terms', 'Security'].map(item => (
               <li>
-                <a href="#" class="text-sm font-bold text-text-muted hover:text-white transition-colors">{item}</a>
+                <a href="#" class="footer-nav-link">{item}</a>
               </li>
             ))}
           </ul>
@@ -60,7 +60,7 @@ const currentYear = new Date().getFullYear();
         <div class="col-span-2 md:col-span-1 space-y-6">
           <button 
             onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
-            class="group flex items-center gap-3 text-sm font-black uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+            class="footer-back-to-top"
           >
             Back to Top
             <ArrowUpCircle size={20} class="group-hover:-translate-y-1 transition-transform" />
@@ -69,12 +69,12 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="text-[10px] font-black uppercase tracking-[0.2em] text-text-muted/50">
+    <div class="footer-bottom">
+      <div class="footer-copy">
         © {currentYear} Molina Jam. All systems operational.
       </div>
-      <div class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-text-muted/50 italic">
-        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+      <div class="footer-status">
+        <span class="status-dot"></span>
         Bogotá Hub Protocol
       </div>
     </div>

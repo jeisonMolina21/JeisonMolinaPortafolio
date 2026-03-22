@@ -1,0 +1,61 @@
+@reference "../global.css";
+
+.projects-section {
+    @apply section-padding relative overflow-hidden bg-bg-deep/50;
+}
+
+.projects-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12;
+}
+
+.project-card {
+    @apply group relative rounded-[3rem] overflow-hidden glass border-white/5 transition-all duration-700 hover:border-primary/40 hover:-translate-y-2;
+}
+
+.project-image-container {
+    @apply relative aspect-[16/10] overflow-hidden;
+}
+
+.project-image {
+    @apply w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110;
+}
+
+.project-image-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-bg-deep via-transparent to-transparent opacity-60;
+}
+
+.project-content {
+    @apply p-8 md:p-12 relative z-10;
+}
+
+.project-category {
+    @apply text-[10px] font-black uppercase tracking-[0.4em] text-primary-bright mb-4 flex items-center gap-3;
+}
+
+.project-title {
+    @apply text-3xl md:text-5xl font-display font-black text-white mb-6 tracking-tighter leading-[0.9] group-hover:translate-x-1 transition-transform;
+}
+
+.project-description {
+    @apply text-text-dim text-lg leading-relaxed mb-10 font-medium line-clamp-3;
+}
+
+.project-tags {
+    @apply flex flex-wrap gap-2 mb-10;
+}
+
+.project-tag {
+    @apply text-[9px] font-bold uppercase tracking-widest px-4 py-2 bg-white/5 rounded-full text-text-muted group-hover:text-white transition-colors border-white/5;
+}
+
+.project-links {
+    @apply flex gap-6 items-center;
+}
+
+.project-link-primary {
+    @apply flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white hover:text-primary transition-colors;
+}
+
+.project-link-secondary {
+    @apply p-3 rounded-2xl bg-white/5 text-text-muted hover:text-white hover:bg-white/10 transition-all;
+}

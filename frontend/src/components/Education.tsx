@@ -1,103 +1,77 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, BookOpen, Award, Sparkles } from 'lucide-react';
+import { GraduationCap, Calendar, BookOpen } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { api } from '../utils/api';
-
-interface EduItem {
-  id: number;
-  institution: string;
-  degree: string;
-  period: string;
-  description: string;
-}
+import { useEducation } from '../hooks/useEducation';
+import '../styles/components/Timeline.css';
 
 const Education = () => {
-    const { lang, t } = useLanguage();
-    const [items, setItems] = useState<EduItem[]>([]);
-    const [loading, setLoading] = useState(true);
+  const { lang, t } = useLanguage();
+  const { items, loading } = useEducation(lang);
 
-    useEffect(() => {
-        setLoading(true);
-        api.get('education', lang)
-            .then(data => {
-                setItems(Array.isArray(data) ? data : []);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
-    }, [lang]);
+  if (loading || items.length === 0) return null;
 
-    return (
-        <section id="education" className="section-padding relative overflow-hidden">
-            {/* Background Decorative Element */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
+  return (
+    <section id="education" className="education-section">
+      <div className="container-custom relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border-primary/20 mb-6">
+            <GraduationCap size={12} className="text-primary-bright" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-primary-bright italic">Formación</span>
+          </div>
+          <h2 className="text-5xl md:text-7xl font-display font-black text-white tracking-tighter">
+            Educación & <span className="wine-gradient italic">Certificaciones</span>
+          </h2>
+        </motion.div>
 
-            <div className="container-custom relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border-primary/20 mb-6">
-                            <BookOpen size={12} className="text-primary-bright" />
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-primary-bright italic">Knowledge Base</span>
-                        </div>
-                        <h2 className="text-6xl md:text-8xl font-display font-black leading-none tracking-tighter text-white">
-                            Academic<br/><span className="wine-gradient italic">Foundation</span>
-                        </h2>
-                        <p className="text-text-dim mt-8 max-w-xl text-lg font-medium leading-relaxed">
-                            Construyendo soluciones sobre una sólida base de <span className="text-white font-bold">ingeniería de software</span> y 
-                            desarrollo tecnológico avanzado.
-                        </p>
-                    </motion.div>
+        <div className="timeline-container">
+          <div className="timeline-line"></div>
+
+          {items.map((edu, index) => (
+            <div key={edu.id} className={`timeline-item ${index % 2 !== 0 ? 'timeline-item-reverse' : ''}`}>
+              <div className="timeline-dot"></div>
+              
+              <motion.div
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                className="timeline-card"
+              >
+                <div className="timeline-card-glow"></div>
+                
+                <div className="timeline-date-badge">
+                  <Calendar size={12} />
+                  {edu.period}
                 </div>
 
-                {loading ? (
-                    <div className="flex justify-center py-32">
-                        <motion.div 
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                            className="w-12 h-12 border-2 border-primary border-t-transparent rounded-full"
-                        />
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                        {items.map((edu, idx) => (
-                            <motion.div 
-                                key={edu.id}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                                className="glass p-10 md:p-14 rounded-[3rem] border-white/5 relative group hover:border-primary/40 transition-all duration-500 overflow-hidden"
-                            >
-                                <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 blur-[100px] -z-10 group-hover:bg-primary/20 transition-all" />
-                                
-                                <div className="flex items-start justify-between mb-10">
-                                    <div className="w-16 h-16 glass rounded-2xl flex items-center justify-center text-primary-bright group-hover:bg-primary group-hover:text-white transition-all shadow-xl border-white/10">
-                                        <GraduationCap size={32} />
-                                    </div>
-                                    <span className="px-4 py-1.5 bg-white/5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-text-muted italic border border-white/5 group-hover:border-primary/20 group-hover:text-primary-bright transition-all">
-                                        {edu.period}
-                                    </span>
-                                </div>
-    
-                                <h3 className="text-3xl font-display font-black text-white mb-2 tracking-tight group-hover:translate-x-1 transition-transform">{edu.degree}</h3>
-                                <p className="text-primary/60 font-display font-bold uppercase tracking-[0.1em] mb-8 text-[11px]">{edu.institution}</p>
-                                <p className="text-text-dim text-lg leading-relaxed font-medium group-hover:text-text-main transition-colors">{edu.description}</p>
-                                
-                                <div className="absolute bottom-6 right-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                                    <Award size={80} />
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
+                <h3 className="timeline-title">{edu.degree}</h3>
+                
+                <div className="timeline-subtitle">
+                  <GraduationCap size={14} className="text-primary" />
+                  <span>{edu.institution}</span>
+                </div>
+
+                {edu.description && (
+                  <div className="flex gap-3 text-text-dim text-lg leading-relaxed mb-6 font-medium">
+                    <BookOpen size={20} className="shrink-0 mt-1 text-primary/40" />
+                    <p>{edu.description}</p>
+                  </div>
                 )}
+              </motion.div>
+
+              <div className="hidden md:block w-full md:w-[45%]"></div>
             </div>
-        </section>
-    );
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Education;

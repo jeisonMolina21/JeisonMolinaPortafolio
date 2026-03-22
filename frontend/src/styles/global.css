@@ -2,7 +2,12 @@
 @import "tailwindcss";
 @import "./base.css";
 @import "./components/Hero.css";
+@import "./components/About.css";
 @import "./components/Navigation.css";
+@import "./components/Timeline.css";
+@import "./components/Projects.css";
+@import "./components/Contact.css";
+@import "./components/Footer.css";
 @import "./components/Cards.css";
 @import "./components/Forms.css";
 

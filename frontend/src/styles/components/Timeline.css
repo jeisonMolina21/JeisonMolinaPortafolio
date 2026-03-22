@@ -1,0 +1,57 @@
+@reference "../global.css";
+
+.experience-section, .education-section {
+    @apply section-padding overflow-hidden bg-bg-deep/30;
+}
+
+.timeline-container {
+    @apply relative;
+}
+
+.timeline-line {
+    @apply absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-white/10 to-transparent hidden md:block;
+}
+
+.timeline-item {
+    @apply relative flex flex-col md:flex-row gap-8 items-start mb-24;
+}
+
+.timeline-item-reverse {
+    @apply md:flex-row-reverse;
+}
+
+.timeline-dot {
+    @apply absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary shadow-[0_0_20px_rgba(153,27,27,0.8)] z-10 top-2 hidden md:block;
+}
+
+.timeline-card {
+    @apply glass p-8 md:p-12 rounded-[2.5rem] group hover:border-primary/30 transition-all border-white/5 relative overflow-hidden w-full md:w-[45%];
+}
+
+.timeline-card-glow {
+    @apply absolute -top-24 -right-24 w-48 h-48 bg-primary/5 blur-[80px] group-hover:bg-primary/10 transition-all;
+}
+
+.timeline-date-badge {
+    @apply px-4 py-1.5 bg-primary/10 rounded-full text-[10px] font-bold text-primary-bright uppercase tracking-widest flex items-center gap-2 mb-6 w-max;
+}
+
+.timeline-title {
+    @apply text-3xl md:text-4xl font-display font-black text-white mb-2 tracking-tight group-hover:translate-x-1 transition-transform;
+}
+
+.timeline-subtitle {
+    @apply flex items-center gap-2 text-text-muted mb-8 text-sm font-bold uppercase tracking-widest;
+}
+
+.timeline-description {
+    @apply text-text-dim text-lg leading-relaxed mb-10 font-medium group-hover:text-text-main transition-colors;
+}
+
+.timeline-skills-flex {
+    @apply flex flex-wrap gap-3;
+}
+
+.timeline-skill-token {
+    @apply px-5 py-2.5 glass bg-white/5 rounded-2xl text-[10px] font-black uppercase tracking-[0.15em] text-text-muted border-white/5 group-hover:text-white transition-all hover:bg-primary/20 hover:border-primary/40 group-hover:border-primary/20;
+}

@@ -1,0 +1,49 @@
+@reference "../global.css";
+
+.footer-root {
+    @apply py-20 px-6 border-t border-white/5 bg-bg-deep relative overflow-hidden;
+}
+
+.footer-glow {
+    @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-primary/5 blur-[120px] rounded-[100%] pointer-events-none;
+}
+
+.footer-logo {
+    @apply text-3xl font-display font-black text-white tracking-tighter group flex items-center gap-2;
+}
+
+.footer-bio {
+    @apply text-text-muted text-lg font-medium max-w-sm leading-relaxed;
+}
+
+.footer-social-link {
+    @apply w-12 h-12 glass rounded-xl flex items-center justify-center text-text-muted hover:text-white hover:bg-primary transition-all duration-300 border-white/5;
+}
+
+.footer-nav-title {
+    @apply text-[10px] font-black uppercase tracking-[0.3em] text-primary-bright;
+}
+
+.footer-nav-link {
+    @apply text-sm font-bold text-text-muted hover:text-white transition-colors;
+}
+
+.footer-back-to-top {
+    @apply group flex items-center gap-3 text-sm font-black uppercase tracking-widest text-white/50 hover:text-white transition-colors;
+}
+
+.footer-bottom {
+    @apply pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6;
+}
+
+.footer-copy {
+    @apply text-[10px] font-black uppercase tracking-[0.2em] text-text-muted/50;
+}
+
+.footer-status {
+    @apply flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-text-muted/50 italic;
+}
+
+.status-dot {
+    @apply w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse;
+}

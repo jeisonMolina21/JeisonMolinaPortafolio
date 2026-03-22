@@ -1,0 +1,69 @@
+@reference "../global.css";
+
+.about-section {
+    @apply section-padding relative overflow-hidden bg-bg-deep/50;
+}
+
+.about-content-grid {
+    @apply container-custom relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20;
+}
+
+.about-bio-column {
+    @apply lg:col-span-5 space-y-8 md:space-y-12;
+}
+
+.about-skills-column {
+    @apply lg:col-span-7 space-y-8 md:space-y-10;
+}
+
+.about-title {
+    @apply text-5xl md:text-7xl font-display font-black leading-none tracking-tighter mb-8 text-white;
+}
+
+.about-bio-text {
+    @apply space-y-6 text-text-dim text-lg leading-relaxed font-medium;
+}
+
+.about-focus-card {
+    @apply p-6 md:p-8 glass rounded-[2.5rem] md:rounded-[3rem] border-white/5 bg-gradient-to-br from-white/5 to-transparent flex items-center gap-6;
+}
+
+.about-skill-category-card {
+    @apply glass p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] bg-gradient-to-br border-white/5 hover:border-primary/30 transition-all duration-500;
+}
+
+.about-category-header {
+    @apply flex items-center gap-4 mb-6;
+}
+
+.about-category-icon-box {
+    @apply p-2 bg-white/5 rounded-xl text-white;
+}
+
+.about-category-title {
+    @apply text-sm font-black uppercase tracking-[0.2em] text-white/90;
+}
+
+.about-skills-flex {
+    @apply flex flex-wrap gap-2 md:gap-3;
+}
+
+.about-skill-token {
+    @apply flex items-center gap-2 px-3 py-1.5 glass bg-white/5 rounded-full border-white/5 hover:bg-white/10 transition-colors group/token;
+}
+
+.about-skill-icon {
+    @apply text-base md:text-lg group-hover/token:scale-110 transition-transform;
+}
+
+.about-skill-name {
+    @apply text-[9px] font-bold text-text-muted transition-colors group-hover/token:text-white uppercase tracking-wider;
+}
+
+.badge-outline {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border-primary/20 mb-6;
+}
+
+.badge-text {
+    @apply text-[10px] font-bold uppercase tracking-widest text-primary-bright italic;
+}

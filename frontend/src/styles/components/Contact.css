@@ -1,0 +1,65 @@
+@reference "../global.css";
+
+.contact-section {
+    @apply section-padding relative overflow-hidden bg-bg-deep;
+}
+
+.contact-content-grid {
+    @apply container-custom relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start;
+}
+
+.contact-info-column {
+    @apply lg:col-span-12 text-center mb-16;
+}
+
+.contact-form-column {
+    @apply lg:col-span-12 max-w-4xl mx-auto w-full;
+}
+
+.contact-form-card {
+    @apply glass p-10 md:p-16 rounded-[3rem] border-white/5 relative overflow-hidden bg-gradient-to-br from-white/5 to-transparent shadow-2xl;
+}
+
+.contact-form-glow {
+    @apply absolute -bottom-24 -left-24 w-64 h-64 bg-primary/10 blur-[100px] pointer-events-none;
+}
+
+.contact-input-group {
+    @apply space-y-3;
+}
+
+.contact-label {
+    @apply text-[10px] font-black uppercase tracking-[0.4em] text-text-muted ml-4;
+}
+
+.contact-input {
+    @apply w-full bg-white/5 border border-white/10 rounded-[1.5rem] px-8 py-5 text-white placeholder:text-text-muted focus:border-primary/50 focus:bg-white/10 focus:ring-4 focus:ring-primary/10 transition-all outline-none text-base md:text-lg font-medium;
+}
+
+.contact-textarea {
+    @apply min-h-[150px] resize-none;
+}
+
+.contact-submit-btn {
+    @apply w-full px-12 py-6 bg-primary text-white font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-primary-bright hover:shadow-[0_0_60px_rgba(220,38,38,0.4)] transition-all flex items-center justify-center gap-4 group/btn mt-8;
+}
+
+.contact-submit-icon {
+    @apply group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform;
+}
+
+.contact-method-card {
+    @apply p-8 glass rounded-[2.5rem] border-white/5 hover:border-primary/30 transition-all flex items-center gap-6 group;
+}
+
+.contact-method-icon-box {
+    @apply p-4 bg-primary/20 rounded-2xl text-primary transition-transform group-hover:scale-110;
+}
+
+.contact-method-title {
+    @apply text-text-muted text-[10px] font-bold uppercase tracking-widest mb-1;
+}
+
+.contact-method-value {
+    @apply text-white font-black text-sm;
+}

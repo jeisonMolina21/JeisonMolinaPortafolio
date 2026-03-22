@@ -22,9 +22,18 @@ const handleResponse = async (res: Response, endpoint: string) => {
 
 export const api = {
     async get(endpoint: string, lang?: string) {
+        if (typeof window === 'undefined' && !API_BASE_URL.startsWith('http')) {
+            console.warn(`Skipping fetch for ${endpoint} during SSR/Build`);
+            return null;
+        }
         const url = lang ? `${API_BASE_URL}/${endpoint}?lang=${lang}` : `${API_BASE_URL}/${endpoint}`;
-        const res = await fetch(url);
-        return handleResponse(res, `fetch ${endpoint}`);
+        try {
+            const res = await fetch(url);
+            return handleResponse(res, `fetch ${endpoint}`);
+        } catch (err) {
+            console.error(`Fetch error for ${endpoint}:`, err);
+            return null;
+        }
     },
 
     async getAuthenticated(endpoint: string, token: string) {
