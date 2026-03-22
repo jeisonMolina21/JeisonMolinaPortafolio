@@ -11,8 +11,12 @@ export async function GET(req: NextRequest) {
     const profile = rows[0];
 
     if (profile) {
-        profile.title = await translate(profile.title, lang);
-        profile.bio = await translate(profile.bio, lang);
+        profile.title = lang === 'en' ? (profile.title_en || profile.title_es) : (profile.title_es || profile.title_en);
+        profile.bio = lang === 'en' ? (profile.bio_en || profile.bio_es) : (profile.bio_es || profile.bio_en);
+        
+        // Fallback to legacy columns if bilingual are empty
+        if (!profile.title) profile.title = await translate(profile.title, lang);
+        if (!profile.bio) profile.bio = await translate(profile.bio, lang);
     }
 
     return NextResponse.json(profile);
@@ -30,11 +34,11 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await req.json();
-    const { full_name, title, bio, location, whatsapp, email, linkedin, github, image_url } = data;
+    const { full_name, title_es, title_en, bio_es, bio_en, location, whatsapp, email, linkedin, github, image_url } = data;
 
     await pool.query(
-      'UPDATE profile_settings SET full_name = ?, title = ?, bio = ?, location = ?, whatsapp = ?, email = ?, linkedin = ?, github = ?, image_url = ? WHERE id = 1',
-      [full_name, title, bio, location, whatsapp || null, email || null, linkedin || null, github || null, image_url || null]
+      'UPDATE profile_settings SET full_name = ?, title_es = ?, title_en = ?, bio_es = ?, bio_en = ?, location = ?, whatsapp = ?, email = ?, linkedin = ?, github = ?, image_url = ? WHERE id = 1',
+      [full_name, title_es || null, title_en || null, bio_es || null, bio_en || null, location, whatsapp || null, email || null, linkedin || null, github || null, image_url || null]
     );
 
     return NextResponse.json({ message: 'Profile updated successfully' });

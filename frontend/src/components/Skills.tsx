@@ -29,27 +29,39 @@ const Skills = ({ categories: customCategories }: SkillsProps) => {
 
     const defaultCategories: Category[] = [
         { 
-            name: 'Python Engine & Automation', 
-            description: 'Workflows & Process Optimization',
-            list: ['Automation', 'n8n', 'Excel', 'ServiceNow', 'Jira', 'PowerShell'],
+            name: 'Programming', 
+            description: 'Core Languages & logic',
+            list: ['Python', 'JavaScript', 'SQL', 'PHP'],
             icon: <Terminal className="text-primary-bright" size={20} />
         },
         { 
-            name: 'Enterprise Architecture', 
-            description: 'Scalable Backend Systems',
-            list: ['Node.js', 'Django', 'Laravel', 'PHP', 'SQL', 'REST API'],
+            name: 'Backend', 
+            description: 'Server-side Architecture',
+            list: ['Node.js', 'Express', 'REST APIs', 'Django', 'API Integration'],
             icon: <Cpu className="text-primary-bright" size={20} />
         },
         { 
-            name: 'Data Intelligence', 
-            description: 'Data Processing & Analytics',
-            list: ['Pandas', 'Python', 'Power BI', 'MySQL', 'PostgreSQL', 'Excel'],
+            name: 'Frontend', 
+            description: 'UI/UX & Dynamic Interfaces',
+            list: ['React', 'Next.js', 'Tailwind', 'Bootstrap'],
+            icon: <Sparkles className="text-primary-bright" size={20} />
+        },
+        { 
+            name: 'Data', 
+            description: 'Processing & Automation',
+            list: ['Pandas', 'Excel', 'ETL', 'Cleaning'],
             icon: <Database className="text-primary-bright" size={20} />
         },
         { 
-            name: 'Infrastructure & Cloud', 
-            description: 'Lifecycle & Support',
-            list: ['Docker', 'Git', 'Linux', 'AWS', 'O365', 'Microsoft 365', 'Active Directory'],
+            name: 'Tools', 
+            description: 'DevOps & Development',
+            list: ['Git', 'GitHub', 'Docker', 'Linux', 'VS Code'],
+            icon: <Box className="text-primary-bright" size={20} />
+        },
+        { 
+            name: 'Other', 
+            description: 'Business & Management',
+            list: ['Power BI', 'ServiceNow', 'Jira', 'M365', 'Documentation'],
             icon: <Cloud className="text-primary-bright" size={20} />
         }
     ];

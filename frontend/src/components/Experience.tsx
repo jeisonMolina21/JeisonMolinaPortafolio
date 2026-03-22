@@ -96,14 +96,14 @@ const Experience = () => {
                         {item.company}
                       </div>
                       
-                      <p className="text-text-dim text-lg leading-relaxed mb-10 font-medium group-hover:text-text-main transition-colors">
+                      <p className="text-text-dim text-lg leading-relaxed mb-10 font-medium group-hover:text-text-main transition-colors line-clamp-4">
                         {item.description}
                       </p>
                       
                       {item.skills && (
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-3">
                           {item.skills.split(',').map(s => (
-                            <span key={s} className="px-4 py-2 glass bg-white/5 rounded-2xl text-[10px] font-bold uppercase tracking-widest text-text-muted border-white/5 group-hover:text-white transition-all hover:bg-primary/20 hover:border-primary/30">
+                            <span key={s} className="px-5 py-2.5 glass bg-white/5 rounded-2xl text-[10px] font-black uppercase tracking-[0.15em] text-text-muted border-white/5 group-hover:text-white transition-all hover:bg-primary/20 hover:border-primary/40 group-hover:border-primary/20">
                               {s.trim()}
                             </span>
                           ))}

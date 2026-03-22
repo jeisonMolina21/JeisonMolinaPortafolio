@@ -9,8 +9,8 @@ import { api } from '../utils/api';
 
 interface Profile {
   full_name: string;
-  role: string;
-  summary: string;
+  title: string;
+  bio: string;
   location: string;
   profile_picture?: string;
   github?: string;
@@ -131,7 +131,7 @@ const Hero = () => {
             <motion.div variants={itemVariants} className="space-y-4">
               <p className="text-primary-bright font-black uppercase tracking-[0.4em] text-[10px] flex items-center gap-2">
                 <span className="w-8 h-px bg-primary-bright"></span>
-                {profile.role || 'Senior Software Developer & IT Automation Specialist'}
+                {profile.title || 'Senior Software Developer & IT Automation Specialist'}
               </p>
               <h1 className="text-7xl md:text-8xl lg:text-[10rem] font-display font-black leading-[0.8] tracking-tighter">
                 {profile.full_name.split(' ')[0]}<br/>
@@ -139,9 +139,8 @@ const Hero = () => {
               </h1>
             </motion.div>
 
-            <motion.p variants={itemVariants} className="text-lg md:text-xl text-text-dim max-w-xl font-medium leading-relaxed">
-              Transformando tareas manuales en <span className="text-white font-bold italic">soluciones escalables</span>. 
-              Especialista en automatización con Python enfocado en impacto real y eficiencia operativa.
+            <motion.p variants={itemVariants} className="text-lg md:text-xl text-text-dim max-w-xl font-medium leading-relaxed whitespace-pre-line">
+              {profile.bio || 'Transformando tareas manuales en soluciones escalables. Especialista en automatización con Python enfocado en impacto real y eficiencia operativa.'}
             </motion.p>
 
             {/* Premium Metrics Grid */}
