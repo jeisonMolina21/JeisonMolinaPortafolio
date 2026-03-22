@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, ArrowRight, MousePointer2, Sparkles, Zap, Clock } from 'lucide-react';
+import { Github, Linkedin, ArrowRight, Sparkles, Zap, Clock } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import HeroBadge from './hero-parts/HeroBadge';
 import HeroAvatar from './hero-parts/HeroAvatar';

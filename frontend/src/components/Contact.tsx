@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Linkedin, Send, Sparkles, MessageSquare, Phone } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Send, Sparkles, MessageSquare } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { api } from '../utils/api';
 
