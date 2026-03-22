@@ -28,6 +28,8 @@ const iconMap: Record<string, { icon: string; color: string; label: string }> = 
   'jira': { icon: '🔷', color: 'text-blue-500', label: 'Jira' },
   'powershell': { icon: '🐚', color: 'text-blue-400', label: 'PowerShell' },
   'networking': { icon: '🌐', color: 'text-blue-400', label: 'Networking' },
+  'azure': { icon: '☁️', color: 'text-blue-500', label: 'Azure Cloud' },
+  'microsoft': { icon: '🪟', color: 'text-blue-400', label: 'Microsoft' },
   'active directory': { icon: '📁', color: 'text-blue-600', label: 'Active Directory' },
 };
 

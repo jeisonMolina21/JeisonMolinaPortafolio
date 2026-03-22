@@ -27,143 +27,108 @@ const Skills = ({ categories: customCategories }: SkillsProps) => {
             .catch(() => setSkills([]));
     }, []);
 
-    const defaultCategories: Category[] = [
-        { 
-            name: 'Programming', 
-            description: 'Core Languages & logic',
-            list: ['Python', 'JavaScript', 'SQL', 'PHP'],
-            icon: <Terminal className="text-primary-bright" size={20} />
-        },
-        { 
-            name: 'Backend', 
-            description: 'Server-side Architecture',
-            list: ['Node.js', 'Express', 'REST APIs', 'Django', 'API Integration'],
-            icon: <Cpu className="text-primary-bright" size={20} />
-        },
-        { 
-            name: 'Frontend', 
-            description: 'UI/UX & Dynamic Interfaces',
-            list: ['React', 'Next.js', 'Tailwind', 'Bootstrap'],
-            icon: <Sparkles className="text-primary-bright" size={20} />
-        },
-        { 
-            name: 'Data', 
-            description: 'Processing & Automation',
-            list: ['Pandas', 'Excel', 'ETL', 'Cleaning'],
-            icon: <Database className="text-primary-bright" size={20} />
-        },
-        { 
-            name: 'Tools', 
-            description: 'DevOps & Development',
-            list: ['Git', 'GitHub', 'Docker', 'Linux', 'VS Code'],
-            icon: <Box className="text-primary-bright" size={20} />
-        },
-        { 
-            name: 'Other', 
-            description: 'Business & Management',
-            list: ['Power BI', 'ServiceNow', 'Jira', 'M365', 'Documentation'],
-            icon: <Cloud className="text-primary-bright" size={20} />
-        }
+    const defaultCategories = [
+        { name: 'Programming', icon: <Terminal className="text-primary-bright" size={24} />, description: 'Core logic & development' },
+        { name: 'Backend', icon: <Cpu className="text-primary-bright" size={24} />, description: 'Server-side engineering' },
+        { name: 'Frontend', icon: <Sparkles className="text-primary-bright" size={24} />, description: 'Interactive experiences' },
+        { name: 'Data', icon: <Database className="text-primary-bright" size={24} />, description: 'Processing & analysis' },
+        { name: 'Tools', icon: <Box className="text-primary-bright" size={24} />, description: 'DevOps & environment' },
+        { name: 'Other', icon: <Cloud className="text-primary-bright" size={24} />, description: 'Business & integration' }
     ];
 
-    const categories = customCategories || defaultCategories;
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.15 }
-        }
-    };
-
-    const itemVariants: any = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-    };
+    const groupedSkills = (Array.isArray(skills) ? skills : []).reduce((acc: any, skill) => {
+        const cat = skill.category || 'Other';
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(skill);
+        return acc;
+    }, {});
 
     return (
         <section id="skills" className="section-padding relative overflow-hidden">
-            {/* Background Glow */}
-            <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
+            {/* Ambient background effects */}
+            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none opacity-40" />
+            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-wine-dark/20 blur-[100px] rounded-full pointer-events-none opacity-30" />
 
             <div className="container-custom relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+                <div className="max-w-3xl mb-24">
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border-primary/20 mb-6">
-                            <Zap size={12} className="text-primary-bright animate-pulse" />
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-primary-bright italic">Tech Stack v5.0</span>
+                        <div className="inline-flex items-center gap-3 px-5 py-2 glass rounded-full border-primary/30 mb-8">
+                            <Zap size={14} className="text-primary-bright animate-pulse" />
+                            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-bright">Expertise Engine v6.1</span>
                         </div>
-                        <h2 className="text-6xl md:text-8xl font-display font-black leading-none tracking-tighter">
-                            Mastering the<br/><span className="wine-gradient italic">Digital Forge</span>
+                        <h2 className="text-6xl md:text-8xl font-display font-black leading-[0.9] tracking-tighter mb-8">
+                            Nivel <span className="wine-gradient italic">Técnico</span><br/>Especializado
                         </h2>
-                        <p className="text-text-dim mt-8 max-w-xl text-lg font-medium leading-relaxed">
-                            Arquitectura diseñada para la <span className="text-white font-bold">escalabilidad</span> y la 
-                            <span className="text-white font-bold"> automatización</span> de procesos complejos.
+                        <p className="text-text-dim text-xl font-medium leading-relaxed max-w-2xl">
+                            Ecosistema de herramientas optimizado para la <span className="text-white font-bold">alta disponibilidad</span>, 
+                            la <span className="text-white font-bold">automatización avanzada</span> y arquitecturas de datos de alto rendimiento.
                         </p>
                     </motion.div>
                 </div>
 
-                <motion.div 
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
-                >
-                    {categories.map((cat) => (
-                        <motion.div 
-                            key={cat.name} 
-                            variants={itemVariants}
-                            className="glass group p-10 md:p-14 rounded-[3.5rem] border-white/5 space-y-10 flex flex-col h-full hover:border-primary/20 transition-all duration-500 relative overflow-hidden"
-                        >
-                            <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 blur-[100px] -z-10 group-hover:bg-primary/10 transition-colors" />
-                            
-                            <div className="flex items-center gap-4">
-                                <div className="p-3 bg-primary/10 rounded-2xl group-hover:scale-110 transition-transform">
-                                    {cat.icon}
-                                </div>
-                                <div className="space-y-1">
-                                     <h3 className="text-sm font-black uppercase tracking-[0.3em] text-white">{cat.name}</h3>
-                                     <p className="text-text-muted text-[10px] font-bold uppercase tracking-widest leading-none">{cat.description}</p>
-                                </div>
-                            </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    {defaultCategories.map((cat, idx) => {
+                        const catSkills = groupedSkills[cat.name] || [];
+                        if (catSkills.length === 0) return null;
 
-                            <div className="flex flex-wrap gap-5">
-                                {(Array.isArray(skills) ? skills : [])
-                                  .filter(s => {
-                                      const skillCat = s.category?.toLowerCase();
-                                      const catName = cat.name.toLowerCase();
-                                      return skillCat === catName || cat.list.some(l => s.name.toLowerCase().includes(l.toLowerCase()));
-                                  })
-                                  .map((skill, si) => {
-                                    const info = getSkillIcon(skill.name);
-                                    return (
-                                        <motion.div 
-                                            key={skill.id} 
-                                            whileHover={{ y: -5 }}
-                                            className="flex flex-col items-center gap-3 group/item"
-                                        >
-                                            <div className="w-20 h-20 glass rounded-[2rem] flex items-center justify-center text-4xl group-hover/item:bg-primary/10 group-hover/item:border-primary/40 transition-all duration-300 border-white/5 shadow-2xl relative overflow-hidden">
-                                                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity" />
-                                                <span className="relative z-10 filter drop-shadow-sm group-hover/item:scale-110 transition-transform">{info.icon}</span>
+                        return (
+                            <motion.div 
+                                key={cat.name} 
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                                className="glass group p-12 rounded-[4rem] border-white/5 flex flex-col h-full hover:border-primary/30 transition-all duration-700 relative overflow-hidden"
+                            >
+                                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                                
+                                <div className="flex items-start justify-between mb-12">
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-14 h-14 glass rounded-2xl flex items-center justify-center bg-white/5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-500 shadow-xl">
+                                                {cat.icon}
                                             </div>
-                                            <span className="text-[10px] font-bold text-text-muted group-hover/item:text-white transition-colors uppercase tracking-[0.1em]">{skill.name}</span>
-                                        </motion.div>
-                                    );
-                                })}
-                            </div>
+                                            <h3 className="text-3xl font-display font-black text-white tracking-tight">{cat.name}</h3>
+                                        </div>
+                                        <p className="text-text-muted text-[11px] font-black uppercase tracking-[0.3em] ml-1">{cat.description}</p>
+                                    </div>
+                                    <span className="text-primary-bright/20 font-display font-black text-6xl leading-none">0{idx + 1}</span>
+                                </div>
 
-                            <div className="absolute bottom-[-10%] right-[-5%] text-primary opacity-[0.02] group-hover:opacity-[0.05] transition-opacity pointer-events-none">
-                                <Box size={240} strokeWidth={1} />
-                            </div>
-                        </motion.div>
-                    ))}
-                </motion.div>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                                    {catSkills.map((skill: any, si: number) => {
+                                        const info = getSkillIcon(skill.name);
+                                        return (
+                                            <motion.div 
+                                                key={skill.id} 
+                                                whileHover={{ y: -5, scale: 1.05 }}
+                                                className="flex items-center gap-4 p-4 glass bg-white/[0.02] rounded-3xl border-transparent hover:border-primary/20 hover:bg-white/[0.05] transition-all duration-300"
+                                            >
+                                                <div className="text-3xl filter drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]">
+                                                    {info.icon}
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <span className="text-[10px] font-black uppercase tracking-wider text-white leading-none mb-1">{skill.name}</span>
+                                                    <span className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em]">{info.label.split(' ')[0]}</span>
+                                                </div>
+                                            </motion.div>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Modern graphic background */}
+                                <div className="absolute -bottom-8 -right-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700 pointer-events-none text-white">
+                                    <Zap size={200} strokeWidth={0.5} />
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </div>
             </div>
         </section>
     );
