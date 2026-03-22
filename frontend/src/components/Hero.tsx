@@ -24,6 +24,8 @@ interface Skill {
 
 const Hero = () => {
   const { lang, t } = useLanguage();
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [skills, setSkills] = useState<Skill[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
