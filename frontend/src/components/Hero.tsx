@@ -139,8 +139,8 @@ const Hero = () => {
               </h1>
             </motion.div>
 
-            <motion.p variants={itemVariants} className="text-lg md:text-xl text-text-dim max-w-xl font-medium leading-relaxed whitespace-pre-line">
-              {profile.bio || 'Transformando tareas manuales en soluciones escalables. Especialista en automatización con Python enfocado en impacto real y eficiencia operativa.'}
+            <motion.p variants={itemVariants} className="text-xl md:text-2xl text-white max-w-xl font-bold leading-tight tracking-tight">
+              {profile.title || 'Senior Software Developer & IT Automation Specialist'}
             </motion.p>
 
             {/* Premium Metrics Grid */}
@@ -190,17 +190,6 @@ const Hero = () => {
               />
             </div>
           </motion.div>
-        </div>
-      </div>
-
-      {/* Modern Background Skills Strip */}
-      <div className="absolute bottom-0 left-0 w-full glass py-8 border-t border-white/5 overflow-hidden">
-        <div className="flex gap-12 whitespace-nowrap animate-shine opacity-30">
-          {skills.concat(skills).map((skill, i) => (
-            <span key={i} className="text-[11px] font-black uppercase tracking-[0.4em] text-white flex items-center gap-4">
-              {skill.name} <span className="w-1.5 h-1.5 rounded-full bg-primary ring-4 ring-primary/20"></span>
-            </span>
-          ))}
         </div>
       </div>
     </section>
