@@ -1,30 +1,28 @@
-
 const mysql = require('mysql2/promise');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-async function test() {
-  const configs = [
-    { 
-      host: process.env.DB_HOST, 
-      port: parseInt(process.env.DB_PORT || '15903'),
-      user: process.env.DB_USER, 
-      password: process.env.DB_PASSWORD, 
-      database: process.env.DB_NAME || 'my_proyectsast',
-      ssl: { rejectUnauthorized: false }
-    }
-  ];
-
-  for (const config of configs) {
-    console.log(`Testing Aiven connection for user ${config.user}...`);
-    try {
-      const connection = await mysql.createConnection(config);
-      console.log('✅ Aiven Connection SUCCESSFUL!');
-      await connection.end();
-      return;
-    } catch (e) {
-      console.log('❌ Failed:', e.message);
-    }
+async function testConnection() {
+  console.log('--- Testing DB Connection ---');
+  console.log('Host:', process.env.DB_HOST);
+  console.log('Port:', process.env.DB_PORT);
+  
+  try {
+    const connection = await mysql.createConnection({
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      port: process.env.DB_PORT,
+      connectTimeout: 10000 // 10s timeout
+    });
+    console.log('✅ Connection successful!');
+    const [rows] = await connection.query('SELECT 1 as result');
+    console.log('Query result:', rows);
+    await connection.end();
+  } catch (error) {
+    console.error('❌ Connection failed:', error.message);
   }
 }
 
-test();
+testConnection();
