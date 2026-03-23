@@ -1,6 +1,8 @@
-const API_BASE_URL = typeof window !== 'undefined' 
+export const API_BASE_URL = typeof window !== 'undefined' 
     ? (import.meta.env.PUBLIC_API_URL || '/api') 
     : (import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api');
+
+export const IMAGE_BASE_URL = API_BASE_URL.replace('/api', '') || '';
 
 if (typeof window !== 'undefined' && !import.meta.env.PUBLIC_API_URL) {
     console.warn('PUBLIC_API_URL is not defined. Falling back to /api');

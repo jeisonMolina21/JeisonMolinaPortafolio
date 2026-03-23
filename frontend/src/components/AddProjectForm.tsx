@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE_URL } from '../utils/api';
 
 const AddProjectForm = ({ onProjectAdded }: { onProjectAdded: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +18,7 @@ const AddProjectForm = ({ onProjectAdded }: { onProjectAdded: () => void }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/projects`, {
+      const response = await fetch(`${API_BASE_URL}/projects`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

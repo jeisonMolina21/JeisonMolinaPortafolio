@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Cpu } from 'lucide-react';
+import { IMAGE_BASE_URL } from '../../utils/api';
 
 interface HeroAvatarProps {
   imageUrl?: string;
@@ -13,8 +14,7 @@ const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName }) => {
   const getProfileImage = () => {
     if (!imageUrl) return DEFAULT_IMAGE;
     if (imageUrl.startsWith('http')) return imageUrl;
-    const apiBase = import.meta.env.PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:3000';
-    return `${apiBase}${imageUrl}`;
+    return `${IMAGE_BASE_URL}${imageUrl}`;
   };
 
   return (

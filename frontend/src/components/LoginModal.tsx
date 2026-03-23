@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE_URL } from '../utils/api';
 
 const LoginModal = ({ isOpen, onClose, onLoginSuccess }: { isOpen: boolean, onClose: () => void, onLoginSuccess: (token: string) => void }) => {
   const [username, setUsername] = useState('');
@@ -12,8 +13,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }: { isOpen: boolean, onCl
     setError('');
 
     try {
-      const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/auth/login`, {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })

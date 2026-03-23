@@ -9,10 +9,25 @@ import '../styles/components/About.css';
 
 const About = () => {
   const { lang, t } = useLanguage();
-  const { profile: profileData, loading: profileLoading } = useProfile(lang);
+  const { profile: profileData, loading: profileLoading, error: profileError } = useProfile(lang);
   const { skills, loading: skillsLoading } = useSkills();
 
-  const categories = [
+  if (profileLoading) return (
+    <div className="flex items-center justify-center p-20 text-white/50 font-mono">
+      <div className="animate-pulse">Loading profile data...</div>
+    </div>
+  );
+
+  if (profileError || !profileData) return (
+    <div className="flex flex-col items-center justify-center p-20 text-red-400 bg-red-500/5 rounded-2xl border border-red-500/20 mx-4">
+      <Database size={32} className="mb-4 opacity-50" />
+      <p className="font-mono text-sm text-center">
+        {profileError || 'Profile data unavailable.'}
+        <br/>
+        <span className="text-[10px] opacity-50 uppercase tracking-widest mt-2 block">Check backend connectivity</span>
+      </p>
+    </div>
+  );
     { name: 'Programming', icon: <Terminal size={20} />, color: 'from-blue-500/20 to-cyan-500/10' },
     { name: 'Backend', icon: <Cpu size={20} />, color: 'from-emerald-500/20 to-teal-500/10' },
     { name: 'Frontend', icon: <Sparkles size={20} />, color: 'from-purple-500/20 to-pink-500/10' },
