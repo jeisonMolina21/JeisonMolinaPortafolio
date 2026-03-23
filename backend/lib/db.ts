@@ -10,18 +10,16 @@ const dbConfig = process.env.DATABASE_URL
       database: process.env.DB_NAME || 'my_proyectsast',
     };
 
-const pool = mysql.createPool(
-  typeof dbConfig === 'string' 
-    ? dbConfig 
-    : {
-        ...dbConfig,
-        waitForConnections: true,
-        connectionLimit: 10,
-        queueLimit: 0,
-        ssl: {
-          rejectUnauthorized: false
-        }
+const pool = typeof dbConfig === 'string' 
+  ? mysql.createPool(dbConfig)
+  : mysql.createPool({
+      ...dbConfig,
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0,
+      ssl: {
+        rejectUnauthorized: false
       }
-);
+    });
 
 export default pool;
