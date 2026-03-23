@@ -28,7 +28,7 @@ const About = () => {
     return acc;
   }, {});
 
-  if (profileLoading || !profile) return null;
+  if (profileLoading || !profileData) return null;
 
   return (
     <section id="about" className="about-section">
