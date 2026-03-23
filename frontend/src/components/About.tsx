@@ -9,7 +9,7 @@ import '../styles/components/About.css';
 
 const About = () => {
   const { lang, t } = useLanguage();
-  const { profile, loading: profileLoading } = useProfile(lang);
+  const { profile: profileData, loading: profileLoading } = useProfile(lang);
   const { skills, loading: skillsLoading } = useSkills();
 
   const categories = [
@@ -50,7 +50,7 @@ const About = () => {
               Arquitecto de <br/><span className="wine-gradient italic">Soluciones</span>
             </h2>
             <div className="about-bio-text">
-              {profile.bio && profile.bio.split('\n\n').map((para: string, i: number) => (
+              {profileData?.bio && profileData.bio.split('\n\n').map((para: string, i: number) => (
                 <p key={i}>{para}</p>
               ))}
             </div>
