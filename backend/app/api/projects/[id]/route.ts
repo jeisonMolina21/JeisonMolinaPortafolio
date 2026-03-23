@@ -2,13 +2,20 @@ import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { verifyToken } from '@/lib/auth';
 
+import { ProjectSchema } from '@/lib/schemas';
+import { validateData } from '@/lib/validation';
+
 export async function PUT(req: NextRequest, { params }: { params: any }) {
   try {
     const token = req.headers.get('Authorization')?.split(' ')[1];
     if (!token || !verifyToken(token)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { id } = await params;
-    const data = await req.json();
+    const body = await req.json();
+    const { isValid, data, response } = await validateData(ProjectSchema, body);
+    
+    if (!isValid) return response;
+
     const { title, description, image_url, video_url, github_url, demo_url, tech_stack } = data;
 
     await pool.query(

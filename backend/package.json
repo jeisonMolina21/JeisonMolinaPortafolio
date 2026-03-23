@@ -25,7 +25,8 @@
     "react": "latest",
     "react-dom": "latest",
     "tailwind-merge": "latest",
-    "uuid": "^13.0.0"
+    "uuid": "^13.0.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "latest",

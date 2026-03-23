@@ -22,6 +22,9 @@ export async function GET(req: NextRequest) {
   }
 }
 
+import { ExperienceSchema } from '@/lib/schemas';
+import { validateData } from '@/lib/validation';
+
 export async function POST(req: NextRequest) {
   try {
     const token = req.headers.get('Authorization')?.split(' ')[1];
@@ -29,7 +32,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { company, role, period, description, skills } = await req.json();
+    const body = await req.json();
+    const { isValid, data, response } = await validateData(ExperienceSchema, body);
+    
+    if (!isValid) return response;
+
+    const { company, role, period, description, skills } = data;
 
     const [result]: any = await pool.query(
       'INSERT INTO experience (company, role, period, description, skills) VALUES (?, ?, ?, ?, ?)',

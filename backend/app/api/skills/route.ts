@@ -11,6 +11,9 @@ export async function GET() {
   }
 }
 
+import { SkillSchema } from '@/lib/schemas';
+import { validateData } from '@/lib/validation';
+
 export async function POST(req: NextRequest) {
   try {
     const token = req.headers.get('Authorization')?.split(' ')[1];
@@ -18,7 +21,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { name, category } = await req.json();
+    const body = await req.json();
+    const { isValid, data, response } = await validateData(SkillSchema, body);
+    
+    if (!isValid) return response;
+
+    const { name, category } = data;
     await pool.query('INSERT IGNORE INTO skills (name, category) VALUES (?, ?)', [name, category]);
 
     return NextResponse.json({ message: 'Skill added successfully' }, { status: 201 });

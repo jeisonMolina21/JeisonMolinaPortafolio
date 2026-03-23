@@ -3,6 +3,9 @@ import pool from '@/lib/db';
 import { verifyToken } from '@/lib/auth';
 import { translate } from '@/lib/translator';
 
+import { ProfileSchema } from '@/lib/schemas';
+import { validateData } from '@/lib/validation';
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -33,7 +36,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const data = await req.json();
+    const body = await req.json();
+    const { isValid, data, response } = await validateData(ProfileSchema, body);
+    
+    if (!isValid) return response;
+
     const { full_name, title_es, title_en, bio_es, bio_en, location, whatsapp, email, linkedin, github, image_url } = data;
 
     await pool.query(

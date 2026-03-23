@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { getAuthUser, unauthorizedResponse } from '@/lib/auth';
 
+import { MessageSchema } from '@/lib/schemas';
+import { validateData } from '@/lib/validation';
+
 /**
  * GET: Fetch all messages (Protected)
  */
@@ -23,11 +26,12 @@ export async function GET(req: NextRequest) {
  */
 export async function POST(req: NextRequest) {
   try {
-    const { name, phone, whatsapp, city, message } = await req.json();
+    const body = await req.json();
+    const { isValid, data, response } = await validateData(MessageSchema, body);
     
-    if (!name || !message) {
-      return NextResponse.json({ error: 'Nombre y mensaje son obligatorios' }, { status: 400 });
-    }
+    if (!isValid) return response;
+
+    const { name, phone, whatsapp, city, message } = data;
 
     await pool.query(
       'INSERT INTO messages (name, phone, whatsapp, city, message) VALUES (?, ?, ?, ?, ?)',

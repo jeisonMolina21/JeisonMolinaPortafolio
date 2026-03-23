@@ -3,13 +3,17 @@ import pool from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import { signToken } from '@/lib/auth';
 
+import { LoginSchema } from '@/lib/schemas';
+import { validateData } from '@/lib/validation';
+
 export async function POST(req: NextRequest) {
   try {
-    const { username, password } = await req.json();
+    const body = await req.json();
+    const { isValid, data, response } = await validateData(LoginSchema, body);
+    
+    if (!isValid) return response;
 
-    if (!username || !password) {
-      return NextResponse.json({ error: 'Usuario y contraseña requeridos' }, { status: 400 });
-    }
+    const { username, password } = data;
 
     // Find user in DB
     const [rows]: any = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
