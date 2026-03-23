@@ -17,7 +17,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Upload to Vercel Blob
-    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN || process.env.TOKEN_DE_LECTURA_Y_ESCRITURA_DE_BLOB;
+    if (!blobToken) {
       console.error('BLOB_READ_WRITE_TOKEN is missing');
       return NextResponse.json({ error: 'Configuración de almacenamiento incompleta' }, { status: 500 });
     }
@@ -25,6 +26,7 @@ export async function POST(req: NextRequest) {
     const blob = await put(file.name, file, {
       access: 'public',
       addRandomSuffix: true,
+      token: blobToken,
     });
 
     console.log('File uploaded to:', blob.url);
