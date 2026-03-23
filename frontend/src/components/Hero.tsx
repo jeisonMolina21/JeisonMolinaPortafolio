@@ -66,7 +66,7 @@ const Hero = () => {
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
   };
 
   if (loading || !profile || !profile.full_name) {
@@ -152,38 +152,14 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-          <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {metrics.map((metric, i) => (
-              <div key={i} className="glass p-6 rounded-[2rem] group hover:border-primary/40 transition-all">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 bg-primary/10 rounded-xl group-hover:scale-110 transition-transform">
-                    {metric.icon}
-                  </div>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-text-muted">{metric.label}</span>
-                </div>
-                <div className="text-3xl font-black text-white mb-1">{metric.value}</div>
-                <p className="text-[10px] text-text-muted leading-tight">{metric.desc}</p>
-              </div>
-            ))}
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-8 items-center pt-4">
-            <a href="#projects" className="btn-primary">
-              {t('hero.talk') || 'Ver Proyectos'}
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <SocialLinks links={socialLinks} />
-          </motion.div>
-        </motion.div>
-
         {/* Avatar Section */}
         <motion.div 
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+          transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
           className="lg:col-span-5 relative hidden lg:flex justify-end"
         >
-          <HeroAvatar imageUrl={profile.profile_picture} fullName={profile.full_name} />
+          <HeroAvatar imageUrl={profile?.profile_picture} fullName={profile?.full_name} />
           
           <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-text-muted">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] [writing-mode:vertical-lr]">Scroll</span>
