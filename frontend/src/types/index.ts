@@ -4,7 +4,7 @@ export interface Profile {
   title: string;
   bio: string;
   location: string;
-  profile_picture?: string;
+  image_url?: string;
   github?: string;
   linkedin?: string;
   email?: string;

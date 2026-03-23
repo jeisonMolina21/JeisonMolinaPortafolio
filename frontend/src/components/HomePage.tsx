@@ -7,6 +7,7 @@ import Experience from './Experience';
 import Education from './Education';
 import ProjectList from './ProjectList';
 import Contact from './Contact';
+import AdminSection from './AdminSection';
 import WhatsAppButton from './WhatsAppButton';
 import { useReveal } from '../hooks/useReveal';
 import { useAuth } from '../hooks/useAuth';
@@ -32,6 +33,7 @@ const HomePage = () => {
           <Education />
           <ProjectList />
           <Contact />
+          <AdminSection />
         </main>
         
         <WhatsAppButton />
