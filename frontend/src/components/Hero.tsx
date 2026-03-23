@@ -10,7 +10,7 @@ import '../styles/components/Hero.css';
 
 const Hero = () => {
   const { lang, t } = useLanguage();
-  const { profile, loading, error } = useProfile(lang);
+  const { profile: profileData, loading, error } = useProfile(lang);
 
   if (error) {
     return (
@@ -33,9 +33,9 @@ const Hero = () => {
     );
   }
 
-  const socialLinks = profile ? [
-    { icon: <Github size={20} />, url: profile.github || 'https://github.com' },
-    { icon: <Linkedin size={20} />, url: profile.linkedin || 'https://linkedin.com' }
+  const socialLinks = profileData ? [
+    { icon: <Github size={20} />, url: profileData.github || 'https://github.com' },
+    { icon: <Linkedin size={20} />, url: profileData.linkedin || 'https://linkedin.com' }
   ] : [];
 
   const metrics = [
@@ -69,7 +69,7 @@ const Hero = () => {
     visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
   };
 
-  if (loading || !profile || !profile.full_name) {
+  if (loading || !profileData || !profileData.full_name) {
     return (
       <section className="loader-container">
         <div className="flex flex-col items-center gap-8">
@@ -90,7 +90,7 @@ const Hero = () => {
     );
   }
 
-  const fullName = profile?.full_name || 'Jeison Molina';
+  const fullName = profileData?.full_name || 'Jeison Molina';
   const nameParts = fullName.split(' ');
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(' ');
@@ -116,7 +116,7 @@ const Hero = () => {
           <motion.div variants={itemVariants} className="hero-title-container">
             <p className="hero-tagline">
               <span className="w-8 h-px bg-primary-bright"></span>
-              {profile?.title}
+              {profileData?.title}
             </p>
             <h1 className="hero-title">
               {firstName}<br/>
@@ -125,7 +125,7 @@ const Hero = () => {
           </motion.div>
 
           <motion.p variants={itemVariants} className="hero-description">
-            {profile?.title}
+            {profileData?.title}
           </motion.p>
 
           <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -159,7 +159,7 @@ const Hero = () => {
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
           className="lg:col-span-5 relative hidden lg:flex justify-end"
         >
-          <HeroAvatar imageUrl={profile?.profile_picture} fullName={profile?.full_name} />
+          <HeroAvatar imageUrl={profileData?.profile_picture} fullName={profileData?.full_name} />
           
           <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-text-muted">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] [writing-mode:vertical-lr]">Scroll</span>
