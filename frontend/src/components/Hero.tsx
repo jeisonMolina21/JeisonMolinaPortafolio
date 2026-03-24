@@ -6,7 +6,7 @@ import { useProfile } from '../hooks/useProfile';
 import HeroBadge from './hero-parts/HeroBadge';
 import HeroAvatar from './hero-parts/HeroAvatar';
 import SocialLinks from './hero-parts/SocialLinks';
-import '../styles/components/Hero.css';
+
 
 const Hero = () => {
   const { lang, t } = useLanguage();
@@ -66,7 +66,7 @@ const Hero = () => {
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } }
   };
 
   if (loading || !profileData || !profileData.full_name) {
@@ -125,7 +125,7 @@ const Hero = () => {
           </motion.div>
 
           <motion.p variants={itemVariants} className="hero-description">
-            {profileData?.title}
+            {profileData?.bio?.split('\n\n')[0] || profileData?.title}
           </motion.p>
 
           <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-4">

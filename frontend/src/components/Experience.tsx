@@ -3,13 +3,30 @@ import { motion } from 'framer-motion';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useExperience } from '../hooks/useExperience';
-import '../styles/components/Timeline.css';
+
 
 const Experience = () => {
   const { lang, t } = useLanguage();
   const { items, loading } = useExperience(lang);
 
-  if (loading || items.length === 0) return null;
+  if (loading) return (
+    <section id="experience" className="experience-section">
+      <div className="container-custom relative z-10">
+        <div className="space-y-8 pt-12">
+          {[1,2].map(i => (
+            <div key={i} className="glass rounded-[2.5rem] p-12 animate-pulse">
+              <div className="h-3 bg-white/10 rounded-full w-1/4 mb-6" />
+              <div className="h-8 bg-white/10 rounded-full w-2/3 mb-4" />
+              <div className="h-4 bg-white/5 rounded-full w-full mb-2" />
+              <div className="h-4 bg-white/5 rounded-full w-5/6" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  if (items.length === 0) return null;
 
   return (
     <section id="experience" className="experience-section">
@@ -41,7 +58,7 @@ const Experience = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="timeline-card"
+                className="timeline-card group"
               >
                 <div className="timeline-card-glow"></div>
                 

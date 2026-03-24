@@ -2,12 +2,32 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, Code } from 'lucide-react';
 import { useProjects } from '../hooks/useProjects';
-import '../styles/components/Projects.css';
+
 
 const ProjectList = () => {
   const { projects, loading } = useProjects();
 
-  if (loading || projects.length === 0) return null;
+  if (loading) return (
+    <section id="projects" className="projects-section">
+      <div className="container-custom relative z-10">
+        <div className="projects-grid">
+          {[1,2,3].map(i => (
+            <div key={i} className="project-card animate-pulse">
+              <div className="card-media bg-white/5" />
+              <div className="project-content space-y-4">
+                <div className="h-3 bg-white/10 rounded-full w-1/3" />
+                <div className="h-6 bg-white/10 rounded-full w-2/3" />
+                <div className="h-4 bg-white/5 rounded-full w-full" />
+                <div className="h-4 bg-white/5 rounded-full w-5/6" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  if (projects.length === 0) return null;
 
   return (
     <section id="projects" className="projects-section">
@@ -35,13 +55,15 @@ const ProjectList = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="project-card"
+              className="project-card group"
             >
               <div className="project-image-container">
                 <img 
                   src={project.image_url || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80'} 
                   alt={project.title} 
                   className="project-image"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="project-image-overlay" />
               </div>
@@ -66,7 +88,7 @@ const ProjectList = () => {
 
                 <div className="project-links">
                   {project.live_url && (
-                    <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="project-link-primary group/link">
+                    <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="project-link-primary group">
                       <ExternalLink size={16} />
                       <span>Ver Demo</span>
                     </a>

@@ -1,12 +1,20 @@
-export const API_BASE_URL = typeof window !== 'undefined' 
-    ? (import.meta.env.PUBLIC_API_URL || '/api') 
-    : (import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api');
+// If PUBLIC_API_URL is set in the environment (e.g. Vercel), it uses it.
+// Otherwise, in local development, it talks directly to the local backend.
+const envApiUrl = import.meta.env.PUBLIC_API_URL;
+const isLocal = import.meta.env.DEV;
 
-export const IMAGE_BASE_URL = API_BASE_URL.replace('/api', '') || '';
+// On vercel this will be the production backend URL.
+// Locally, if envApiUrl is /api, we should override it to localhost:3000 to use direct CORS instead of proxy
+export const API_BASE_URL = envApiUrl && envApiUrl !== '/api' 
+    ? envApiUrl 
+    : (isLocal ? 'http://localhost:3000/api' : '/api');
 
-if (typeof window !== 'undefined' && !import.meta.env.PUBLIC_API_URL) {
-    console.warn('PUBLIC_API_URL is not defined. Falling back to /api');
+if (typeof window !== 'undefined') {
+    console.log('📡 API_BASE_URL initialized as:', API_BASE_URL);
 }
+
+// Ensure images load correctly regardless of whether it's local or production
+export const IMAGE_BASE_URL = API_BASE_URL.replace('/api', '');
 
 const handleResponse = async (res: Response, endpoint: string) => {
     if (!res.ok) {

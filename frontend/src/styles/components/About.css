@@ -1,11 +1,10 @@
-@reference "../global.css";
 
 .about-section {
     @apply section-padding relative overflow-hidden bg-bg-deep/50;
 }
 
 .about-content-grid {
-    @apply container-custom relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20;
+    @apply max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20;
 }
 
 .about-bio-column {
@@ -49,15 +48,15 @@
 }
 
 .about-skill-token {
-    @apply flex items-center gap-2 px-3 py-1.5 glass bg-white/5 rounded-full border-white/5 hover:bg-white/10 transition-colors group/token;
+    @apply flex items-center gap-2 px-3 py-1.5 glass bg-white/5 rounded-full border-white/5 hover:bg-white/10 transition-colors;
 }
 
 .about-skill-icon {
-    @apply text-base md:text-lg group-hover/token:scale-110 transition-transform;
+    @apply text-base md:text-lg group-hover:scale-110 transition-transform;
 }
 
 .about-skill-name {
-    @apply text-[9px] font-bold text-text-muted transition-colors group-hover/token:text-white uppercase tracking-wider;
+    @apply text-[9px] font-bold text-text-muted transition-colors group-hover:text-white uppercase tracking-wider;
 }
 
 .badge-outline {

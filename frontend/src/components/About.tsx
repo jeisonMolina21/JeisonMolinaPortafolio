@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useProfile } from '../hooks/useProfile';
 import { useSkills } from '../hooks/useSkills';
 import { getSkillIcon } from '../utils/iconMapper';
-import '../styles/components/About.css';
+
 
 const About = () => {
   const { lang, t } = useLanguage();
@@ -28,6 +28,7 @@ const About = () => {
       </p>
     </div>
   );
+  const categories = [
     { name: 'Programming', icon: <Terminal size={20} />, color: 'from-blue-500/20 to-cyan-500/10' },
     { name: 'Backend', icon: <Cpu size={20} />, color: 'from-emerald-500/20 to-teal-500/10' },
     { name: 'Frontend', icon: <Sparkles size={20} />, color: 'from-purple-500/20 to-pink-500/10' },
@@ -42,8 +43,6 @@ const About = () => {
     acc[cat].push(skill);
     return acc;
   }, {});
-
-  if (profileLoading || !profileData) return null;
 
   return (
     <section id="about" className="about-section">
@@ -122,7 +121,7 @@ const About = () => {
                     {catSkills.map((skill: any) => {
                       const info = getSkillIcon(skill.name);
                       return (
-                        <div key={skill.id} className="about-skill-token">
+                        <div key={skill.id} className="about-skill-token group">
                           <span className="about-skill-icon">{info.icon}</span>
                           <span className="about-skill-name">{skill.name}</span>
                         </div>

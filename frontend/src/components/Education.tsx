@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { GraduationCap, Calendar, BookOpen } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useEducation } from '../hooks/useEducation';
-import '../styles/components/Timeline.css';
+
 
 const Education = () => {
   const { lang, t } = useLanguage();

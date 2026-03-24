@@ -13,19 +13,99 @@
 
 @theme {
   --color-primary: #991b1b;
+  --color-primary-bright: #dc2626;
+  --color-primary-glow: rgba(220, 38, 38, 0.4);
   --color-secondary: #450a0a;
   --color-midnight: #0a0a0a;
+  --color-bg-deep: #050202;
+  --color-bg-surface: #0a0505;
+  --color-wine-light: #fca5a5;
+  --color-wine-dark: #450a0a;
+  --color-wine-vibrant: #b91c1c;
+  --color-wine-muted: #7f1d1d;
+  
+  --color-text-main: #f8fafc;
+  --color-text-dim: #94a3b8;
+  --color-text-muted: #64748b;
   
   --font-sans: "Inter", ui-sans-serif, system-ui;
   --font-display: "Outfit", ui-sans-serif, system-ui;
 
   --animate-fade-in: fade-in 1s ease-out forwards;
   --animate-fade-in-slow: fade-in 1.5s ease-out forwards;
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-pulse-soft: pulse-soft 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-reveal-up: revealUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  --animate-reveal-in: revealIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.2; }
+  }
+
+  @keyframes revealUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes revealIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
 
   @keyframes fade-in {
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
   }
+
+  /* Utility Shortcuts — kept as comments for reference only */
+}
+
+@utility container-custom {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+}
+
+@utility section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  @media (min-width: 768px) {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+@utility animate-pulse-soft {
+  animation: var(--animate-pulse-soft);
+}
+
+@utility animate-float {
+  animation: var(--animate-float);
+}
+
+@utility wine-gradient {
+  background: linear-gradient(135deg, #fff 10%, var(--color-wine-light) 40%, var(--color-primary-bright) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility glass {
+  background: rgba(10, 5, 5, 0.45);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

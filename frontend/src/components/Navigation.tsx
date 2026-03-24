@@ -5,7 +5,7 @@ import LoginModal from './LoginModal';
 import MobileMenu from './navigation-parts/MobileMenu';
 import { useLanguage } from '../context/LanguageContext';
 import { cn } from '../utils/cn';
-import '../styles/components/Navigation.css';
+
 
 interface NavigationProps {
   onLogin: (token: string) => void;
@@ -50,7 +50,7 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
           <div className="flex items-center gap-4">
             <button 
               onClick={() => !isAdmin && setIsLoginModalOpen(true)}
-              className="nav-logo-btn"
+              className="nav-logo-btn group"
             >
               <div className="nav-logo-icon-box">
                 <Code size={20} />
@@ -64,7 +64,7 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
           {/* Desktop Navigation */}
           <div className="nav-items-desktop">
             {navItems.map((item) => (
-              <a key={item.key} href={item.href} className="nav-link">
+              <a key={item.key} href={item.href} className="nav-link group">
                 {t(item.key)}
                 <span className="nav-link-underline"></span>
               </a>

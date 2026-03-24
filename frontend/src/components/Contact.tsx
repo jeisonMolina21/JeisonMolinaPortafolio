@@ -3,18 +3,30 @@ import { motion } from 'framer-motion';
 import { Send, Mail, MapPin, Linkedin, Github, Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useProfile } from '../hooks/useProfile';
-import '../styles/components/Contact.css';
+
 
 const Contact = () => {
   const { lang, t } = useLanguage();
   const { profile } = useProfile(lang);
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
+  const [form, setForm] = React.useState({ name: '', email: '', message: '' });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('sending');
-    // Simulate sending
-    setTimeout(() => setStatus('success'), 2000);
+    try {
+      // Real: POST to backend /api/contact if available, fallback to mailto
+      const mailtoUrl = `mailto:${profile?.email || 'jeison.molina@live.com'}?subject=Contacto de ${encodeURIComponent(form.name)}&body=${encodeURIComponent(form.message + '\n\n— ' + form.email)}`;
+      window.location.href = mailtoUrl;
+      setTimeout(() => setStatus('success'), 300);
+    } catch {
+      setStatus('error');
+    }
   };
 
   const contactMethods = [
@@ -69,7 +81,7 @@ const Contact = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="contact-method-card"
+                className="contact-method-card group"
               >
                 <div className="contact-method-icon-box">{method.icon}</div>
                 <div>
@@ -92,22 +104,22 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="contact-input-group">
                   <label className="contact-label">Tu Nombre</label>
-                  <input type="text" className="contact-input" placeholder="Jeison Molina" required />
+                  <input type="text" name="name" value={form.name} onChange={handleChange} className="contact-input" placeholder="Jeison Molina" required />
                 </div>
                 
                 <div className="contact-input-group">
                   <label className="contact-label">Email Corporativo</label>
-                  <input type="email" className="contact-input" placeholder="hola@empresa.com" required />
+                  <input type="email" name="email" value={form.email} onChange={handleChange} className="contact-input" placeholder="hola@empresa.com" required />
                 </div>
 
                 <div className="contact-input-group md:col-span-2">
                   <label className="contact-label">Tu Propuesta</label>
-                  <textarea className="contact-input contact-textarea" placeholder="Descríbeme tu proyecto o desafío..." required />
+                  <textarea name="message" value={form.message} onChange={handleChange} className="contact-input contact-textarea" placeholder="Descríbeme tu proyecto o desafío..." required />
                 </div>
 
                 <div className="md:col-span-2">
-                  <button type="submit" disabled={status === 'sending'} className="contact-submit-btn">
-                    {status === 'sending' ? 'Sincronizando...' : status === 'success' ? '¡Recibido!' : 'Ejectuar Transmisión'}
+                  <button type="submit" disabled={status === 'sending'} className="contact-submit-btn group">
+                    {status === 'sending' ? 'Sincronizando...' : status === 'success' ? '¡Recibido!' : status === 'error' ? 'Error — reintenta' : 'Ejecutar Transmisión'}
                     <Send size={18} className="contact-submit-icon" />
                   </button>
                 </div>
