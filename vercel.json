@@ -33,8 +33,8 @@
       "destination": "/backend/api/:path*"
     },
     {
-      "source": "/_astro/(.*)",
-      "destination": "/frontend/dist/_astro/$1"
+      "source": "/_astro/:path*",
+      "destination": "/frontend/dist/_astro/:path*"
     },
     {
       "source": "/(.*)",

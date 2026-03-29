@@ -4,9 +4,12 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'https://jeison-molina-portafol
 
 const allowedOrigins = [
   FRONTEND_URL,
+  'https://jeison-molina-portafolio.vercel.app',
+  'https://jeison-molina-portafolio-yerl.vercel.app',
   'http://localhost:4321',
   'http://localhost:4322',
   'http://localhost:3000',
+  'http://localhost:3001',
 ];
 
 export function corsHeaders(origin?: string | null): Record<string, string> {

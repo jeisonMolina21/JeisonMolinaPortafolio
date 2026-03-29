@@ -13,6 +13,12 @@ const dbConfig = rawUrl
       database: process.env.DB_NAME || process.env.NOMBRE_DE_LA_BASE_DE_DATOS || 'my_proyectsast',
     };
 
+if (typeof dbConfig === 'object') {
+  console.log(`🔌 Attempting DB connection to host: ${dbConfig.host} (Port: ${dbConfig.port})`);
+} else {
+  console.log(`🔌 Attempting DB connection via DATABASE_URL (SSL Required)`);
+}
+
 const isLocalhost = typeof dbConfig === 'object' && (dbConfig as any).host === 'localhost';
 
 const pool = mysql.createPool(
