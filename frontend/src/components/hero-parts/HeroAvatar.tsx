@@ -1,15 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Cpu } from 'lucide-react';
+import { Cpu, Clock, Sparkles, Zap } from 'lucide-react';
 import { IMAGE_BASE_URL } from '../../utils/api';
+import { getSkillIcon } from '../../utils/iconMapper';
 
 interface HeroAvatarProps {
   imageUrl?: string;
   fullName?: string;
   cvUrl?: string;
+  skills?: any[];
 }
 
-const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName, cvUrl }) => {
+const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName, cvUrl, skills }) => {
   const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800";
 
   const getProfileImage = () => {
@@ -79,6 +81,55 @@ const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName, cvUrl }) =>
         <span className="text-3xl relative z-10">🚀</span>
         <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/80 text-[8px] text-white rounded opacity-0 group-hover/cv:opacity-100 whitespace-nowrap">DOWNLOAD CV</div>
       </motion.a>
+
+      {/* Side-aligned Technology Stack */}
+      <div className="absolute -right-20 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-10 pointer-events-none">
+        {skills?.slice(0, 5).map((skill, i) => {
+          const info = getSkillIcon(skill.name);
+          return (
+            <motion.div
+              key={skill.id || i}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1 + (i * 0.1) }}
+              className="glass p-3 rounded-xl border-white/5 bg-black/40 backdrop-blur-xl flex items-center justify-center pointer-events-auto hover:bg-primary/20 hover:border-primary/30 transition-all cursor-crosshair group/skill"
+              title={skill.name}
+            >
+              <span className="text-primary-bright group-hover/skill:scale-110 transition-transform">
+                {info.icon}
+              </span>
+              <div className="absolute right-full mr-4 px-2 py-1 bg-primary/90 text-[8px] text-black font-black uppercase rounded opacity-0 group-hover/skill:opacity-100 transition-opacity whitespace-nowrap">
+                {skill.name}
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Floating Stat Banners (Left Side) */}
+      <div className="absolute -left-24 top-1/4 flex flex-col gap-6 z-10">
+        {[
+          { label: "Tiempo Ahorrado", value: "12 Días", icon: <Clock size={12} />, color: "text-emerald-400" },
+          { label: "Mejora Reportes", value: "60%", icon: <Sparkles size={12} />, color: "text-amber-400" },
+          { label: "Gestión Cuentas", value: "Auto", icon: <Zap size={12} />, color: "text-blue-400" }
+        ].map((stat, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.2 + (i * 0.1) }}
+            className="glass px-4 py-3 rounded-2xl border-white/10 bg-black/60 backdrop-blur-2xl flex items-center gap-3 shadow-2xl min-w-[140px] hover:-translate-y-1 transition-transform"
+          >
+            <div className={`w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center ${stat.color}`}>
+              {stat.icon}
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[7px] font-black uppercase tracking-widest text-text-muted">{stat.label}</span>
+              <span className="text-sm font-black text-white">{stat.value}</span>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   );
 };

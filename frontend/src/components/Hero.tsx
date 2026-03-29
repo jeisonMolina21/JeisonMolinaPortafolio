@@ -127,24 +127,11 @@ const Hero = () => {
             </h1>
           </motion.div>
 
-          <motion.p variants={itemVariants} className="hero-description">
-            {profileData?.bio?.split('\n\n')[0] || profileData?.title}
+          <motion.p variants={itemVariants} className="hero-description max-w-2xl text-lg leading-relaxed">
+            {profileData?.bio || profileData?.title}
           </motion.p>
 
-          <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {metrics.map((metric, i) => (
-              <div key={i} className="glass p-6 rounded-[2rem] group hover:border-primary/40 transition-all">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 bg-primary/10 rounded-xl group-hover:scale-110 transition-transform">
-                    {metric.icon}
-                  </div>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-text-muted">{metric.label}</span>
-                </div>
-                <div className="text-3xl font-black text-white mb-1">{metric.value}</div>
-                <p className="text-[10px] text-text-muted leading-tight">{metric.desc}</p>
-              </div>
-            ))}
-          </motion.div>
+          {/* Metrics removed here as they are now floating banners */}
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-8 items-center pt-4">
             <a href="#projects" className="btn-primary">
@@ -166,6 +153,7 @@ const Hero = () => {
             imageUrl={profileData?.image_url} 
             fullName={profileData?.full_name} 
             cvUrl={profileData?.cv_url}
+            skills={data?.skills}
           />
           
           <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-text-muted">
