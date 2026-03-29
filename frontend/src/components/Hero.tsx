@@ -162,7 +162,11 @@ const Hero = () => {
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
           className="lg:col-span-5 relative hidden lg:flex justify-end"
         >
-          <HeroAvatar imageUrl={profileData?.image_url} fullName={profileData?.full_name} />
+          <HeroAvatar 
+            imageUrl={profileData?.image_url} 
+            fullName={profileData?.full_name} 
+            cvUrl={profileData?.cv_url}
+          />
           
           <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-text-muted">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] [writing-mode:vertical-lr]">Scroll</span>

@@ -6,9 +6,10 @@ import { IMAGE_BASE_URL } from '../../utils/api';
 interface HeroAvatarProps {
   imageUrl?: string;
   fullName?: string;
+  cvUrl?: string;
 }
 
-const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName }) => {
+const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName, cvUrl }) => {
   const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800";
 
   const getProfileImage = () => {
@@ -65,14 +66,19 @@ const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName }) => {
         </motion.div>
       </div>
 
-      {/* Floating Elements */}
-      <motion.div 
+      {/* Floating Elements - CV Download */}
+      <motion.a 
+        href={cvUrl || '#'} 
+        download="Jeison_Molina_CV.pdf"
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-6 -right-6 w-24 h-24 glass rounded-3xl flex items-center justify-center border-white/5 -rotate-6 shadow-xl"
+        className="absolute -top-6 -right-6 w-24 h-24 glass rounded-3xl flex items-center justify-center border-white/5 -rotate-6 shadow-xl hover:scale-110 hover:rotate-0 transition-all group/cv z-20 cursor-pointer"
+        title="Descargar CV"
       >
-        <span className="text-3xl">🚀</span>
-      </motion.div>
+        <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover/cv:opacity-100 transition-opacity"></div>
+        <span className="text-3xl relative z-10">🚀</span>
+        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/80 text-[8px] text-white rounded opacity-0 group-hover/cv:opacity-100 whitespace-nowrap">DOWNLOAD CV</div>
+      </motion.a>
     </motion.div>
   );
 };

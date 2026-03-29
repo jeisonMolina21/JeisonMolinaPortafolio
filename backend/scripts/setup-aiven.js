@@ -42,6 +42,7 @@ async function setup() {
         linkedin VARCHAR(255),
         github VARCHAR(255),
         image_url VARCHAR(255),
+        cv_url VARCHAR(255),
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )
     `);

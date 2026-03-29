@@ -12,18 +12,19 @@ export const fallbackData = {
     email: 'andreyyeisonmg@gmail.com',
     linkedin: 'https://linkedin.com/in/jeisonmolina',
     github: 'https://github.com/jeisonmolina',
-    image_url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800'
+    image_url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800',
+    cv_url: 'https://jeison-molina-portafolio.vercel.app/cv.pdf'
   },
   skills: [
-    { name: 'Python', category: 'Programming' },
-    { name: 'JavaScript', category: 'Programming' },
-    { name: 'SQL', category: 'Data' },
-    { name: 'Node.js', category: 'Backend' },
-    { name: 'React', category: 'Frontend' },
-    { name: 'MySQL', category: 'Data' },
-    { name: 'Pandas', category: 'Data' },
-    { name: 'Docker', category: 'Tools' },
-    { name: 'Git', category: 'Tools' }
+    { id: 1, name: 'Python', category: 'Programming' },
+    { id: 2, name: 'JavaScript', category: 'Programming' },
+    { id: 3, name: 'SQL', category: 'Data' },
+    { id: 4, name: 'Node.js', category: 'Backend' },
+    { id: 5, name: 'React', category: 'Frontend' },
+    { id: 6, name: 'MySQL', category: 'Data' },
+    { id: 7, name: 'Pandas', category: 'Data' },
+    { id: 8, name: 'Docker', category: 'Tools' },
+    { id: 9, name: 'Git', category: 'Tools' }
   ],
   experience: [
     {
