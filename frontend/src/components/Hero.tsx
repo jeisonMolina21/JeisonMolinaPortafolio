@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, ArrowRight, Sparkles, Zap, Clock, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useProfile } from '../hooks/useProfile';
 import HeroBadge from './hero-parts/HeroBadge';
 import HeroAvatar from './hero-parts/HeroAvatar';
 import SocialLinks from './hero-parts/SocialLinks';

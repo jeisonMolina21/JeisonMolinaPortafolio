@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { MessageCircle, Zap } from 'lucide-react';
-import { api } from '../utils/api';
+
+import { usePortfolioData } from '../context/PortfolioContext';
 
 const WhatsAppButton = () => {
-    const [whatsapp, setWhatsapp] = useState<string | null>(null);
-
-    useEffect(() => {
-        api.get('profile')
-            .then(data => setWhatsapp(data && !data.error ? data.whatsapp : null))
-            .catch(() => setWhatsapp(null));
-    }, []);
+    const { data } = usePortfolioData();
+    const whatsapp = data?.profile?.whatsapp;
 
     if (!whatsapp) return null;
 

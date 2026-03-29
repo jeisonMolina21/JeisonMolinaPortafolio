@@ -83,7 +83,7 @@ const ProjectList = () => {
                 <p className="project-description">{project.description}</p>
 
                 <div className="project-tags">
-                  {project.tags?.split(',').map((tag: string, i: number) => (
+                  {(project.tech_stack || project.tags)?.split(',').map((tag: string, i: number) => (
                     <span key={i} className="project-tag">
                       {tag.trim()}
                     </span>
@@ -91,14 +91,14 @@ const ProjectList = () => {
                 </div>
 
                 <div className="project-links">
-                  {project.live_url && (
-                    <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="project-link-primary group">
+                  {(project.demo_url || project.live_url) && (
+                    <a href={project.demo_url || project.live_url} target="_blank" rel="noopener noreferrer" className="project-link-primary group">
                       <ExternalLink size={16} />
                       <span>Ver Demo</span>
                     </a>
                   )}
-                  {project.repo_url && (
-                    <a href={project.repo_url} target="_blank" rel="noopener noreferrer" className="project-link-secondary">
+                  {(project.github_url || project.repo_url) && (
+                    <a href={project.github_url || project.repo_url} target="_blank" rel="noopener noreferrer" className="project-link-secondary">
                       <Github size={20} />
                     </a>
                   )}

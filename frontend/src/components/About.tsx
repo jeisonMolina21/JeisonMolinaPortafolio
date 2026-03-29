@@ -2,11 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { User, Zap, Terminal, Cpu, Sparkles, Database, Box, Cloud } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useProfile } from '../hooks/useProfile';
-import { useSkills } from '../hooks/useSkills';
 import { getSkillIcon } from '../utils/iconMapper';
-
-
 import { usePortfolioData } from '../context/PortfolioContext';
 
 

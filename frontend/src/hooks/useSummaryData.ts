@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { profileService } from '../services/apiService';
+import { fallbackData } from '../data/fallbackData';
 
 export const useSummaryData = (lang: string) => {
   const [data, setData] = useState<any>(null);
@@ -18,12 +19,14 @@ export const useSummaryData = (lang: string) => {
       setLoading(true);
       try {
         const summary = await profileService.getSummary(lang);
+        if (!summary || summary.error) throw new Error(summary?.error || 'Empty summary');
         setData(summary);
         cache.current[lang] = summary;
         setError(null);
       } catch (err) {
-        console.error('Failed to load portfolio summary:', err);
-        setError('Failed to load data. Please check your connection.');
+        console.error('Failed to load portfolio summary, using fallback:', err);
+        setData(fallbackData);
+        setError(null); // Clear error since we have fallback
       } finally {
         setLoading(false);
       }

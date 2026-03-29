@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, Calendar, BookOpen } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useEducation } from '../hooks/useEducation';
 
 
 import { usePortfolioData } from '../context/PortfolioContext';
