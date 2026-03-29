@@ -83,8 +83,8 @@ const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName, cvUrl, skil
       </motion.a>
 
       {/* Side-aligned Technology Stack */}
-      <div className="absolute -right-20 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-10 pointer-events-none">
-        {skills?.slice(0, 5).map((skill, i) => {
+      <div className="absolute -right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10 pointer-events-none">
+        {skills?.slice(0, 6).map((skill, i) => {
           const info = getSkillIcon(skill.name);
           return (
             <motion.div
@@ -92,13 +92,12 @@ const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName, cvUrl, skil
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1 + (i * 0.1) }}
-              className="glass p-3 rounded-xl border-white/5 bg-black/40 backdrop-blur-xl flex items-center justify-center pointer-events-auto hover:bg-primary/20 hover:border-primary/30 transition-all cursor-crosshair group/skill"
-              title={skill.name}
+              className="glass p-2.5 rounded-xl border-white/5 bg-black/60 backdrop-blur-xl flex items-center justify-center pointer-events-auto hover:bg-primary/20 hover:border-primary/40 transition-all cursor-help group/skill shadow-2xl"
             >
-              <span className="text-primary-bright group-hover/skill:scale-110 transition-transform">
+              <span className="text-primary-bright group-hover/skill:scale-125 transition-transform">
                 {info.icon}
               </span>
-              <div className="absolute right-full mr-4 px-2 py-1 bg-primary/90 text-[8px] text-black font-black uppercase rounded opacity-0 group-hover/skill:opacity-100 transition-opacity whitespace-nowrap">
+              <div className="absolute right-full mr-4 px-2 py-1 bg-primary text-black font-black text-[7px] uppercase rounded opacity-0 group-hover/skill:opacity-100 transition-all translate-x-2 group-hover/skill:translate-x-0 whitespace-nowrap">
                 {skill.name}
               </div>
             </motion.div>
