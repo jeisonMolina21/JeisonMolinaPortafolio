@@ -9,13 +9,14 @@ const allowedOrigins = [
 ];
 
 export function corsHeaders(origin?: string | null): Record<string, string> {
-  const isVercel = origin && origin.endsWith('.vercel.app');
-  const allowed = (origin && allowedOrigins.includes(origin)) || isVercel ? origin : allowedOrigins[0];
+  const allowed = (origin && (origin.endsWith('.vercel.app') || allowedOrigins.includes(origin))) 
+    ? origin 
+    : '*';
   
   return {
-    'Access-Control-Allow-Origin': allowed || '*',
+    'Access-Control-Allow-Origin': allowed,
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
     'Access-Control-Max-Age': '86400',
   };
 }
