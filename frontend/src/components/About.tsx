@@ -7,22 +7,27 @@ import { useSkills } from '../hooks/useSkills';
 import { getSkillIcon } from '../utils/iconMapper';
 
 
-const About = () => {
-  const { lang, t } = useLanguage();
-  const { profile: profileData, loading: profileLoading, error: profileError } = useProfile(lang);
-  const { skills, loading: skillsLoading } = useSkills();
+import { usePortfolioData } from '../context/PortfolioContext';
 
-  if (profileLoading) return (
+
+const About = () => {
+  const { t } = useLanguage();
+  const { data, loading } = usePortfolioData();
+  const profileData = data?.profile;
+  const skills = data?.skills || [];
+
+  if (loading) return (
     <div className="flex items-center justify-center p-20 text-white/50 font-mono">
       <div className="animate-pulse">Loading profile data...</div>
     </div>
   );
 
-  if (profileError || !profileData) return (
+  const error = data?.error;
+  if (error || !profileData) return (
     <div className="flex flex-col items-center justify-center p-20 text-red-400 bg-red-500/5 rounded-2xl border border-red-500/20 mx-4">
       <Database size={32} className="mb-4 opacity-50" />
       <p className="font-mono text-sm text-center">
-        {profileError || 'Profile data unavailable.'}
+        {error || 'Profile data unavailable.'}
         <br/>
         <span className="text-[10px] opacity-50 uppercase tracking-widest mt-2 block">Check backend connectivity</span>
       </p>

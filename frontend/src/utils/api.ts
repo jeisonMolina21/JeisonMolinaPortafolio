@@ -5,9 +5,16 @@ const isLocal = import.meta.env.DEV;
 
 // On vercel this will be the production backend URL.
 // Locally, if envApiUrl is /api, we should override it to localhost:3000 to use direct CORS instead of proxy
-export const API_BASE_URL = envApiUrl && envApiUrl !== '/api' 
+const rawApiUrl = envApiUrl && envApiUrl !== '/api' 
     ? envApiUrl 
     : (isLocal ? 'http://localhost:3000/api' : '/api');
+
+let sanitizedUrl = rawApiUrl.replace(/\/+$/, '');
+// If it's an absolute URL and doesn't end with /api, append it.
+if (sanitizedUrl.startsWith('http') && !sanitizedUrl.endsWith('/api')) {
+    sanitizedUrl += '/api';
+}
+export const API_BASE_URL = sanitizedUrl;
 
 if (typeof window !== 'undefined') {
     console.log('📡 API_BASE_URL initialized as:', API_BASE_URL);
@@ -44,6 +51,10 @@ export const api = {
             console.error(`Fetch error for ${endpoint}:`, err);
             return null;
         }
+    },
+
+    async getSummary(lang: string = 'es') {
+        return this.get('summary', lang);
     },
 
     async getAuthenticated(endpoint: string, token: string) {

@@ -2,47 +2,47 @@ import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import { signToken } from '@/lib/auth';
-
 import { LoginSchema } from '@/lib/schemas';
 import { validateData } from '@/lib/validation';
+import { withCors, optionsResponse } from '@/lib/cors';
+
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get('origin');
+  return optionsResponse(origin);
+}
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get('origin');
   try {
     const body = await req.json();
     const { isValid, data, response } = await validateData(LoginSchema, body);
-    
-    if (!isValid) return response;
+    if (!isValid) return withCors(response!, origin);
 
-    const { username, password } = data;
+    const { username, password } = data!;
 
-    // Find user in DB
     const [rows]: any = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
     const user = rows[0];
 
+    // Use same error message for both "user not found" and "bad password" to prevent user enumeration
     if (!user) {
-      return NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 });
+      return withCors(NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 }), origin);
     }
 
-    // Verify password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 });
+      return withCors(NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 }), origin);
     }
 
-    // Sign token
     const token = signToken({ userId: user.id, username: user.username });
 
-    return NextResponse.json({
+    return withCors(NextResponse.json({
       message: 'Login exitoso',
       token,
-      user: {
-        id: user.id,
-        username: user.username
-      }
-    });
+      user: { id: user.id, username: user.username },
+    }), origin);
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Login error:', error);
-    return NextResponse.json({ error: 'Error del servidor' }, { status: 500 });
+    return withCors(NextResponse.json({ error: 'Error del servidor' }, { status: 500 }), origin);
   }
 }

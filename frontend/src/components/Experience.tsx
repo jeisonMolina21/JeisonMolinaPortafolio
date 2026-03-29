@@ -2,12 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useExperience } from '../hooks/useExperience';
+import { usePortfolioData } from '../context/PortfolioContext';
+import type { ExperienceItem } from '../types';
 
 
 const Experience = () => {
-  const { lang, t } = useLanguage();
-  const { items, loading } = useExperience(lang);
+  const { t } = useLanguage();
+  const { data, loading } = usePortfolioData();
+  const items: ExperienceItem[] = data?.experience || [];
 
   if (loading) return (
     <section id="experience" className="experience-section">

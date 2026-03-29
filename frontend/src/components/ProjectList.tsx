@@ -4,8 +4,12 @@ import { Github, ExternalLink, Code } from 'lucide-react';
 import { useProjects } from '../hooks/useProjects';
 
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
+
 const ProjectList = () => {
-  const { projects, loading } = useProjects();
+  const { data, loading } = usePortfolioData();
+  const projects = data?.projects || [];
 
   if (loading) return (
     <section id="projects" className="projects-section">
@@ -48,7 +52,7 @@ const ProjectList = () => {
         </motion.div>
 
         <div className="projects-grid">
-          {projects.map((project, index) => (
+          {projects.map((project: any, index: number) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 30 }}
@@ -79,7 +83,7 @@ const ProjectList = () => {
                 <p className="project-description">{project.description}</p>
 
                 <div className="project-tags">
-                  {project.tags?.split(',').map((tag, i) => (
+                  {project.tags?.split(',').map((tag: string, i: number) => (
                     <span key={i} className="project-tag">
                       {tag.trim()}
                     </span>

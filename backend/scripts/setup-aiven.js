@@ -1,6 +1,7 @@
 
 const mysql = require('mysql2/promise');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 async function setup() {
   const config = {
@@ -13,19 +14,28 @@ async function setup() {
 
   try {
     const connection = await mysql.createConnection(config);
-    console.log('Creating database my_proyectsast...');
-    await connection.query('CREATE DATABASE IF NOT EXISTS my_proyectsast');
-    await connection.query('USE my_proyectsast');
+    const dbName = process.env.DB_NAME || 'my_proyectsast';
+    console.log(`Creating database ${dbName}...`);
+    await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName}`);
+    await connection.query(`USE ${dbName}`);
 
     console.log('Creating necessary tables...');
     
+    // Drop existing tables to ensure clean setup
+    const tablesToDrop = ['messages', 'skills', 'education', 'experience', 'projects', 'profile_settings', 'users'];
+    for (const table of tablesToDrop) {
+      await connection.query(`DROP TABLE IF EXISTS ${table}`);
+    }
+
     // profile_settings
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS profile_settings (
+      CREATE TABLE profile_settings (
         id INT PRIMARY KEY DEFAULT 1,
         full_name VARCHAR(255),
-        title TEXT,
-        bio TEXT,
+        title_es TEXT,
+        title_en TEXT,
+        bio_es TEXT,
+        bio_en TEXT,
         location VARCHAR(100),
         whatsapp VARCHAR(255),
         email VARCHAR(255),
@@ -36,16 +46,9 @@ async function setup() {
       )
     `);
 
-    // Ensure github column exists if table was already there
-    try {
-      await connection.query('ALTER TABLE profile_settings ADD COLUMN github VARCHAR(255) AFTER linkedin');
-    } catch (e) {
-      // Column might already exist
-    }
-
-    // projects
+    // projects (added lang column)
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS projects (
+      CREATE TABLE projects (
         id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         description TEXT,
@@ -54,47 +57,51 @@ async function setup() {
         github_url VARCHAR(255),
         demo_url VARCHAR(255),
         tech_stack TEXT,
+        lang VARCHAR(10) DEFAULT 'es',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
-    // experience
+    // experience (added lang column)
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS experience (
+      CREATE TABLE experience (
         id INT AUTO_INCREMENT PRIMARY KEY,
         company VARCHAR(255) NOT NULL,
         role VARCHAR(255) NOT NULL,
         period VARCHAR(100),
         description TEXT,
         skills TEXT,
+        lang VARCHAR(10) DEFAULT 'es',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
-    // education
+    // education (added lang column)
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS education (
+      CREATE TABLE education (
         id INT AUTO_INCREMENT PRIMARY KEY,
         institution VARCHAR(255) NOT NULL,
         degree VARCHAR(255) NOT NULL,
         period VARCHAR(100),
         description TEXT,
+        lang VARCHAR(10) DEFAULT 'es',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
     // skills
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS skills (
+      CREATE TABLE skills (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
+        category VARCHAR(50),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
     // messages
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS messages (
+      CREATE TABLE messages (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         phone VARCHAR(50),
@@ -107,7 +114,7 @@ async function setup() {
 
     // users
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS users (
+      CREATE TABLE users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(255) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,

@@ -8,9 +8,13 @@ import HeroAvatar from './hero-parts/HeroAvatar';
 import SocialLinks from './hero-parts/SocialLinks';
 
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
+
 const Hero = () => {
-  const { lang, t } = useLanguage();
-  const { profile: profileData, loading, error } = useProfile(lang);
+  const { t } = useLanguage();
+  const { data, loading, error } = usePortfolioData();
+  const profileData = data?.profile;
 
   if (error) {
     return (

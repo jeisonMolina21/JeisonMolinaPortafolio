@@ -6,6 +6,11 @@ export const profileService = {
     const data = await api.get('profile', lang);
     if (data && !data.error) return data;
     throw new Error('Failed to fetch profile');
+  },
+  getSummary: async (lang: string): Promise<any> => {
+    const data = await api.getSummary(lang);
+    if (data && !data.error) return data;
+    throw new Error('Failed to fetch summary');
   }
 };
 
