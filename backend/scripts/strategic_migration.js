@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mysql = require('mysql2/promise');
+const bcrypt = require('bcryptjs');
 
 async function migrate() {
   const connectionString = process.env.DATABASE_URL;
@@ -13,6 +14,32 @@ async function migrate() {
 
   try {
     console.log('Starting strategic database update...');
+
+    // 0. Ensure users table exists and add admin
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(255) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    const adminUsername = 'jm6120346@gmail.com';
+    const adminPassword = 'Horizonte.2026';
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+
+    try {
+      await pool.query('INSERT INTO users (username, password) VALUES (?, ?)', [adminUsername, hashedPassword]);
+      console.log('Admin user created successfully.');
+    } catch (e) {
+      if (e.code === 'ER_DUP_ENTRY') {
+        await pool.query('UPDATE users SET password = ? WHERE username = ?', [hashedPassword, adminUsername]);
+        console.log('Admin user password updated.');
+      } else {
+        throw e;
+      }
+    }
 
     // 1. Add columns to projects (one by one to handle "already exists" errors)
     const projectColumns = [

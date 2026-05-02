@@ -1,6 +1,7 @@
+/** @jsxImportSource react */
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe, LogOut, Code, ArrowRight } from 'lucide-react';
+import { Menu, X, Globe, LogOut, Code, ArrowRight, Zap } from 'lucide-react';
 import LoginModal from './LoginModal';
 import MobileMenu from './navigation-parts/MobileMenu';
 import { useLanguage } from '../context/LanguageContext';
@@ -56,7 +57,7 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
                 <Code size={20} />
               </div>
               <p className="nav-logo-text">
-                JEI<span className="wine-gradient italic">SON</span>
+                JEI<span className="text-primary italic">SON</span>
               </p>
             </button>
           </div>
@@ -72,10 +73,23 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
           </div>
 
           <div className="nav-actions">
+            {/* Theme Toggle */}
+            <button
+              onClick={() => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+              }}
+              className="nav-lang-btn"
+              aria-label="Alternar modo oscuro/claro"
+            >
+              <Zap size={16} className="text-primary-bright" />
+            </button>
+
             {/* Language Switcher */}
             <button 
               onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
-              className="nav-lang-btn"
+              className="nav-lang-btn group"
+              aria-label={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
               title={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
             >
               <Globe size={16} className="group-hover:rotate-12 transition-transform" />
@@ -84,12 +98,20 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
             {/* Desktop Actions */}
             <div className="hidden md:block">
               {isAdmin ? (
-                <button onClick={onLogout} className="nav-btn-logout">
+                <button 
+                  onClick={onLogout} 
+                  className="nav-btn-logout"
+                  aria-label="Cerrar sesión administrador"
+                >
                   <LogOut size={14} />
                   {t('admin.logout')}
                 </button>
               ) : (
-                <a href="#contact" className="nav-btn-hire">
+                <a 
+                  href="#contact" 
+                  className="nav-btn-hire"
+                  aria-label="Contactar para contratación"
+                >
                   <span>{t('nav.hire')}</span>
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </a>
@@ -100,6 +122,8 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="nav-mobile-toggle"
+              aria-label="Abrir menú de navegación"
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>

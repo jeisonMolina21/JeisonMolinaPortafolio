@@ -1,10 +1,58 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import Footer from '../components/Footer.astro';
-import HomePage from '../components/HomePage.tsx';
+import Navigation from '../components/Navigation';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Education from '../components/Education.astro';
+import ProjectList from '../components/ProjectList.astro';
+import Contact from '../components/Contact';
+import WhatsAppButton from '../components/WhatsAppButton';
+import { LanguageProvider } from '../context/LanguageContext';
+
+const isDev = import.meta.env.DEV;
+const BASE_URL = isDev ? "http://localhost:3000" : "https://jeison-molina-portafolio-yerl.vercel.app";
+
+let data = { profile: {}, skills: [], experience: [], education: [], projects: [] };
+try {
+    const API_URL = `${BASE_URL}/api/summary?lang=es`;
+    const response = await fetch(API_URL);
+    if (response.ok) {
+        const result = await response.json();
+        data = result || data;
+    }
+} catch (e) {
+    console.error("Error fetching data:", e);
+}
+
+const groupedSkills = data.skills.reduce((acc: any, skill: any) => {
+  const cat = skill.category || 'Otros';
+  if (!acc[cat]) acc[cat] = [];
+  acc[cat].push(skill);
+  return acc;
+}, {});
 ---
 
-<MainLayout title="Jeison Molina | Software Engineer">
-    <HomePage client:only="react" />
-    <Footer />
+<MainLayout title="Jeison Molina | Backend Python Developer">
+    <LanguageProvider client:load>
+        <Navigation client:load isAdmin={false} onLogin={() => {}} onLogout={() => {}} />
+        
+        <main class="relative">
+            <Hero 
+              profile={data.profile} 
+              experience={data.experience}
+              education={data.education}
+              groupedSkills={groupedSkills}
+            />
+            <About profile={data.profile} groupedSkills={groupedSkills} />
+            <Experience experience={data.experience} />
+            <Education education={data.education} />
+            <ProjectList projects={data.projects} />
+            <Contact client:visible />
+        </main>
+
+        <WhatsAppButton client:idle />
+    </LanguageProvider>
+    <Footer data={data} />
 </MainLayout>

@@ -125,13 +125,16 @@ const Hero = () => {
           </motion.div>
           
           <motion.div variants={itemVariants} className="hero-title-container">
-            <p className="hero-tagline">
+            <h2 className="hero-tagline">
               <span className="w-12 h-px bg-primary-bright"></span>
               {profileData?.title || 'Backend Python Developer'}
-            </p>
+            </h2>
             <h1 className="hero-title">
+              {profileData?.full_name || 'Jeison Molina'}
+            </h1>
+            <h3 className="hero-headline mt-6">
               {profileData?.headline_metric ? (
-                <span className="block text-4xl md:text-6xl lg:text-7xl">
+                <span className="block text-4xl md:text-6xl lg:text-7xl font-black">
                   {profileData.headline_metric.split(' ').map((word: string, i: number) => (
                     <span key={i} className={word.includes('40') || word.includes('5') || word.includes('minutos') || word.includes('horas') ? 'wine-gradient italic px-2' : ''}>
                       {word}{' '}
@@ -139,12 +142,9 @@ const Hero = () => {
                   ))}
                 </span>
               ) : (
-                <>
-                  {firstName}<br/>
-                  <motion.span className="wine-gradient italic">{lastName}</motion.span>
-                </>
+                <span className="wine-gradient italic">Automatizo 40h a 5min</span>
               )}
-            </h1>
+            </h3>
           </motion.div>
 
           <motion.p variants={itemVariants} className="hero-description max-w-2xl text-xl mt-4 text-white/70">

@@ -14,13 +14,13 @@ import { useAuth } from '../hooks/useAuth';
 
 import { PortfolioDataProvider } from '../context/PortfolioContext';
 
-const HomePage = () => {
+const HomePage = ({ initialData }: { initialData?: any }) => {
   useReveal();
   const { isAdmin, login, logout } = useAuth();
 
   return (
     <LanguageProvider>
-      <PortfolioDataProvider>
+      <PortfolioDataProvider initialData={initialData}>
         <div className="min-h-screen bg-bg-deep text-white selection:bg-primary-bright selection:text-white">
           
           

@@ -1,0 +1,131 @@
+---
+import { Image } from 'astro:assets';
+import fotoJeison from '../assets/jeison.png';
+import { Github, Linkedin, ArrowRight, Zap, Clock, Sparkles } from 'lucide-react';
+import DownloadCV from './DownloadCV';
+
+interface Props {
+  profile: any;
+  experience: any[];
+  education: any[];
+  groupedSkills: any;
+}
+
+const { profile, experience, education, groupedSkills } = Astro.props;
+const firstName = profile?.full_name?.split(' ')[0] || 'Jeison';
+const lastName = profile?.full_name?.split(' ').slice(1).join(' ') || 'Molina';
+---
+
+<section id="hero" class="hero-section relative overflow-hidden bg-bg-deep transition-colors duration-500 min-h-[90vh] flex items-center">
+  <!-- Subtle Background Pattern -->
+  <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style="background-image: radial-gradient(var(--color-primary) 0.5px, transparent 0.5px); background-size: 24px 24px;"></div>
+  
+  <div class="hero-background-cinematic">
+    <div class="hero-glow-top"></div>
+    <div class="hero-glow-bottom"></div>
+  </div>
+
+  <div class="container-custom relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+      
+      <!-- Text Content (Column 1) -->
+      <div class="lg:col-span-7 space-y-10">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border-primary/20 shadow-sm">
+          <Zap size={14} class="text-primary" />
+          <span class="text-[10px] font-bold uppercase tracking-widest text-primary">Disponible — High Performance Software</span>
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="text-2xl md:text-3xl font-display font-medium text-text-dim flex items-center gap-4">
+            <span class="w-12 h-px bg-primary/30"></span>
+            {profile?.title || 'Backend Python Developer'}
+          </h2>
+          
+          <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-text-main tracking-tighter leading-[1.1]">
+            {firstName} <span class="text-primary italic">{lastName}</span>
+          </h1>
+
+          <div class="mt-8">
+            <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-text-main max-w-xl">
+              Automatizo <span class="text-primary">40 horas</span> de trabajo manual a <span class="text-primary">5 minutos</span>
+            </h3>
+          </div>
+        </div>
+
+        <!-- Badges for Tags -->
+        <div class="flex flex-wrap gap-3">
+          {['Python', 'SQL', 'Docker', 'Astro', 'Next.js', 'Power BI'].map(tag => (
+            <span class="px-4 py-2 bg-primary/5 dark:bg-primary/10 border border-primary/10 rounded-full text-xs font-bold text-text-dim">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <p class="text-lg md:text-xl text-text-muted max-w-2xl leading-relaxed">
+          {profile?.bio || 'Open to Remote LATAM/US | Especializado en automatización y arquitecturas robustas.'}
+        </p>
+
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="#projects" class="px-10 py-4 bg-primary hover:bg-primary-bright text-white font-bold rounded-2xl shadow-lg shadow-primary/20 transition-all flex items-center gap-2 group">
+            Ver casos de éxito
+            <ArrowRight size={20} class="group-hover:translate-x-1 transition-transform" />
+          </a>
+          <DownloadCV data={{ profile, experience, education, skills: groupedSkills ? Object.values(groupedSkills).flat() : [] }} client:load />
+        </div>
+      </div>
+
+      <!-- Image / Illustration (Column 2) -->
+      <div class="lg:col-span-5 relative hidden lg:flex justify-end">
+        <div class="relative w-full max-w-[420px]">
+          <div class="absolute inset-0 bg-primary/10 blur-[100px] rounded-full"></div>
+          
+          <div class="relative aspect-[4/5] bg-bg-surface rounded-[2.5rem] overflow-hidden border border-primary/10 shadow-2xl">
+            <Image 
+              src={fotoJeison} 
+              alt="Jeison Molina" 
+              width={420}
+              height={525}
+              loading="eager"
+              class="w-full h-full object-cover grayscale brightness-95 hover:grayscale-0 hover:brightness-105 transition-all duration-700"
+            />
+            
+            <!-- Dynamic Floating Info -->
+            <div class="absolute bottom-4 left-4 right-4 p-5 glass rounded-3xl border-white/10">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
+                  <Sparkles size={20} />
+                </div>
+                <div>
+                  <p class="text-[9px] font-black uppercase tracking-[0.2em] text-primary mb-0.5">Core Architect</p>
+                  <p class="text-text-main font-bold text-xs">Escalabilidad & Eficiencia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    padding-top: 4rem;
+  }
+  .hero-background-cinematic {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-glow-top {
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 40%;
+    height: 40%;
+    background: radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%);
+    opacity: 0.3;
+  }
+</style>

@@ -10,12 +10,15 @@ interface PortfolioContextType {
 
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
 
-export const PortfolioDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const PortfolioDataProvider: React.FC<{ children: ReactNode; initialData?: any }> = ({ children, initialData }) => {
   const { lang } = useLanguage();
-  const { data, loading, error } = useSummaryData(lang);
+  const { data: fetchedData, loading, error } = useSummaryData(lang);
+  
+  const data = fetchedData || initialData;
+  const isInitialLoading = loading && !initialData;
 
   return (
-    <PortfolioContext.Provider value={{ data, loading, error }}>
+    <PortfolioContext.Provider value={{ data, loading: isInitialLoading, error }}>
       {children}
     </PortfolioContext.Provider>
   );
@@ -24,7 +27,12 @@ export const PortfolioDataProvider: React.FC<{ children: ReactNode }> = ({ child
 export const usePortfolioData = () => {
   const context = useContext(PortfolioContext);
   if (context === undefined) {
-    throw new Error('usePortfolioData must be used within a PortfolioDataProvider');
+    // Fallback for SSR
+    return {
+      data: null,
+      loading: false,
+      error: null
+    };
   }
   return context;
 };

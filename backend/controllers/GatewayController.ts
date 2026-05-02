@@ -23,7 +23,7 @@ export class GatewayController {
         [educationRows]
       ]: any = await Promise.all([
         ProfileModel.getById(1),
-        ExperienceModel.getAll(),
+        ExperienceModel.getAll(lang),
         ProjectModel.getAll(),
         pool.query('SELECT * FROM skills ORDER BY name ASC'),
         pool.query('SELECT * FROM education ORDER BY created_at DESC')

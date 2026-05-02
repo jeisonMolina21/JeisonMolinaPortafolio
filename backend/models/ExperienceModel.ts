@@ -1,8 +1,8 @@
 import pool from '@/lib/db';
 
 export class ExperienceModel {
-  static async getAll() {
-    const [rows]: any = await pool.query('SELECT * FROM experience ORDER BY created_at DESC');
+  static async getAll(lang: string = 'es') {
+    const [rows]: any = await pool.query('SELECT * FROM experience WHERE lang = ? ORDER BY created_at DESC', [lang]);
     return rows;
   }
 

@@ -1,0 +1,87 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import LoginModal from '../components/LoginModal';
+---
+
+<MainLayout title="Login | Jeison Molina Admin">
+  <div class="min-h-screen bg-bg-deep flex items-center justify-center p-6">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-black text-text-main mb-2">Panel de Control</h1>
+        <p class="text-text-muted italic">Inicia sesión para gestionar tu impacto</p>
+      </div>
+      
+      <div class="glass p-8 rounded-[2.5rem] border border-primary/10 shadow-2xl">
+        <form id="login-form" class="space-y-6">
+          <div class="space-y-2">
+            <label class="text-xs font-black uppercase tracking-widest text-text-muted ml-1">Usuario</label>
+            <input 
+              type="email" 
+              name="username" 
+              id="username"
+              placeholder="jm6120346@gmail.com"
+              class="w-full px-6 py-4 bg-white/50 dark:bg-black/20 border border-primary/10 rounded-2xl focus:outline-none focus:border-primary text-text-main transition-all"
+              required 
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-black uppercase tracking-widest text-text-muted ml-1">Contraseña</label>
+            <input 
+              type="password" 
+              name="password" 
+              id="password"
+              placeholder="••••••••"
+              class="w-full px-6 py-4 bg-white/50 dark:bg-black/20 border border-primary/10 rounded-2xl focus:outline-none focus:border-primary text-text-main transition-all"
+              required 
+            />
+          </div>
+
+          <div id="error-message" class="hidden p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-xs font-bold text-center">
+            Credenciales inválidas
+          </div>
+
+          <button 
+            type="submit" 
+            class="w-full py-4 bg-primary hover:bg-primary-bright text-white font-bold rounded-2xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+          >
+            Entrar al Sistema
+          </button>
+        </form>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a href="/" class="text-sm font-bold text-primary hover:underline italic">← Volver al portafolio</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('login-form') as HTMLFormElement;
+    const errorDiv = document.getElementById('error-message');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          const { token } = await res.json();
+          localStorage.setItem('token', token);
+          window.location.href = '/admin';
+        } else {
+          errorDiv?.classList.remove('hidden');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</MainLayout>

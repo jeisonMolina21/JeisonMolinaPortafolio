@@ -1,6 +1,12 @@
 ---
 import { Github, Linkedin, Twitter, Mail, ArrowUpCircle } from 'lucide-react';
+import DownloadFooter from './DownloadFooter';
 
+interface Props {
+  data: any;
+}
+
+const { data } = Astro.props;
 const currentYear = new Date().getFullYear();
 ---
 
@@ -11,25 +17,26 @@ const currentYear = new Date().getFullYear();
     <div class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start mb-20">
       <div class="md:col-span-5 space-y-8">
         <a href="#" class="footer-logo">
-          PORT<span class="wine-gradient italic">AFOLIO</span>
+          JEI<span class="text-primary italic">SON</span>
         </a>
         <p class="footer-bio">
-          ¿Tienes un proceso de <span class="text-white font-black italic">40h</span> que quieres reducir a <span class="text-primary-bright font-black">5min</span>?
+          Automatizando <span class="text-white font-black italic">40 horas</span> de trabajo manual a <span class="text-primary font-black">5 minutos</span> con ingeniería de software.
         </p>
         <div class="flex flex-col gap-4">
           <a href="mailto:andreyyeisonmg@gmail.com" class="text-white/60 hover:text-white transition-colors">andreyyeisonmg@gmail.com</a>
-          <a href="https://calendly.com/jeisonmolina/15min" target="_blank" class="text-primary-bright font-black hover:underline">Agenda 15 min conmigo →</a>
+          <a href="https://calendly.com/jeisonmolina/15min" target="_blank" class="text-primary font-black hover:underline">Agenda una reunión estratégica →</a>
         </div>
         <div class="flex gap-4 pt-4">
           {[
-            { icon: <Github size={20} />, href: "https://github.com/jeisonMolina21" },
-            { icon: <Linkedin size={20} />, href: "https://linkedin.com/in/jeisonmolina" },
-            { icon: <Mail size={20} />, href: "mailto:andreyyeisonmg@gmail.com" }
+            { icon: <Github size={20} />, href: "https://github.com/jeisonMolina21", label: "GitHub" },
+            { icon: <Linkedin size={20} />, href: "https://linkedin.com/in/jeisonmolina", label: "LinkedIn" },
+            { icon: <Mail size={20} />, href: "mailto:andreyyeisonmg@gmail.com", label: "Email" }
           ].map(social => (
             <a 
               href={social.href} 
               target="_blank" 
               class="footer-social-link"
+              aria-label={`Visitar perfil de ${social.label} de Jeison Molina`}
             >
               {social.icon}
             </a>
@@ -47,7 +54,7 @@ const currentYear = new Date().getFullYear();
               </li>
             ))}
             <li>
-              <a href="/cv-jeison-molina.pdf" class="footer-nav-link font-black text-primary-bright">Download CV</a>
+              <DownloadFooter data={data} client:load />
             </li>
           </ul>
         </div>
