@@ -49,8 +49,8 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
         >
           {/* Logo */}
           <div className="flex items-center gap-4">
-            <button 
-              onClick={() => !isAdmin && setIsLoginModalOpen(true)}
+            <a 
+              href="/"
               className="nav-logo-btn group"
             >
               <div className="nav-logo-icon-box">
@@ -59,7 +59,7 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
               <p className="nav-logo-text">
                 JEI<span className="text-primary italic">SON</span>
               </p>
-            </button>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
@@ -94,6 +94,17 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
             >
               <Globe size={16} className="group-hover:rotate-12 transition-transform" />
             </button>
+
+            {/* Admin Login Button */}
+            {!isAdmin && (
+              <button 
+                onClick={() => setIsLoginModalOpen(true)}
+                className="nav-lang-btn group border-primary/20"
+                title="Acceso Administrativo"
+              >
+                <Zap size={16} className="group-hover:scale-110 transition-transform text-primary" />
+              </button>
+            )}
 
             {/* Desktop Actions */}
             <div className="hidden md:block">

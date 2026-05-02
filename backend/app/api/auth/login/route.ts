@@ -18,7 +18,8 @@ export async function POST(req: NextRequest) {
     const { isValid, data, response } = await validateData(LoginSchema, body);
     if (!isValid) return withCors(response!, origin);
 
-    const { username, password } = data!;
+    const { username: rawUsername, password } = data!;
+    const username = rawUsername.trim();
 
     const [rows]: any = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
     const user = rows[0];
