@@ -1,26 +1,45 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Code } from 'lucide-react';
-import { useProjects } from '../hooks/useProjects';
-
-
+import { Github, ExternalLink, Code, ArrowRight } from 'lucide-react';
 import { usePortfolioData } from '../context/PortfolioContext';
-
+import '../styles/components/ProjectList.css';
 
 const ProjectList = () => {
   const { data, loading } = usePortfolioData();
   const projects = data?.projects || [];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.2, 0.65, 0.3, 0.9]
+      }
+    }
+  };
+
   if (loading) return (
     <section id="projects" className="projects-section">
-      <div className="container-custom relative z-10">
+      <div className="container-custom">
         <div className="projects-grid">
-          {[1,2,3].map(i => (
+          {[1, 2, 3].map(i => (
             <div key={i} className="project-card animate-pulse">
-              <div className="card-media bg-white/5" />
+              <div className="card-media" />
               <div className="project-content space-y-4">
-                <div className="h-3 bg-white/10 rounded-full w-1/3" />
-                <div className="h-6 bg-white/10 rounded-full w-2/3" />
+                <div className="h-3 bg-white/10 rounded-full w-1/4" />
+                <div className="h-8 bg-white/10 rounded-full w-3/4" />
                 <div className="h-4 bg-white/5 rounded-full w-full" />
                 <div className="h-4 bg-white/5 rounded-full w-5/6" />
               </div>
@@ -35,50 +54,65 @@ const ProjectList = () => {
 
   return (
     <section id="projects" className="projects-section">
+      {/* Decorative background elements */}
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full -z-10" />
+      <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-primary/3 blur-[100px] rounded-full -z-10" />
+
       <div className="container-custom relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-24"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border-primary/20 mb-6">
-            <Code size={12} className="text-primary-bright" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-primary-bright italic">Portafolio</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 backdrop-blur-md rounded-full border border-white/10 mb-6">
+            <Code size={14} className="text-primary-bright" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary-bright">Trabajos Realizados</span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-display font-black text-white tracking-tighter">
-            Proyectos <span className="wine-gradient italic">Destacados</span>
+          <h2 className="text-5xl md:text-8xl font-display font-black text-white tracking-tighter leading-none">
+            Ingeniería de <br />
+            <span className="wine-gradient italic">Software</span>
           </h2>
         </motion.div>
 
-        <div className="projects-grid">
-          {projects.map((project: any, index: number) => (
+        <motion.div 
+          className="projects-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {projects.map((project: any) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              variants={itemVariants}
               className="project-card group"
             >
               <div className="project-image-container">
                 <img 
-                  src={project.image_url || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80'} 
+                  src={project.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80'} 
                   alt={project.title} 
                   className="project-image"
                   loading="lazy"
-                  decoding="async"
                 />
                 <div className="project-image-overlay" />
+                <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                   <div className="w-10 h-10 rounded-full bg-midnight/80 backdrop-blur-md flex items-center justify-center border border-white/10">
+                      <ArrowRight size={18} className="text-white -rotate-45" />
+                   </div>
+                </div>
               </div>
 
               <div className="project-content">
                 <div className="project-category">
-                  {project.category || 'Software Architecture'}
-                  <span className="w-8 h-px bg-primary/30" />
+                  <span className="w-2 h-2 rounded-full bg-primary" />
+                  {project.category || 'Full Stack Development'}
                 </div>
                 
-                <h3 className="project-title">{project.title}</h3>
+                <h3 className="project-title group-hover:text-primary-bright transition-colors duration-300">
+                  {project.title}
+                </h3>
                 
                 <p className="project-description">{project.description}</p>
 
@@ -92,9 +126,9 @@ const ProjectList = () => {
 
                 <div className="project-links">
                   {(project.demo_url || project.live_url) && (
-                    <a href={project.demo_url || project.live_url} target="_blank" rel="noopener noreferrer" className="project-link-primary group">
+                    <a href={project.demo_url || project.live_url} target="_blank" rel="noopener noreferrer" className="project-link-primary">
                       <ExternalLink size={16} />
-                      <span>Ver Demo</span>
+                      <span>Live Preview</span>
                     </a>
                   )}
                   {(project.github_url || project.repo_url) && (
@@ -106,10 +140,22 @@ const ProjectList = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="mt-20 text-center"
+        >
+          <a href="https://github.com/jeisonMolina21" target="_blank" className="inline-flex items-center gap-3 text-white/50 hover:text-white transition-all duration-300 group">
+            <span className="text-sm font-medium tracking-widest uppercase">Explorar más en GitHub</span>
+            <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+          </a>
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default ProjectList;
+
