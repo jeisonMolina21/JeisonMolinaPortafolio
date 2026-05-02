@@ -1,20 +1,25 @@
 // If PUBLIC_API_URL is set in the environment (e.g. Vercel), it uses it.
 // Otherwise, in local development, it talks directly to the local backend.
-const envApiUrl = import.meta.env.PUBLIC_API_URL;
+// In local development, it talks to localhost:3000.
+// In production/preview, it uses the same host as the frontend.
 const isLocal = import.meta.env.DEV;
 
-// On vercel this will be the production backend URL.
-// Locally, if envApiUrl is /api, we should override it to localhost:3000 to use direct CORS instead of proxy
-const rawApiUrl = envApiUrl && envApiUrl !== '/api' 
-    ? envApiUrl 
-    : (isLocal ? 'http://localhost:3000/api' : '/api');
+let rawApiUrl = '';
 
-let sanitizedUrl = rawApiUrl.replace(/\/+$/, '');
-// If it's an absolute URL and doesn't end with /api, append it.
-if (sanitizedUrl.startsWith('http') && !sanitizedUrl.endsWith('/api')) {
-    sanitizedUrl += '/api';
+if (typeof window !== 'undefined') {
+    // Client-side
+    if (isLocal) {
+        rawApiUrl = 'http://localhost:3000/api';
+    } else {
+        // Dynamic detection for Vercel previews and production
+        rawApiUrl = window.location.origin + '/api';
+    }
+} else {
+    // Server-side (during build or SSR)
+    rawApiUrl = import.meta.env.PUBLIC_API_URL || '/api';
 }
-export const API_BASE_URL = sanitizedUrl;
+
+export const API_BASE_URL = rawApiUrl.replace(/\/+$/, '');
 
 if (typeof window !== 'undefined') {
     console.log('📡 API_BASE_URL initialized as:', API_BASE_URL);

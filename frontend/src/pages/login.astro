@@ -57,6 +57,7 @@ import LoginModal from '../components/LoginModal';
   </div>
 
   <script>
+    import { api } from '../utils/api';
     const form = document.getElementById('login-form') as HTMLFormElement;
     const errorDiv = document.getElementById('error-message');
 
@@ -66,21 +67,17 @@ import LoginModal from '../components/LoginModal';
       const data = Object.fromEntries(formData);
 
       try {
-        const res = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        if (res.ok) {
-          const { token } = await res.json();
-          localStorage.setItem('token', token);
+        const result = await api.post('auth/login', data);
+        
+        if (result && result.token) {
+          localStorage.setItem('token', result.token);
           window.location.href = '/admin';
         } else {
           errorDiv?.classList.remove('hidden');
         }
       } catch (err) {
-        console.error(err);
+        console.error('Login error:', err);
+        errorDiv?.classList.remove('hidden');
       }
     });
   </script>
