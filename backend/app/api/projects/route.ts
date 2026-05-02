@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
-import { verifyToken } from '@/lib/auth';
+import { getAuthUser } from '@/lib/auth';
 import { translate } from '@/lib/translator';
 import { ProjectSchema } from '@/lib/schemas';
 import { validateData } from '@/lib/validation';
-import { withCors, optionsResponse } from '@/lib/cors';
+import { optionsResponse } from '@/lib/cors';
+import { successResponse, errorResponse, unauthorizedResponse, validationErrorResponse } from '@/constants/api-responses';
 
 export async function OPTIONS(req: NextRequest) {
   const origin = req.headers.get('origin');
@@ -25,24 +26,24 @@ export async function GET(req: NextRequest) {
       tech_stack: await translate(row.tech_stack, lang),
     })));
 
-    return withCors(NextResponse.json(processedRows), origin);
+    return successResponse(processedRows, origin);
   } catch (error: any) {
     console.error('Error fetching projects:', error);
-    return withCors(NextResponse.json({ error: 'Error fetching projects' }, { status: 500 }), origin);
+    return errorResponse('Error al obtener los proyectos', 500, error.message, origin);
   }
 }
 
 export async function POST(req: NextRequest) {
   const origin = req.headers.get('origin');
   try {
-    const token = req.headers.get('Authorization')?.split(' ')[1];
-    if (!token || !verifyToken(token)) {
-      return withCors(NextResponse.json({ error: 'Unauthorized' }, { status: 401 }), origin);
+    const user = getAuthUser(req);
+    if (!user) {
+      return unauthorizedResponse(origin);
     }
 
     const body = await req.json();
     const { isValid, data, response } = await validateData(ProjectSchema, body);
-    if (!isValid) return withCors(response!, origin);
+    if (!isValid) return validationErrorResponse(data, origin);
 
     const { title, description, image_url, video_url, github_url, demo_url, tech_stack } = data!;
 
@@ -51,9 +52,10 @@ export async function POST(req: NextRequest) {
       [title, description, image_url, video_url ?? null, github_url ?? null, demo_url ?? null, tech_stack]
     );
 
-    return withCors(NextResponse.json({ id: result.insertId, message: 'Project added successfully' }, { status: 201 }), origin);
+    return successResponse({ id: result.insertId, message: 'Proyecto agregado exitosamente' }, origin);
   } catch (error: any) {
     console.error('Error adding project:', error);
-    return withCors(NextResponse.json({ error: 'Error adding project' }, { status: 500 }), origin);
+    return errorResponse('Error al agregar el proyecto', 500, error.message, origin);
   }
 }
+

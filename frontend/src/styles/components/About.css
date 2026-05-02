@@ -1,68 +1,81 @@
 
 .about-section {
-    @apply section-padding relative overflow-hidden bg-bg-deep/50;
+    @apply section-padding relative overflow-hidden bg-[#080808] py-24 md:py-32;
+}
+
+.about-section::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none;
+    background-image: radial-gradient(#ffffff 1px, transparent 1px);
+    background-size: 40px 40px;
 }
 
 .about-content-grid {
-    @apply max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20;
+    @apply max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24;
 }
 
 .about-bio-column {
-    @apply lg:col-span-5 space-y-8 md:space-y-12;
+    @apply lg:col-span-5 space-y-10 md:space-y-14;
 }
 
 .about-skills-column {
-    @apply lg:col-span-7 space-y-8 md:space-y-10;
+    @apply lg:col-span-7 space-y-10;
 }
 
 .about-title {
-    @apply text-5xl md:text-7xl font-display font-black leading-none tracking-tighter mb-8 text-white;
+    @apply text-5xl md:text-7xl font-display font-black leading-[0.9] tracking-tighter mb-10 text-white;
 }
 
 .about-bio-text {
-    @apply space-y-6 text-text-dim text-lg leading-relaxed font-medium;
+    @apply space-y-8 text-white/60 text-lg md:text-xl font-medium leading-relaxed;
 }
 
 .about-focus-card {
-    @apply p-6 md:p-8 glass rounded-[2.5rem] md:rounded-[3rem] border-white/5 bg-gradient-to-br from-white/5 to-transparent flex items-center gap-6;
+    @apply p-8 md:p-10 glass rounded-[2.5rem] border-white/5 bg-gradient-to-br from-white/5 to-transparent flex items-center gap-8 backdrop-blur-3xl;
 }
 
 .about-skill-category-card {
-    @apply glass p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] bg-gradient-to-br border-white/5 hover:border-primary/30 transition-all duration-500;
+    @apply p-8 md:p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-primary/40 transition-all duration-700 backdrop-blur-xl relative overflow-hidden;
+}
+
+.about-skill-category-card::after {
+    content: '';
+    @apply absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2;
 }
 
 .about-category-header {
-    @apply flex items-center gap-4 mb-6;
+    @apply flex items-center gap-5 mb-8;
 }
 
 .about-category-icon-box {
-    @apply p-2 bg-white/5 rounded-xl text-white;
+    @apply p-3 bg-primary/10 rounded-2xl text-primary-bright border border-primary/20;
 }
 
 .about-category-title {
-    @apply text-sm font-black uppercase tracking-[0.2em] text-white/90;
+    @apply text-xs font-black uppercase tracking-[0.3em] text-white/90;
 }
 
 .about-skills-flex {
-    @apply flex flex-wrap gap-2 md:gap-3;
+    @apply flex flex-wrap gap-3 md:gap-4;
 }
 
 .about-skill-token {
-    @apply flex items-center gap-2 px-3 py-1.5 glass bg-white/5 rounded-full border-white/5 hover:bg-white/10 transition-colors;
+    @apply flex items-center gap-3 px-4 py-2 bg-white/[0.03] rounded-xl border border-white/5 hover:bg-white/10 hover:border-primary/30 transition-all duration-300;
 }
 
 .about-skill-icon {
-    @apply text-base md:text-lg group-hover:scale-110 transition-transform;
+    @apply text-xl group-hover:scale-125 transition-transform duration-500;
 }
 
 .about-skill-name {
-    @apply text-[9px] font-bold text-text-muted transition-colors group-hover:text-white uppercase tracking-wider;
+    @apply text-[10px] font-black text-white/40 group-hover:text-white uppercase tracking-widest transition-colors duration-300;
 }
 
 .badge-outline {
-    @apply inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border-primary/20 mb-6;
+    @apply inline-flex items-center gap-3 px-6 py-2 bg-primary/10 rounded-full border border-primary/20 mb-8 backdrop-blur-md;
 }
 
 .badge-text {
-    @apply text-[10px] font-bold uppercase tracking-widest text-primary-bright italic;
+    @apply text-[10px] font-black uppercase tracking-[0.3em] text-primary-bright italic;
 }
+

@@ -33,12 +33,14 @@ const HomePage = () => {
           
           <main className="space-y-0 relative z-0">
             <Hero />
+            <About />
             <Experience />
             <Education />
             <ProjectList />
             <Contact />
             <AdminSection />
           </main>
+
           
           <WhatsAppButton />
         </div>

@@ -20,17 +20,23 @@ const Hero = () => {
       <section className="error-container">
         <div className="error-card">
           <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            initial={{ scale: 0.9, opacity: 0, rotate: -10 }}
+            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+            transition={{ type: "spring", stiffness: 200 }}
             className="error-icon-box"
           >
             <AlertCircle size={40} />
           </motion.div>
           <h2 className="error-title">Sincronización Fallida</h2>
           <p className="error-message">{error}</p>
-          <button onClick={() => window.location.reload()} className="btn-secondary">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.location.reload()} 
+            className="btn-secondary"
+          >
             Reintentar Conexión
-          </button>
+          </motion.button>
         </div>
       </section>
     );
@@ -41,49 +47,51 @@ const Hero = () => {
     { icon: <Linkedin size={20} />, url: profileData.linkedin || 'https://linkedin.com' }
   ] : [];
 
-  const metrics = [
-    { 
-      value: "12 Días", 
-      label: "Ahorrados al mes", 
-      icon: <Clock className="text-primary-bright" size={16} />,
-      desc: "Optimización de procesos operativos"
-    },
-    { 
-      value: "60%", 
-      label: "Mejora en Reportes", 
-      icon: <Sparkles className="text-primary-bright" size={16} />,
-      desc: "Automatización de data analytics"
-    },
-    { 
-      value: "<1 Hora", 
-      label: "Gestión de Cuentas", 
-      icon: <Zap className="text-primary-bright" size={16} />,
-      desc: "Respuesta inmediata automatizada"
-    }
-  ];
-
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.3 } }
+    visible: { 
+      opacity: 1, 
+      transition: { 
+        staggerChildren: 0.2, 
+        delayChildren: 0.4,
+        ease: "easeOut"
+      } 
+    }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } }
+    hidden: { y: 40, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1, 
+      transition: { 
+        duration: 1, 
+        ease: [0.16, 1, 0.3, 1] 
+      } 
+    }
   };
 
   if (loading || !profileData || !profileData.full_name) {
     return (
       <section className="loader-container">
-        <div className="flex flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-12">
           <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+            animate={{ 
+              rotate: 360,
+              scale: [1, 1.1, 1],
+              borderColor: ["#991b1b", "#dc2626", "#991b1b"]
+            }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
             className="loader-spinner"
           />
           <motion.div 
-            animate={{ opacity: [0.4, 1, 0.4] }} 
-            transition={{ duration: 2, repeat: Infinity }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
             className="loader-text"
           >
             Arquitectura en Proceso...
@@ -118,35 +126,45 @@ const Hero = () => {
           
           <motion.div variants={itemVariants} className="hero-title-container">
             <p className="hero-tagline">
-              <span className="w-8 h-px bg-primary-bright"></span>
+              <span className="w-12 h-px bg-primary-bright"></span>
               {profileData?.title}
             </p>
             <h1 className="hero-title">
               {firstName}<br/>
-              <span className="wine-gradient italic">{lastName}</span>
+              <motion.span 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1, duration: 1 }}
+                className="wine-gradient italic"
+              >
+                {lastName}
+              </motion.span>
             </h1>
           </motion.div>
 
-          <motion.p variants={itemVariants} className="hero-description max-w-2xl text-lg leading-relaxed">
+          <motion.p variants={itemVariants} className="hero-description max-w-2xl">
             {profileData?.bio || profileData?.title}
           </motion.p>
 
-          {/* Metrics removed here as they are now floating banners */}
-
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-8 items-center pt-4">
-            <a href="#projects" className="btn-primary">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-10 items-center pt-8">
+            <motion.a 
+              href="#projects" 
+              className="btn-primary group"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
               {t('hero.talk') || 'Ver Proyectos'}
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </a>
+              <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
+            </motion.a>
             <SocialLinks links={socialLinks} />
           </motion.div>
         </motion.div>
 
         {/* Avatar Section */}
         <motion.div 
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+          initial={{ opacity: 0, scale: 0.9, x: 50 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
           className="lg:col-span-5 relative hidden lg:flex justify-end"
         >
           <HeroAvatar 
@@ -156,18 +174,24 @@ const Hero = () => {
             skills={data?.skills}
           />
           
-          <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-text-muted">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] [writing-mode:vertical-lr]">Scroll</span>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+            className="absolute -bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 text-white/30"
+          >
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] [writing-mode:vertical-lr]">Explorar</span>
             <motion.div 
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-px h-12 bg-gradient-to-b from-primary to-transparent"
+              animate={{ y: [0, 15, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="w-px h-16 bg-gradient-to-b from-primary to-transparent"
             />
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
   );
 };
+
 
 export default Hero;

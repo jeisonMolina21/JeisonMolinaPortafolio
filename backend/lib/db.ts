@@ -1,46 +1,45 @@
 import mysql from 'mysql2/promise';
 
-// Fix: properly check env vars before using them as a URL string
-const rawUrl = process.env.DATABASE_URL || process.env.URL_DE_LA_BASE_DE_DATOS;
+/**
+ * Database configuration aliases to support multiple environments and naming conventions.
+ */
+const DB_CONFIG = {
+  url: process.env.DATABASE_URL || process.env.URL_DE_LA_BASE_DE_DATOS,
+  host: process.env.DB_HOST || process.env.HOST_DE_LA_BASE_DE_DATOS || 'localhost',
+  port: parseInt(process.env.DB_PORT || process.env.Puerto_DB || '3306'),
+  user: process.env.DB_USER || process.env.USUARIO_DE_LA_BASE_DE_DATOS || 'root',
+  password: process.env.DB_PASSWORD || process.env.CONTRASEÑA_DE_BASE_DE_DATOS || '',
+  database: process.env.DB_NAME || process.env.NOMBRE_DE_LA_BASE_DE_DATOS || 'my_proyectsast',
+};
 
-const dbConfig = rawUrl
-  ? rawUrl
+const isLocalhost = DB_CONFIG.host === 'localhost';
+
+const connectionOptions: any = DB_CONFIG.url
+  ? {
+      uri: DB_CONFIG.url,
+      ssl: { rejectUnauthorized: false },
+    }
   : {
-      host: process.env.DB_HOST || process.env.HOST_DE_LA_BASE_DE_DATOS || 'localhost',
-      port: parseInt(process.env.DB_PORT || process.env.Puerto_DB || '3306'),
-      user: process.env.DB_USER || process.env.USUARIO_DE_LA_BASE_DE_DATOS || 'root',
-      password: process.env.DB_PASSWORD || process.env.CONTRASEÑA_DE_BASE_DE_DATOS || '',
-      database: process.env.DB_NAME || process.env.NOMBRE_DE_LA_BASE_DE_DATOS || 'my_proyectsast',
+      host: DB_CONFIG.host,
+      port: DB_CONFIG.port,
+      user: DB_CONFIG.user,
+      password: DB_CONFIG.password,
+      database: DB_CONFIG.database,
+      ssl: isLocalhost ? undefined : { rejectUnauthorized: false },
     };
 
-if (typeof dbConfig === 'object') {
-  console.log(`🔌 Attempting DB connection to host: ${dbConfig.host} (Port: ${dbConfig.port})`);
-} else {
-  console.log(`🔌 Attempting DB connection via DATABASE_URL (SSL Required)`);
-}
+console.log(`🔌 Conectando a la base de datos (${DB_CONFIG.url ? 'URL' : DB_CONFIG.host})...`);
 
-const isLocalhost = typeof dbConfig === 'object' && (dbConfig as any).host === 'localhost';
+const pool = mysql.createPool({
+  ...connectionOptions,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
-const pool = mysql.createPool(
-  typeof dbConfig === 'string'
-    ? {
-        uri: dbConfig,
-        ssl: { rejectUnauthorized: false },
-        waitForConnections: true,
-        connectionLimit: 10,
-        queueLimit: 0,
-      }
-    : {
-        ...(dbConfig as object),
-        waitForConnections: true,
-        connectionLimit: 10,
-        queueLimit: 0,
-        ssl: isLocalhost ? undefined : { rejectUnauthorized: false },
-      }
-);
-
-(pool as any).on('error', (err: any) => {
-  console.error('Unexpected error on idle database client', err);
+pool.on('error', (err: any) => {
+  console.error('❌ Error inesperado en el pool de la base de datos:', err);
 });
 
 export default pool;
+
