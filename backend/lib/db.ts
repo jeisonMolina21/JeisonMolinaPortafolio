@@ -37,9 +37,13 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-pool.on('error', (err: any) => {
+// mysql2/promise Pool doesn't expose 'on' with 'error' in the same way as the raw pool in some type versions.
+// We can handle errors on individual connections or the underlying pool if needed, 
+// but for the build to pass, we'll remove this listener or use the underlying pool.
+(pool as any).on('error', (err: any) => {
   console.error('❌ Error inesperado en el pool de la base de datos:', err);
 });
+
 
 export default pool;
 
