@@ -81,11 +81,11 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
       period: 'Abr 2024 – May 2025',
       bullets: lang === 'es' ? [
         'Desarrollo SaaS E-commerce Multi-Tenant con Next.js 14, React y SQL Server, incluyendo facturación DIAN y arquitectura serverless.',
-        'Construí bots RPA con Python para ETL Excel → MySQL y conciliación bancaria, reduciendo 60% el tiempo operativo con Pandas.',
+        'Construí bots RPA con Python para ETL Excel -> MySQL y conciliación bancaria, reduciendo 60% el tiempo operativo con Pandas.',
         'Optimicé 8 consultas SQL críticas en SQL Server mediante índices, logrando un 60% más de velocidad en la extracción de datos.'
       ] : [
         'Developing Multi-Tenant E-commerce SaaS with Next.js 14, React, and SQL Server, including DIAN legal invoicing and serverless architecture.',
-        'Built RPA bots with Python for Excel → MySQL ETL and bank reconciliation, reducing operational time by 60% with Pandas.',
+        'Built RPA bots with Python for Excel -> MySQL ETL and bank reconciliation, reducing operational time by 60% with Pandas.',
         'Optimized 8 critical SQL queries in SQL Server using indexes, achieving 60% faster data extraction speed.'
       ]
     },
@@ -109,9 +109,9 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
     y += 5;
     
     exp.bullets.forEach(bullet => {
-      const splitBullet = doc.splitTextToSize(`• ${bullet}`, 165);
+      const splitBullet = doc.splitTextToSize(`- ${bullet}`, 165);
       doc.text(splitBullet, 25, y);
-      y += (splitBullet.length * 4.5);
+      y += (splitBullet.length * 5.0);
     });
     y += 4;
     if (y > 270) { doc.addPage(); y = 20; }
