@@ -30,14 +30,14 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "/api/:path*"
+      "destination": "/backend/app/api/:path*"
     },
     {
       "source": "/_astro/:path*",
       "destination": "/frontend/dist/_astro/:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/frontend/dist/$1"
     }
   ]
