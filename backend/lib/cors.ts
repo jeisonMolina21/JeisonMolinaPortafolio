@@ -13,9 +13,10 @@ const allowedOrigins = [
 ];
 
 export function corsHeaders(origin?: string | null): Record<string, string> {
-  const allowed = (origin && (origin.endsWith('.vercel.app') || allowedOrigins.includes(origin))) 
-    ? origin 
-    : '*';
+  const isVercel = origin && (origin.endsWith('.vercel.app') || origin.includes('vercel.app'));
+  const isAllowed = isVercel || (origin && allowedOrigins.includes(origin));
+  
+  const allowed = isAllowed ? origin : '*';
   
   return {
     'Access-Control-Allow-Origin': allowed,

@@ -9,11 +9,14 @@ let rawApiUrl = '';
 if (isLocal) {
     rawApiUrl = 'http://localhost:3000/api';
 } else {
-    // Si hay una variable de entorno definida en Vercel, la usamos.
-    // Si no, usamos la URL fija del despliegue del backend.
     rawApiUrl = (envApiUrl && envApiUrl !== '/api') 
         ? envApiUrl 
-        : `${PRODUCTION_BACKEND_URL}/api`;
+        : PRODUCTION_BACKEND_URL;
+    
+    // Aseguramos que termine en /api
+    if (!rawApiUrl.endsWith('/api')) {
+        rawApiUrl = `${rawApiUrl.replace(/\/+$/, '')}/api`;
+    }
 }
 
 export const API_BASE_URL = rawApiUrl.replace(/\/+$/, '');
