@@ -10,18 +10,12 @@ import { localizeObject } from '@/constants/languages';
 export class GatewayController {
   static async getSummary(req: NextRequest) {
     const origin = req.headers.get('origin');
-    try {
-      const { searchParams } = new URL(req.url);
-      const lang = searchParams.get('lang') || 'es';
+    const { searchParams } = new URL(req.url);
+    const lang = searchParams.get('lang') || 'es';
 
-      // Fetch all data in parallel using Models
-      const [
-        profileRaw,
-        experienceRaw,
-        projectRaw,
-        [skillRows],
-        [educationRows]
-      ]: any = await Promise.all([
+    try {
+      // 1. Fetch raw data in parallel
+      const [profileRaw, experienceRaw, projectRaw, [skillRows], [educationRows]]: any = await Promise.all([
         ProfileModel.getById(1),
         ExperienceModel.getAll(lang),
         ProjectModel.getAll(),
@@ -29,48 +23,13 @@ export class GatewayController {
         pool.query('SELECT * FROM education ORDER BY created_at DESC')
       ]);
 
-      // Process Profile
-      let profile = profileRaw;
-      if (profile) {
-        profile = localizeObject(profile, ['title', 'bio', 'headline_metric'], lang);
-        if (!profile.title && profile.title_es) profile.title = await translate(profile.title_es, lang);
-        if (!profile.bio && profile.bio_es) profile.bio = await translate(profile.bio_es, lang);
-        
-        // Parse metrics_json if it exists
-        if (profile.metrics_json) {
-          try {
-            profile.metrics = JSON.parse(profile.metrics_json);
-          } catch (e) {
-            profile.metrics = [];
-          }
-        }
-      }
-
-      // Process Experience
-      const experience = await Promise.all(experienceRaw.map(async (row: any) => ({
-        ...row,
-        role: await translate(row.role, lang),
-        description: await translate(row.description, lang),
-        skills: await translate(row.skills, lang),
-      })));
-
-      // Process Projects
-      const projects = await Promise.all(projectRaw.map(async (row: any) => ({
-        ...row,
-        title: await translate(row.title, lang),
-        description: await translate(row.description, lang),
-        challenge: await translate(row.challenge || '', lang),
-        action: await translate(row.action || '', lang),
-        result: await translate(row.result || '', lang),
-        tech_stack: await translate(row.tech_stack, lang),
-      })));
-
-      // Process Education
-      const education = await Promise.all(educationRows.map(async (row: any) => ({
-        ...row,
-        degree: await translate(row.degree, lang),
-        description: await translate(row.description, lang),
-      })));
+      // 2. Process data in parallel
+      const [profile, experience, projects, education] = await Promise.all([
+        this.processProfile(profileRaw, lang),
+        this.processExperience(experienceRaw, lang),
+        this.processProjects(projectRaw, lang),
+        this.processEducation(educationRows, lang)
+      ]);
 
       return successResponse({
         profile,
@@ -79,9 +38,57 @@ export class GatewayController {
         skills: skillRows,
         education
       }, origin);
+
     } catch (error: any) {
-      console.error('Gateway Error:', error);
-      return errorResponse('Error al obtener el resumen del portafolio', 500, error.message, origin);
+      console.error('🚀 [Gateway Error]:', error);
+      return errorResponse('Error al sincronizar el portafolio', 500, error.message, origin);
     }
+  }
+
+  private static async processProfile(profile: any, lang: string) {
+    if (!profile) return null;
+    const localized = localizeObject(profile, ['title', 'bio', 'headline_metric'], lang);
+    
+    // Auto-translate if empty
+    if (!localized.title && profile.title_es) localized.title = await translate(profile.title_es, lang);
+    if (!localized.bio && profile.bio_es) localized.bio = await translate(profile.bio_es, lang);
+    
+    if (profile.metrics_json) {
+      try {
+        localized.metrics = JSON.parse(profile.metrics_json);
+      } catch (e) {
+        localized.metrics = [];
+      }
+    }
+    return localized;
+  }
+
+  private static async processExperience(items: any[], lang: string) {
+    return Promise.all(items.map(async (item) => ({
+      ...item,
+      role: lang === 'es' ? item.role : await translate(item.role, lang),
+      description: lang === 'es' ? item.description : await translate(item.description, lang),
+      skills: lang === 'es' ? item.skills : await translate(item.skills, lang)
+    })));
+  }
+
+  private static async processProjects(items: any[], lang: string) {
+    return Promise.all(items.map(async (item) => ({
+      ...item,
+      title: lang === 'es' ? item.title : await translate(item.title, lang),
+      description: lang === 'es' ? item.description : await translate(item.description, lang),
+      challenge: lang === 'es' ? (item.challenge || '') : await translate(item.challenge || '', lang),
+      action: lang === 'es' ? (item.action || '') : await translate(item.action || '', lang),
+      result: lang === 'es' ? (item.result || '') : await translate(item.result || '', lang),
+      tech_stack: lang === 'es' ? item.tech_stack : await translate(item.tech_stack, lang)
+    })));
+  }
+
+  private static async processEducation(items: any[], lang: string) {
+    return Promise.all(items.map(async (item) => ({
+      ...item,
+      degree: lang === 'es' ? item.degree : await translate(item.degree, lang),
+      description: lang === 'es' ? (item.description || '') : await translate(item.description || '', lang)
+    })));
   }
 }

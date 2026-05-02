@@ -12,22 +12,20 @@ import Contact from '../components/Contact';
 import WhatsAppButton from '../components/WhatsAppButton';
 import { LanguageProvider } from '../context/LanguageContext';
 
-const isDev = import.meta.env.DEV;
-const BASE_URL = isDev ? "http://localhost:3000" : "https://jeison-molina-portafolio-yerl.vercel.app";
+import { API_BASE_URL } from '../utils/api';
 
-let data = { profile: {}, skills: [], experience: [], education: [], projects: [] };
+let data = { profile: { metrics: [] }, skills: [], experience: [], education: [], projects: [] };
+
 try {
-    const API_URL = `${BASE_URL}/api/summary?lang=es`;
-    const response = await fetch(API_URL);
+    const response = await fetch(`${API_BASE_URL}/summary?lang=es`);
     if (response.ok) {
-        const result = await response.json();
-        data = result || data;
+        data = await response.json();
     }
 } catch (e) {
-    console.error("Error fetching data:", e);
+    console.error("❌ Error fetching summary data:", e);
 }
 
-const groupedSkills = data.skills.reduce((acc: any, skill: any) => {
+const groupedSkills = (data.skills || []).reduce((acc: any, skill: any) => {
   const cat = skill.category || 'Otros';
   if (!acc[cat]) acc[cat] = [];
   acc[cat].push(skill);
@@ -49,7 +47,7 @@ const groupedSkills = data.skills.reduce((acc: any, skill: any) => {
             <About profile={data.profile} groupedSkills={groupedSkills} />
             <Experience experience={data.experience} />
             <Education education={data.education} />
-            <Metrics />
+            <Metrics metrics={data.profile?.metrics || []} />
             <ProjectList projects={data.projects} />
             <Contact client:visible />
         </main>
