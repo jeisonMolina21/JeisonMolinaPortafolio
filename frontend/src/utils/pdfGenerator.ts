@@ -164,6 +164,38 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   doc.text('(2024 – 2026)', 190, y, { align: 'right' });
   y += 5;
   doc.text('Análisis y Desarrollo de Software | En curso', margin, y);
+  y += 10;
 
-  doc.save(`CV_Jeison_Molina_Backend.pdf`);
+  // Projects (In CV)
+  sectionTitle(lang === 'es' ? 'Proyectos Destacados' : 'Key Projects');
+  
+  const projects = [
+    {
+      name: 'Marketify: SaaS E-commerce Multi-Tenant',
+      tech: 'Node.js, Astro, React, SQL Server',
+      desc: lang === 'es' 
+        ? 'Plataforma con facturación DIAN, arquitectura multi-tenant y carga masiva CSV.'
+        : 'Platform with DIAN legal invoicing, multi-tenant architecture, and CSV bulk upload.'
+    },
+    {
+      name: 'Identity Digital Pass: Sistema de Carnetización',
+      tech: 'React, Node.js, Microservicios, SQL Server, VPS Ubuntu',
+      desc: lang === 'es'
+        ? 'Sistema institucional con arquitectura de microservicios y despliegue en VPS Ubuntu Server.'
+        : 'Institutional system with microservices architecture and deployment on VPS Ubuntu Server.'
+    }
+  ];
+
+  projects.forEach(proj => {
+    doc.setFont('helvetica', 'bold');
+    doc.text(proj.name, margin, y);
+    y += 5;
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Stack: ${proj.tech}`, margin, y);
+    y += 5;
+    y = addJustifiedText(proj.desc, margin, y, contentWidth);
+    y += 4;
+  });
+
+  doc.save(`CV_Jeison_Molina_FullStack.pdf`);
 };
