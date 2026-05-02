@@ -89,8 +89,8 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   const experiences = [
     {
       company: 'Fundación Universitaria Horizonte',
-      role: 'Backend Python Developer',
-      period: 'Jul 2024 – Mar 2025',
+      role: 'Backend Python Developer | APIs & Data Automation',
+      period: 'Julio 2025 – Actualidad',
       bullets: [
         'Desarrollé APIs REST con Python y Django REST Framework para Microsoft 365, gestionando +500 usuarios/semestre con autenticación OAuth2 y Microsoft Graph API.',
         'Construí pipeline ETL con Pandas y MySQL que procesa +50,000 registros biométricos diarios, garantizando 99.8% de integridad para nómina.',
@@ -102,7 +102,7 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
     {
       company: 'Freelance',
       role: 'Python Developer & Automation Specialist',
-      period: 'Abr 2024 – Actualidad',
+      period: 'Abril 2024 – Actualidad',
       bullets: [
         'Desarrollo SaaS E-commerce Multi-Tenant con Next.js 14, React y SQL Server, incluyendo facturación electrónica DIAN y arquitectura serverless.',
         'Construí bots RPA con Python para migración ETL Excel -> MySQL y conciliación bancaria, reduciendo 60% tiempo operativo con Pandas.',
@@ -113,7 +113,7 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
     {
       company: 'Gi Group',
       role: 'Automation Engineer',
-      period: 'Oct 2023 – Mar 2024',
+      period: 'Octubre 2023 – Marzo 2024',
       bullets: [
         'Automaticé procesos ETL con Python y MySQL para Power BI, reduciendo 50% el tiempo de reportes ejecutivos mediante vistas materializadas.',
         'Desarrollé scripts de automatización con Python para conciliación de datos financieros con manejo de logs.'
@@ -124,14 +124,17 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   experiences.forEach(exp => {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
-    doc.text(`${exp.company} | ${exp.role}`, margin, y);
+    doc.text(`${exp.company}`, margin, y);
     doc.setFont('helvetica', 'normal');
     doc.text(exp.period, 190, y, { align: 'right' });
+    y += 5;
+    doc.setFont('helvetica', 'bold');
+    doc.text(exp.role, margin, y);
     y += 7;
     
     exp.bullets.forEach(bullet => {
       y = addJustifiedText(`- ${bullet}`, margin + 5, y, contentWidth - 5);
-      y += 1; // Bullet spacing
+      y += 1;
     });
     y += 4;
     if (y > 270) { doc.addPage(); y = 20; }
@@ -149,14 +152,19 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   y += 5;
   sectionTitle(lang === 'es' ? 'Educación' : 'Education');
   doc.setFont('helvetica', 'bold');
-  doc.text('Corporación Unificada Nacional (CUN) – Ingeniería de Sistemas', margin, y);
+  doc.text('Corporación Unificada Nacional (CUN)', margin, y);
   doc.setFont('helvetica', 'normal');
-  doc.text('En curso (2023 – 2027)', 190, y, { align: 'right' });
-  y += 7;
+  doc.text('(2023 – 2027)', 190, y, { align: 'right' });
+  y += 5;
+  doc.text('Ingeniería de Sistemas | En curso', margin, y);
+  y += 8;
+
   doc.setFont('helvetica', 'bold');
-  doc.text('Servicio Nacional de Aprendizaje (SENA) – Análisis y Desarrollo de Software', margin, y);
+  doc.text('Servicio Nacional de Aprendizaje (SENA)', margin, y);
   doc.setFont('helvetica', 'normal');
-  doc.text('En curso (2024 – 2026)', 190, y, { align: 'right' });
+  doc.text('(2024 – 2026)', 190, y, { align: 'right' });
+  y += 5;
+  doc.text('Análisis y Desarrollo de Software | En curso', margin, y);
 
   doc.save(`CV_Jeison_Molina_Backend.pdf`);
 };
