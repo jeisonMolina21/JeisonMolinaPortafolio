@@ -28,12 +28,9 @@ const Skills = ({ categories: customCategories }: SkillsProps) => {
     }, []);
 
     const defaultCategories = [
-        { name: 'Programming', icon: <Terminal size={24} />, description: 'Core logic & development' },
-        { name: 'Backend', icon: <Cpu size={24} />, description: 'Server-side engineering' },
-        { name: 'Frontend', icon: <Sparkles size={24} />, description: 'Interactive experiences' },
-        { name: 'Data', icon: <Database size={24} />, description: 'Processing & analysis' },
-        { name: 'Tools', icon: <Box size={24} />, description: 'DevOps & environment' },
-        { name: 'Other', icon: <Cloud size={24} />, description: 'Business & integration' }
+        { name: 'Backend & Data', icon: <Database size={24} />, description: 'ETL de 50k registros/día, APIs para 6 sistemas' },
+        { name: 'Frontend', icon: <Sparkles size={24} />, description: '98/100 Lighthouse, SSR para SEO' },
+        { name: 'DevOps & Cloud', icon: <Cloud size={24} />, description: 'CI/CD automático, dashboards ejecutivos' }
     ];
 
     const groupedSkills = (Array.isArray(skills) ? skills : []).reduce((acc: any, skill) => {

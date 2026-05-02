@@ -127,36 +127,49 @@ const Hero = () => {
           <motion.div variants={itemVariants} className="hero-title-container">
             <p className="hero-tagline">
               <span className="w-12 h-px bg-primary-bright"></span>
-              {profileData?.title}
+              {profileData?.title || 'Backend Python Developer'}
             </p>
             <h1 className="hero-title">
-              {firstName}<br/>
-              <motion.span 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 1 }}
-                className="wine-gradient italic"
-              >
-                {lastName}
-              </motion.span>
+              {profileData?.headline_metric ? (
+                <span className="block text-4xl md:text-6xl lg:text-7xl">
+                  {profileData.headline_metric.split(' ').map((word: string, i: number) => (
+                    <span key={i} className={word.includes('40') || word.includes('5') || word.includes('minutos') || word.includes('horas') ? 'wine-gradient italic px-2' : ''}>
+                      {word}{' '}
+                    </span>
+                  ))}
+                </span>
+              ) : (
+                <>
+                  {firstName}<br/>
+                  <motion.span className="wine-gradient italic">{lastName}</motion.span>
+                </>
+              )}
             </h1>
           </motion.div>
 
-          <motion.p variants={itemVariants} className="hero-description max-w-2xl">
-            {profileData?.bio || profileData?.title}
+          <motion.p variants={itemVariants} className="hero-description max-w-2xl text-xl mt-4 text-white/70">
+            {profileData?.bio || 'Python + SQL + Docker | Astro + Next.js | Open to Remote LATAM/US'}
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-10 items-center pt-8">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 items-center pt-10">
             <motion.a 
               href="#projects" 
-              className="btn-primary group"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="btn-primary group px-8 py-4 text-lg"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {t('hero.talk') || 'Ver Proyectos'}
-              <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
+              Ver casos de éxito
+              <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
             </motion.a>
-            <SocialLinks links={socialLinks} />
+            
+            <motion.a 
+              href="/cv-jeison-molina.pdf" 
+              className="btn-secondary px-8 py-4 text-lg border-white/10 hover:border-primary/50"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Descargar CV
+            </motion.a>
           </motion.div>
         </motion.div>
 

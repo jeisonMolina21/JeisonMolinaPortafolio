@@ -32,9 +32,18 @@ export class GatewayController {
       // Process Profile
       let profile = profileRaw;
       if (profile) {
-        profile = localizeObject(profile, ['title', 'bio'], lang);
+        profile = localizeObject(profile, ['title', 'bio', 'headline_metric'], lang);
         if (!profile.title && profile.title_es) profile.title = await translate(profile.title_es, lang);
         if (!profile.bio && profile.bio_es) profile.bio = await translate(profile.bio_es, lang);
+        
+        // Parse metrics_json if it exists
+        if (profile.metrics_json) {
+          try {
+            profile.metrics = JSON.parse(profile.metrics_json);
+          } catch (e) {
+            profile.metrics = [];
+          }
+        }
       }
 
       // Process Experience
@@ -50,6 +59,9 @@ export class GatewayController {
         ...row,
         title: await translate(row.title, lang),
         description: await translate(row.description, lang),
+        challenge: await translate(row.challenge || '', lang),
+        action: await translate(row.action || '', lang),
+        result: await translate(row.result || '', lang),
         tech_stack: await translate(row.tech_stack, lang),
       })));
 

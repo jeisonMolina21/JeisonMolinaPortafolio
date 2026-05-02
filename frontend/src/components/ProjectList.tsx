@@ -114,7 +114,33 @@ const ProjectList = () => {
                   {project.title}
                 </h3>
                 
-                <p className="project-description">{project.description}</p>
+                {/* C-A-R Formula Display */}
+                <div className="space-y-4 mb-6">
+                  {project.challenge && (
+                    <div className="flex gap-3">
+                      <span className="text-[10px] font-black text-primary uppercase mt-1">C</span>
+                      <p className="text-sm text-white/70 leading-relaxed italic">
+                        <strong className="text-white/90 not-italic">Problema:</strong> {project.challenge}
+                      </p>
+                    </div>
+                  )}
+                  {project.action && (
+                    <div className="flex gap-3">
+                      <span className="text-[10px] font-black text-primary-bright uppercase mt-1">A</span>
+                      <p className="text-sm text-white/70 leading-relaxed italic">
+                        <strong className="text-white/90 not-italic">Solución:</strong> {project.action}
+                      </p>
+                    </div>
+                  )}
+                  {project.result && (
+                    <div className="flex gap-3">
+                      <span className="text-[10px] font-black text-green-400 uppercase mt-1">R</span>
+                      <p className="text-sm text-green-400/90 leading-relaxed font-bold">
+                        {project.result}
+                      </p>
+                    </div>
+                  )}
+                </div>
 
                 <div className="project-tags">
                   {(project.tech_stack || project.tags)?.split(',').map((tag: string, i: number) => (
@@ -136,6 +162,9 @@ const ProjectList = () => {
                       <Github size={20} />
                     </a>
                   )}
+                  <a href={`/proyectos/${project.title.toLowerCase().split(':')[0].trim().replace(/\s+/g, '-')}`} className="text-[10px] font-black uppercase tracking-widest text-white/30 hover:text-white ml-auto transition-colors">
+                    Case Study
+                  </a>
                 </div>
               </div>
             </motion.div>

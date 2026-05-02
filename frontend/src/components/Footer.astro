@@ -14,13 +14,16 @@ const currentYear = new Date().getFullYear();
           PORT<span class="wine-gradient italic">AFOLIO</span>
         </a>
         <p class="footer-bio">
-          Diseñando el futuro a través de la <span class="text-white">automatización</span> y la excelencia técnica en cada línea de código.
+          ¿Tienes un proceso de <span class="text-white font-black italic">40h</span> que quieres reducir a <span class="text-primary-bright font-black">5min</span>?
         </p>
-        <div class="flex gap-4">
+        <div class="flex flex-col gap-4">
+          <a href="mailto:andreyyeisonmg@gmail.com" class="text-white/60 hover:text-white transition-colors">andreyyeisonmg@gmail.com</a>
+          <a href="https://calendly.com/jeisonmolina/15min" target="_blank" class="text-primary-bright font-black hover:underline">Agenda 15 min conmigo →</a>
+        </div>
+        <div class="flex gap-4 pt-4">
           {[
             { icon: <Github size={20} />, href: "https://github.com/jeisonMolina21" },
             { icon: <Linkedin size={20} />, href: "https://linkedin.com/in/jeisonmolina" },
-            { icon: <Twitter size={20} />, href: "#" },
             { icon: <Mail size={20} />, href: "mailto:andreyyeisonmg@gmail.com" }
           ].map(social => (
             <a 
@@ -43,6 +46,9 @@ const currentYear = new Date().getFullYear();
                 <a href={`#${item.toLowerCase()}`} class="footer-nav-link">{item}</a>
               </li>
             ))}
+            <li>
+              <a href="/cv-jeison-molina.pdf" class="footer-nav-link font-black text-primary-bright">Download CV</a>
+            </li>
           </ul>
         </div>
         

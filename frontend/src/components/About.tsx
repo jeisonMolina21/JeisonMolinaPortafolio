@@ -70,10 +70,34 @@ const About = () => {
             <h2 className="about-title">
               Arquitecto de <br/><span className="wine-gradient italic">Soluciones</span>
             </h2>
-            <div className="about-bio-text">
+            <div className="about-bio-text text-xl leading-relaxed text-white/70">
               {profileData?.bio && profileData.bio.split('\n\n').map((para: string, i: number) => (
-                <p key={i}>{para}</p>
+                <p key={i} className="mb-6">{para}</p>
               ))}
+              
+              {/* Metrics Section */}
+              <ul className="mt-10 space-y-6">
+                {(profileData.metrics || []).map((metric: string, i: number) => (
+                  <motion.li 
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.2 }}
+                    className="flex items-start gap-4 group"
+                  >
+                    <div className="mt-1.5 w-5 h-5 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center flex-shrink-0 group-hover:bg-primary-bright transition-colors">
+                      <Zap size={10} className="text-primary-bright group-hover:text-white" />
+                    </div>
+                    <span className="text-lg text-white/80 group-hover:text-white transition-colors">
+                      {metric.split(' ').map((word: string, j: number) => (
+                        <span key={j} className={word.match(/\d+/) || word.includes('%') ? 'font-black text-primary-bright' : ''}>
+                          {word}{' '}
+                        </span>
+                      ))}
+                    </span>
+                  </motion.li>
+                ))}
+              </ul>
             </div>
           </motion.div>
 
@@ -82,14 +106,14 @@ const About = () => {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="about-focus-card group"
+            className="about-focus-card group mt-12 bg-white/5 border-white/10"
           >
-            <div className="w-20 h-20 rounded-3xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:bg-primary/20 transition-colors duration-500">
-              <Zap className="text-primary-bright" size={32} />
+            <div className="w-20 h-20 rounded-3xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:bg-primary-bright/20 transition-colors duration-500">
+              <Sparkles className="text-primary-bright" size={32} />
             </div>
             <div>
-              <h4 className="text-white font-black uppercase tracking-[0.2em] text-[10px] mb-2 opacity-60">Enfoque Principal</h4>
-              <p className="text-white/80 text-lg font-bold leading-tight italic">Automatización, Escalabilidad y Procesamiento de Datos.</p>
+              <h4 className="text-white font-black uppercase tracking-[0.2em] text-[10px] mb-2 opacity-60 italic">Disponibilidad</h4>
+              <p className="text-white text-xl font-bold leading-tight">Open to Remote <span className="wine-gradient">LATAM/US</span></p>
             </div>
           </motion.div>
         </div>
