@@ -89,7 +89,7 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   const experiences = [
     {
       company: 'Fundación Universitaria Horizonte',
-      role: 'Backend Python Developer | APIs & Data Automation',
+      role: 'Backend Python Developer (Auxiliar de Tecnología)',
       period: 'Julio 2025 – Actualidad',
       bullets: [
         'Desarrollé APIs REST con Python y Django REST Framework para Microsoft 365, gestionando +500 usuarios/semestre con autenticación OAuth2 y Microsoft Graph API.',
