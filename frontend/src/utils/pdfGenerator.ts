@@ -20,7 +20,7 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
 
   // Header - Title
   doc.setFontSize(14);
-  doc.text('Backend Python Developer | APIs & Data Engineering', 105, y, { align: 'center' });
+  doc.text('Full Stack Developer | APIs & Data Engineering', 105, y, { align: 'center' });
   y += 8;
 
   // Header - Contact Info
@@ -89,14 +89,13 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   const experiences = [
     {
       company: 'Fundación Universitaria Horizonte',
-      role: 'Backend Python Developer (Auxiliar de Tecnología)',
+      role: 'Full Stack Developer (Auxiliar de Tecnología)',
       period: 'Julio 2025 – Actualidad',
       bullets: [
-        'Desarrollé APIs REST con Python y Django REST Framework para Microsoft 365, gestionando +500 usuarios/semestre con autenticación OAuth2 y Microsoft Graph API.',
-        'Construí pipeline ETL con Pandas y MySQL que procesa +50,000 registros biométricos diarios, garantizando 99.8% de integridad para nómina.',
-        'Automaticé gestión de identidades en Azure AD usando Microsoft Graph API y PowerShell, eliminando procesos manuales de creación de cuentas y licenciamiento.',
-        'Integré 6 sistemas vía REST APIs con documentación OpenAPI/Swagger, reduciendo 70% las validaciones manuales.',
-        'Implementé contenedores Docker en Linux para despliegue de microservicios y automaticé flujos con Git/GitHub Actions bajo estándares ISO 9001.'
+        'Diseñé e implementé desde cero la arquitectura integral del sistema (Base de Datos MySQL, Backend Python/Django y Frontend React).',
+        'Desarrollé APIs REST con Django para Microsoft 365, gestionando +500 usuarios/semestre con autenticación OAuth2.',
+        'Construí pipeline ETL con Pandas que procesa +50,000 registros biométricos diarios con 99.8% de integridad para nómina.',
+        'Automaticé gestión de identidades en Azure AD con Graph API, reduciendo 70% las validaciones manuales.'
       ]
     },
     {

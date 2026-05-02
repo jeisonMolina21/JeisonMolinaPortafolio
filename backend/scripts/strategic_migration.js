@@ -72,6 +72,23 @@ async function migrate() {
       }
     }
 
+    const profile = {
+        full_name: "Jeison Molina",
+        title_es: "Full Stack Developer | Python, Node.js & React",
+        title_en: "Full Stack Developer | Python, Node.js & React",
+        bio_es: "Full Stack Developer con 2.5 años de experiencia liderando el ciclo completo de desarrollo: desde el diseño de bases de datos relacionales y APIs REST robustas, hasta interfaces de usuario reactivas. Especialista en automatización de procesos críticos y despliegues con Docker.",
+        bio_en: "Full Stack Developer with 2.5 years of experience leading the full development lifecycle: from relational database design and robust REST APIs to reactive user interfaces. Specialist in critical process automation and Docker deployments.",
+        email: "andreyyeisonmg@gmail.com",
+        linkedin: "linkedin.com/in/jeisonmolina",
+        github: "github.com/jeisonMolina21",
+        metrics_json: JSON.stringify([
+            "Diseñé e implementé desde cero la arquitectura de BD, Backend y Frontend para sistemas de gestión de identidades.",
+            "Desarrollé APIs REST con Django y Node.js para Microsoft 365 gestionando +500 usuarios/semestre.",
+            "Construí pipeline ETL con Pandas y MySQL procesando +50,000 registros diarios con 99.8% de integridad.",
+            "Desarrollé interfaces modernas en React/Next.js integradas con APIs de Microsoft y sistemas de nómina."
+        ])
+    };
+
     // 3. Update Profile with strategic info
     await pool.query(`
       UPDATE profile_settings SET 
@@ -86,20 +103,15 @@ async function migrate() {
         metrics_json = ?
       WHERE id = 1;
     `, [
-        "Jeison Molina",
-        "Backend Python Developer | APIs & Data Automation",
-        "Backend Python Developer | APIs & Data Automation",
-        "Backend Python Developer con 2.5 años desarrollando APIs REST y pipelines ETL. Especializado en integración con Microsoft Graph API, procesamiento de datos con Pandas y despliegues con Docker.",
-        "Backend Python Developer with 2.5 years of experience in REST APIs and ETL pipelines. Specialized in Microsoft Graph API integration, Pandas data processing, and Docker deployments.",
-        "andreyyeisonmg@gmail.com",
-        "linkedin.com/in/jeisonmolina",
-        "github.com/jeisonMolina21",
-        JSON.stringify([
-            "Desarrollé APIs REST con Django REST Framework para Microsoft 365 gestionando +500 usuarios/semestre.",
-            "Construí pipeline ETL con Pandas y MySQL procesando +50,000 registros diarios con 99.8% de integridad.",
-            "Automaticé gestión de identidades en Azure AD con Graph API, eliminando procesos manuales en RRHH.",
-            "Integré 6 sistemas vía REST APIs con documentación OpenAPI, reduciendo 70% validaciones manuales."
-        ])
+        profile.full_name,
+        profile.title_es,
+        profile.title_en,
+        profile.bio_es,
+        profile.bio_en,
+        profile.email,
+        profile.linkedin,
+        profile.github,
+        profile.metrics_json
     ]);
 
     // 4. Clean old projects
