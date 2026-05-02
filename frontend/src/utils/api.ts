@@ -1,22 +1,19 @@
-// If PUBLIC_API_URL is set in the environment (e.g. Vercel), it uses it.
-// Otherwise, in local development, it talks directly to the local backend.
-// In local development, it talks to localhost:3000.
-// In production/preview, it uses the same host as the frontend.
+// Configura aquí la URL de tu proyecto de Backend en Vercel
+const PRODUCTION_BACKEND_URL = 'https://jeison-molina-portafolio-yerl.vercel.app'; 
+
 const isLocal = import.meta.env.DEV;
+const envApiUrl = import.meta.env.PUBLIC_API_URL;
 
 let rawApiUrl = '';
 
-if (typeof window !== 'undefined') {
-    // Client-side
-    if (isLocal) {
-        rawApiUrl = 'http://localhost:3000/api';
-    } else {
-        // Dynamic detection for Vercel previews and production
-        rawApiUrl = window.location.origin + '/api';
-    }
+if (isLocal) {
+    rawApiUrl = 'http://localhost:3000/api';
 } else {
-    // Server-side (during build or SSR)
-    rawApiUrl = import.meta.env.PUBLIC_API_URL || '/api';
+    // Si hay una variable de entorno definida en Vercel, la usamos.
+    // Si no, usamos la URL fija del despliegue del backend.
+    rawApiUrl = (envApiUrl && envApiUrl !== '/api') 
+        ? envApiUrl 
+        : `${PRODUCTION_BACKEND_URL}/api`;
 }
 
 export const API_BASE_URL = rawApiUrl.replace(/\/+$/, '');
