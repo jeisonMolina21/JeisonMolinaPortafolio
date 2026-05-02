@@ -6,6 +6,7 @@ import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Experience from '../components/Experience.astro';
 import Education from '../components/Education.astro';
+import Metrics from '../components/Metrics.astro';
 import ProjectList from '../components/ProjectList.astro';
 import Contact from '../components/Contact';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -48,6 +49,7 @@ const groupedSkills = data.skills.reduce((acc: any, skill: any) => {
             <About profile={data.profile} groupedSkills={groupedSkills} />
             <Experience experience={data.experience} />
             <Education education={data.education} />
+            <Metrics />
             <ProjectList projects={data.projects} />
             <Contact client:visible />
         </main>

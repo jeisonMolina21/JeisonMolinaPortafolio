@@ -75,63 +75,72 @@ async function migrate() {
     // 3. Update Profile with strategic info
     await pool.query(`
       UPDATE profile_settings SET 
-        full_name = 'Jeison Molina',
-        title_es = 'Backend Python Developer',
-        title_en = 'Backend Python Developer',
-        headline_metric = 'Automatizo 40 horas de trabajo manual a 5 minutos',
-        bio_es = 'Backend Python de Bogotá. 2.5 años automatizando procesos en educación y RRHH.',
-        bio_en = 'Backend Python based in Bogotá. 2.5 years automating processes in Education and HR.',
-        metrics_json = ? ,
-        email = 'andreyyeisonmg@gmail.com',
-        linkedin = 'https://linkedin.com/in/jeisonmolina',
-        github = 'https://github.com/jeisonMolina21'
+        full_name = ?,
+        title_es = ?,
+        title_en = ?,
+        bio_es = ?,
+        bio_en = ?,
+        email = ?,
+        linkedin = ?,
+        github = ?,
+        metrics_json = ?
       WHERE id = 1;
-    `, [JSON.stringify([
-      "Reduje 50% tiempos operativos en UniHorizonte ahorrando 12 días/mes con Python",
-      "Integré 6 APIs y sistemas biométricos para +1,000 usuarios diarios",
-      "Busco rol remoto como Backend/Automation Engineer. Stack: Python, SQL, Docker, React"
-    ])]);
+    `, [
+        "Jeison Molina",
+        "Backend Python Developer | APIs & Data Automation",
+        "Backend Python Developer | APIs & Data Automation",
+        "Backend Python Developer con 2.5 años desarrollando APIs REST y pipelines ETL. Especializado en integración con Microsoft Graph API, procesamiento de datos con Pandas y despliegues con Docker.",
+        "Backend Python Developer with 2.5 years of experience in REST APIs and ETL pipelines. Specialized in Microsoft Graph API integration, Pandas data processing, and Docker deployments.",
+        "andreyyeisonmg@gmail.com",
+        "linkedin.com/in/jeisonmolina",
+        "github.com/jeisonMolina21",
+        JSON.stringify([
+            "Desarrollé APIs REST con Django REST Framework para Microsoft 365 gestionando +500 usuarios/semestre.",
+            "Construí pipeline ETL con Pandas y MySQL procesando +50,000 registros diarios con 99.8% de integridad.",
+            "Automaticé gestión de identidades en Azure AD con Graph API, eliminando procesos manuales en RRHH.",
+            "Integré 6 sistemas vía REST APIs con documentación OpenAPI, reduciendo 70% validaciones manuales."
+        ])
+    ]);
 
-    // 4. Clean old projects and insert Strategic Projects
+    // 4. Clean old projects
     await pool.query('DELETE FROM projects');
-
-    const strategicProjects = [
+    const projects = [
       {
-        title: 'Hermes: Automatización Microsoft 365',
-        category: 'Backend & Automation',
-        description: 'Automatización de gestión de identidades y licencias para Microsoft 365.',
-        challenge: 'Crear +500 cuentas de estudiantes cada semestre tomaba 40h/semana manual.',
-        action: 'Desarrollo de script Python con Graph API que automatiza creación, licencias y grupos.',
-        result: 'Reducción de 40 horas/semana a 5 minutos/día. 99.8% precisión sin errores.',
-        tech_stack: 'Python, Graph API, PowerShell, Docker',
-        image_url: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80',
-        github_url: 'https://github.com/jeisonMolina21'
+        title: "Sistema de Gestión Microsoft 365 con Python y Graph API",
+        category: "Backend & Automation",
+        description: "Automatización de identidades y licencias en Azure AD procesando +500 usuarios mediante Microsoft Graph API y OAuth2.",
+        challenge: "Gestionar +500 usuarios manualmente tomaba 40h/semana.",
+        action: "Desarrollé script Python con Graph API para automatizar creación y licencias.",
+        result: "Reducción de 40h a 5 min. Precisión del 99.8%.",
+        tech_stack: "Python, Graph API, PowerShell, Docker",
+        image_url: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80",
+        github_url: "https://github.com/jeisonMolina21"
       },
       {
-        title: 'Kairós: Sistema de Asistencia Biométrica',
-        category: 'Data Engineering / ETL',
-        description: 'Procesamiento masivo de datos biométricos para control de asistencia.',
-        challenge: 'Análisis de asistencia de 6 pisos tomaba 1.5 días/mes en Excel.',
-        action: 'ETL con Python + Pandas procesando 50,000 registros biométricos diarios.',
-        result: 'De 12 horas/mes a 30 minutos. Precisión 99.8% para nómina.',
-        tech_stack: 'Python, Pandas, MySQL, ETL',
-        image_url: 'https://images.unsplash.com/photo-1551288049-bbda48ad4882?auto=format&fit=crop&q=80',
-        github_url: 'https://github.com/jeisonMolina21'
+        title: "Pipeline ETL Biométrico con Pandas y MySQL",
+        category: "Data Engineering / ETL",
+        description: "Procesamiento de +50,000 registros diarios con 99.8% de integridad para control de asistencia y nómina automatizada.",
+        challenge: "Procesar 50k registros biométricos tomaba 1.5 días/mes.",
+        action: "Construí pipeline ETL con Pandas para automatizar limpieza e inserción.",
+        result: "Proceso en 30 min. Integridad de datos para nómina.",
+        tech_stack: "Python, Pandas, MySQL, ETL",
+        image_url: "https://images.unsplash.com/photo-1551288049-bbda48ad4882?auto=format&fit=crop&q=80",
+        github_url: "https://github.com/jeisonMolina21"
       },
       {
-        title: 'SaaS E-commerce Multi-Tenant',
-        category: 'Full Stack / SaaS',
-        description: 'Plataforma de comercio electrónico con integración de facturación legal.',
-        challenge: 'PyMEs necesitan tienda online con facturación legal colombiana (DIAN).',
-        action: 'Plataforma multi-tenant con 3 planes y API DIAN integrada.',
-        result: 'MVP usado por 2 negocios locales. Carga masiva de 1,000 productos en 2 min.',
-        tech_stack: 'React, Next.js, Node.js, SQL Server',
-        image_url: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80',
-        github_url: 'https://github.com/jeisonMolina21'
+        title: "SaaS E-commerce Multi-Tenant con Next.js y SQL Server",
+        category: "Full Stack / SaaS",
+        description: "Plataforma de comercio electrónico con integración de facturación legal DIAN, carga masiva CSV y arquitectura serverless.",
+        challenge: "PyMEs necesitan facturación legal y tienda rápida.",
+        action: "Arquitectura multi-tenant con API DIAN integrada.",
+        result: "MVP funcional con carga masiva de productos.",
+        tech_stack: "Next.js 14, React, SQL Server, Vercel",
+        image_url: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80",
+        github_url: "https://github.com/jeisonMolina21"
       }
     ];
 
-    for (const p of strategicProjects) {
+    for (const p of projects) {
       await pool.query(
         'INSERT INTO projects (title, category, description, challenge, action, result, tech_stack, image_url, github_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         [p.title, p.category, p.description, p.challenge, p.action, p.result, p.tech_stack, p.image_url, p.github_url]
