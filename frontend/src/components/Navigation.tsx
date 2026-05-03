@@ -8,17 +8,23 @@ import { useLanguage } from '../context/LanguageContext';
 import { cn } from '../utils/cn';
 
 
-interface NavigationProps {
-  onLogin: (token: string) => void;
-  onLogout: () => void;
-  isAdmin: boolean;
-}
+import { useAuthStore } from '../store/useAuthStore';
+import { cn } from '../utils/cn';
 
-const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
+const Navigation = () => {
+  const { isAdmin, login, logout } = useAuthStore();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { lang, setLang, t } = useLanguage();
+
+  useEffect(() => {
+    // Sync with localStorage on mount
+    const token = localStorage.getItem('token');
+    if (token && !isAdmin) {
+      login(token);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -27,7 +33,7 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
   }, []);
 
   const handleLoginSuccess = (token: string) => {
-    onLogin(token);
+    login(token);
     setIsLoginModalOpen(false);
   };
 
@@ -110,7 +116,7 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
             <div className="hidden md:block">
               {isAdmin ? (
                 <button 
-                  onClick={onLogout} 
+                  onClick={logout} 
                   className="nav-btn-logout"
                   aria-label="Cerrar sesión administrador"
                 >
@@ -148,7 +154,7 @@ const Navigation = ({ onLogin, onLogout, isAdmin }: NavigationProps) => {
             isOpen={isMobileMenuOpen} 
             onClose={() => setIsMobileMenuOpen(false)} 
             isAdmin={isAdmin}
-            onLogout={onLogout}
+            onLogout={logout}
           />
         )}
       </AnimatePresence>
