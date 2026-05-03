@@ -1,12 +1,14 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import AdminDashboard from '../components/admin/AdminDashboard';
+import { useAuthStore } from '../store/useAuthStore';
 import { LayoutDashboard, LogOut, Settings, Briefcase, GraduationCap, Code } from 'lucide-react';
 ---
 
 <MainLayout title="Admin Dashboard | Jeison Molina">
   <div class="min-h-screen bg-bg-deep flex">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white dark:bg-midnight border-r border-primary/10 p-8 flex flex-col">
+    {/* Sidebar */}
+    <aside class="w-64 bg-white dark:bg-midnight border-r border-primary/10 p-8 flex flex-col fixed h-full">
       <div class="mb-12">
         <p class="text-xs font-black uppercase tracking-[0.3em] text-primary">Sistema Admin</p>
         <p class="text-2xl font-black text-text-main">Jeison <span class="text-primary italic">M.</span></p>
@@ -27,63 +29,44 @@ import { LayoutDashboard, LogOut, Settings, Briefcase, GraduationCap, Code } fro
         ))}
       </nav>
 
-      <button id="logout-btn" class="mt-auto flex items-center gap-4 p-4 text-red-500 font-bold hover:bg-red-500/5 rounded-2xl transition-all">
+      <button id="logout-btn-root" class="mt-auto flex items-center gap-4 p-4 text-red-500 font-bold hover:bg-red-500/5 rounded-2xl transition-all">
         <LogOut size={20} />
         Cerrar Sesión
       </button>
     </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-12 overflow-y-auto">
+    {/* Main Content */}
+    <main class="flex-1 ml-64 p-12 overflow-y-auto">
       <header class="flex justify-between items-center mb-12">
-        <h1 class="text-4xl font-black text-text-main tracking-tighter">Bienvenido de nuevo, <span class="text-primary">Jeison</span></h1>
+        <h1 class="text-4xl font-black text-text-main tracking-tighter">Panel de <span class="text-primary">Control</span></h1>
         <div class="flex items-center gap-4">
           <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black">JM</div>
         </div>
       </header>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="glass p-8 rounded-[2.5rem] border border-primary/10">
-          <p class="text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Total Proyectos</p>
-          <p class="text-5xl font-black text-text-main">3</p>
-        </div>
-        <div class="glass p-8 rounded-[2.5rem] border border-primary/10">
-          <p class="text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Impacto Reportado</p>
-          <p class="text-5xl font-black text-text-main">99%</p>
-        </div>
-        <div class="glass p-8 rounded-[2.5rem] border border-primary/10">
-          <p class="text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Mensajes Nuevos</p>
-          <p class="text-5xl font-black text-primary">0</p>
-        </div>
-      </div>
-
-      <div class="mt-12 bg-white dark:bg-white/5 rounded-[3rem] border border-primary/10 p-10">
-        <div class="flex justify-between items-center mb-8">
-          <h2 class="text-2xl font-black text-text-main">Resumen de Contenido</h2>
-          <button class="px-6 py-2 bg-primary/10 text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all text-sm">
-            Editar Todo
-          </button>
-        </div>
-        
-        <p class="text-text-dim italic leading-relaxed max-w-2xl">
-          El panel está listo para recibir actualizaciones de tu base de datos en tiempo real. 
-          Pronto podrás añadir nuevos proyectos y certificaciones desde aquí.
-        </p>
-      </div>
+      <AdminDashboard client:only="react" />
     </main>
   </div>
 
   <script>
-    // Protection
-    const token = localStorage.getItem('token');
-    if (!token && window.location.pathname === '/admin') {
-      window.location.href = '/login';
-    }
+    import { useAuthStore } from '../store/useAuthStore';
+    
+    // Protection & Logout Logic
+    const checkAuth = () => {
+      const { isAdmin } = useAuthStore.getState();
+      if (!isAdmin && window.location.pathname === '/admin') {
+        window.location.href = '/';
+      }
+    };
 
-    const logoutBtn = document.getElementById('logout-btn');
-    logoutBtn?.addEventListener('click', () => {
-      localStorage.removeItem('token');
-      window.location.href = '/login';
+    // Run check
+    checkAuth();
+
+    // Logout listener
+    document.getElementById('logout-btn-root')?.addEventListener('click', () => {
+      useAuthStore.getState().logout();
+      window.location.href = '/';
     });
   </script>
+</MainLayout>
 </MainLayout>
