@@ -13,10 +13,8 @@ const allowedOrigins = [
 ];
 
 export function corsHeaders(origin?: string | null): Record<string, string> {
-  const isVercel = origin && (origin.endsWith('.vercel.app') || origin.includes('vercel.app'));
-  const isAllowed = isVercel || (origin && allowedOrigins.includes(origin));
-  
-  const allowed = isAllowed ? origin : '*';
+  // Permitimos TODO temporalmente para depurar el error de conexión
+  const allowed = origin || '*';
   
   return {
     'Access-Control-Allow-Origin': allowed,
