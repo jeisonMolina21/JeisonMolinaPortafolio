@@ -13,11 +13,13 @@ const allowedOrigins = [
 ];
 
 export function corsHeaders(origin?: string | null): Record<string, string> {
-  // Permitimos TODO temporalmente para depurar el error de conexión
-  const allowed = origin || '*';
+  const isLocal = origin && (origin.includes('localhost') || origin.includes('127.0.0.1'));
+  const isVercel = origin && (origin.endsWith('.vercel.app') || origin === FRONTEND_URL);
+  
+  const allowed = (isLocal || isVercel) ? origin : FRONTEND_URL;
   
   return {
-    'Access-Control-Allow-Origin': allowed,
+    'Access-Control-Allow-Origin': allowed || '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
     'Access-Control-Max-Age': '86400',
