@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+// Optimized Auth Store for Vercel Serverless
+
 interface AuthState {
   token: string | null;
   isAdmin: boolean;
