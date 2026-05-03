@@ -7,44 +7,43 @@ const AdminDashboard = () => {
   const { token, logout } = useAuthStore();
   const [profile, setProfile] = useState<any>(null);
   const [projects, setProjects] = useState<any[]>([]);
+  const [experience, setExperience] = useState<any[]>([]);
+  const [education, setEducation] = useState<any[]>([]);
+  const [recognitions, setRecognitions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [activeTab, setActiveTab] = useState('perfil');
 
   useEffect(() => {
-    fetchProfile();
-    fetchProjects();
+    fetchAllData();
   }, []);
 
-  const fetchProfile = async () => {
+  const fetchAllData = async () => {
     try {
       const data = await api.getSummary('es');
       if (data) {
         setProfile(data.profile);
         setProjects(data.projects || []);
+        setExperience(data.experience || []);
+        setEducation(data.education || []);
+        setRecognitions(data.recognitions || []);
       }
     } catch (err) {
-      console.error('Error fetching profile:', err);
+      console.error('Error fetching data:', err);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const fetchProjects = async () => {
+  const handleDelete = async (type: string, id: number) => {
+    if (!token || !confirm(`¿Estás seguro de eliminar este registro de ${type}?`)) return;
     try {
-      const data = await api.get('projects');
-      if (data) setProjects(data);
-    } catch (err) {
-      console.error('Error fetching projects:', err);
-    }
-  };
-
-  const handleDeleteProject = async (id: number) => {
-    if (!token || !confirm('¿Estás seguro de eliminar este proyecto?')) return;
-    try {
-      await api.delete('projects', id, token);
-      setProjects(projects.filter(p => p.id !== id));
-      alert('✅ Proyecto eliminado');
+      await api.delete(type, id, token);
+      if (type === 'projects') setProjects(projects.filter(p => p.id !== id));
+      if (type === 'experience') setExperience(experience.filter(p => p.id !== id));
+      if (type === 'education') setEducation(education.filter(p => p.id !== id));
+      if (type === 'recognitions') setRecognitions(recognitions.filter(p => p.id !== id));
+      alert('✅ Eliminado correctamente');
     } catch (err: any) {
       alert('❌ Error: ' + err.message);
     }
@@ -90,19 +89,22 @@ const AdminDashboard = () => {
   return (
     <div className="space-y-12 animate-fade-in pb-20">
       {/* Tabs */}
-      <div className="flex gap-4 p-2 bg-white/5 rounded-2xl w-fit">
-        <button 
-          onClick={() => setActiveTab('perfil')}
-          className={`px-6 py-2 rounded-xl font-bold transition-all ${activeTab === 'perfil' ? 'bg-primary text-white' : 'text-text-muted hover:text-white'}`}
-        >
-          Perfil
-        </button>
-        <button 
-          onClick={() => setActiveTab('proyectos')}
-          className={`px-6 py-2 rounded-xl font-bold transition-all ${activeTab === 'proyectos' ? 'bg-primary text-white' : 'text-text-muted hover:text-white'}`}
-        >
-          Proyectos
-        </button>
+      <div className="flex flex-wrap gap-4 p-2 bg-white/5 rounded-2xl w-fit">
+        {[
+          { id: 'perfil', label: 'Perfil' },
+          { id: 'experience', label: 'Experiencia' },
+          { id: 'projects', label: 'Proyectos' },
+          { id: 'education', label: 'Educación' },
+          { id: 'recognitions', label: 'Premios' }
+        ].map(tab => (
+          <button 
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-6 py-2 rounded-xl font-bold transition-all ${activeTab === tab.id ? 'bg-primary text-white shadow-lg' : 'text-text-muted hover:text-white'}`}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
       {activeTab === 'perfil' && (
@@ -123,7 +125,6 @@ const AdminDashboard = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Avatar Edit */}
             <div className="flex flex-col items-center space-y-6">
               <div className="relative group">
                 <div className="w-56 h-56 rounded-[3rem] overflow-hidden border-4 border-primary/20 shadow-2xl transition-transform group-hover:scale-[1.02]">
@@ -165,34 +166,42 @@ const AdminDashboard = () => {
         </section>
       )}
 
-      {activeTab === 'proyectos' && (
-        <section className="space-y-6">
+      {/* Dynamic Sections (Experience, Projects, Education, Recognitions) */}
+      {['experience', 'projects', 'education', 'recognitions'].includes(activeTab) && (
+        <section className="space-y-8">
           <div className="flex justify-between items-center px-4">
-            <h2 className="text-3xl font-black text-white">Gestionar <span className="text-primary italic">Proyectos</span></h2>
+            <h2 className="text-3xl font-black text-white capitalize">
+              Gestionar <span className="text-primary italic">{activeTab === 'experience' ? 'Experiencia' : activeTab === 'education' ? 'Educación' : activeTab === 'recognitions' ? 'Premios' : 'Proyectos'}</span>
+            </h2>
             <button className="flex items-center gap-2 px-6 py-3 bg-white/10 text-white font-bold rounded-xl hover:bg-primary transition-all">
               <Plus size={20} />
-              Añadir Nuevo
+              Añadir {activeTab === 'experience' ? 'Cargo' : activeTab === 'education' ? 'Título' : activeTab === 'recognitions' ? 'Mención' : 'Proyecto'}
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {projects.map((project) => (
-              <div key={project.id} className="glass p-6 rounded-[2rem] border border-white/5 flex gap-6 group hover:border-primary/30 transition-all">
-                <div className="w-24 h-24 rounded-2xl overflow-hidden bg-white/5 shrink-0">
-                  <img src={project.image_url || '/placeholder.png'} className="w-full h-full object-cover" alt="" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {(activeTab === 'experience' ? experience : 
+              activeTab === 'education' ? education : 
+              activeTab === 'recognitions' ? recognitions : 
+              projects).map((item) => (
+              <div key={item.id} className="glass p-6 rounded-[2rem] border border-white/5 flex gap-4 group hover:border-primary/30 transition-all">
+                <div className="w-16 h-16 rounded-xl overflow-hidden bg-white/5 shrink-0">
+                  <img src={item.logo_url || item.image_url || '/placeholder.png'} className="w-full h-full object-cover" alt="" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="text-lg font-bold text-white truncate">{project.title}</h4>
-                  <p className="text-text-muted text-xs line-clamp-2 mt-1">{project.description}</p>
+                  <h4 className="text-base font-bold text-white truncate">{item.company || item.institution || item.name || item.title}</h4>
+                  <p className="text-text-muted text-[10px] uppercase font-bold tracking-wider">{item.role || item.title || item.entity}</p>
+                  <p className="text-text-dim text-[10px] mt-1">{item.period || item.date}</p>
+                  
                   <div className="flex gap-2 mt-4">
                     <button className="p-2 bg-white/5 rounded-lg text-text-muted hover:text-white transition-colors">
-                      <Edit2 size={16} />
+                      <Edit2 size={14} />
                     </button>
                     <button 
-                      onClick={() => handleDeleteProject(project.id)}
+                      onClick={() => handleDelete(activeTab, item.id)}
                       className="p-2 bg-red-500/10 rounded-lg text-red-500 hover:bg-red-500 hover:text-white transition-all"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={14} />
                     </button>
                   </div>
                 </div>

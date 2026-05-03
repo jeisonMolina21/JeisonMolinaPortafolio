@@ -1,5 +1,7 @@
 import { NextRequest } from 'next/server';
-import { ExperienceController } from '@/controllers/ExperienceController';
+import { PortfolioService } from '@/services/PortfolioService';
+import { successResponse, errorResponse, unauthorizedResponse } from '@/constants/api-responses';
+import { getAuthUser } from '@/lib/auth';
 import { optionsResponse } from '@/lib/cors';
 
 export async function OPTIONS(req: NextRequest) {
@@ -7,11 +9,24 @@ export async function OPTIONS(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  return ExperienceController.getExperiences(req);
+  const origin = req.headers.get('origin');
+  try {
+    const data = await PortfolioService.getExperience();
+    return successResponse(data, origin);
+  } catch (error: any) {
+    return errorResponse('Error fetching experience', 500, error.message, origin);
+  }
 }
 
 export async function POST(req: NextRequest) {
-  return ExperienceController.createExperience(req);
+  const origin = req.headers.get('origin');
+  try {
+    const user = getAuthUser(req);
+    if (!user) return unauthorizedResponse(origin);
+    const body = await req.json();
+    const id = await PortfolioService.addExperience(body);
+    return successResponse({ id, message: 'Experience added' }, origin);
+  } catch (error: any) {
+    return errorResponse('Error adding experience', 500, error.message, origin);
+  }
 }
-
-

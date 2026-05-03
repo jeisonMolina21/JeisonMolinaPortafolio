@@ -2,15 +2,15 @@ import pool from '@/lib/db';
 
 export class ExperienceModel {
   static async getAll(lang: string = 'es') {
-    const [rows]: any = await pool.query('SELECT * FROM experience WHERE lang = ? ORDER BY created_at DESC', [lang]);
+    const [rows]: any = await pool.query('SELECT * FROM experience ORDER BY created_at DESC');
     return rows;
   }
 
   static async create(data: any) {
-    const { company, role, period, description, skills, location } = data;
+    const { company, role, period, description, logo_url } = data;
     const [result]: any = await pool.query(
-      'INSERT INTO experience (company, role, period, description, skills, location) VALUES (?, ?, ?, ?, ?, ?)',
-      [company, role, period, description, skills, location ?? null]
+      'INSERT INTO experience (company, role, period, description, logo_url) VALUES (?, ?, ?, ?, ?)',
+      [company, role, period, description, logo_url]
     );
     return result.insertId;
   }
