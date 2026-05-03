@@ -11,10 +11,10 @@ export async function OPTIONS(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const origin = req.headers.get('origin');
   try {
-    const data = await PortfolioService.getEducation();
+    const data = await PortfolioService.getRecognitions();
     return successResponse(data, origin);
   } catch (error: any) {
-    return errorResponse('Error fetching education', 500, error.message, origin);
+    return errorResponse('Error fetching recognitions', 500, error.message, origin);
   }
 }
 
@@ -24,9 +24,9 @@ export async function POST(req: NextRequest) {
     const user = getAuthUser(req);
     if (!user) return unauthorizedResponse(origin);
     const body = await req.json();
-    const id = await PortfolioService.addEducation(body);
-    return successResponse({ id, message: 'Education added' }, origin);
+    const id = await PortfolioService.addRecognition(body);
+    return successResponse({ id, message: 'Recognition added' }, origin);
   } catch (error: any) {
-    return errorResponse('Error adding education', 500, error.message, origin);
+    return errorResponse('Error adding recognition', 500, error.message, origin);
   }
 }

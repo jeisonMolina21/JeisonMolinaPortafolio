@@ -42,6 +42,10 @@ export class PortfolioService {
   static async addExperience(data: any) { return ExperienceModel.create(data); }
   static async deleteExperience(id: number) { return ExperienceModel.delete(id); }
 
+  static async getProjects() { return ProjectModel.getAll(); }
+  static async addProject(data: any) { return ProjectModel.create(data); }
+  static async deleteProjects(id: number) { return ProjectModel.delete(id); }
+
   static async getEducation() { return EducationModel.getAll(); }
   static async addEducation(data: any) { return EducationModel.create(data); }
   static async deleteEducation(id: number) { return EducationModel.delete(id); }
