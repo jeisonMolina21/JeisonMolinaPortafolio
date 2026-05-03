@@ -5,7 +5,10 @@ import { Save, Image as ImageIcon, Plus, Trash2, Edit2, Loader2 } from 'lucide-r
 
 const AdminDashboard = () => {
   const { token, logout } = useAuthStore();
+  const [profile, setProfile] = useState<any>(null);
   const [projects, setProjects] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
   const [activeTab, setActiveTab] = useState('perfil');
 
   useEffect(() => {

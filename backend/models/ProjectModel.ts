@@ -7,12 +7,12 @@ export class ProjectModel {
   }
 
   static async create(data: any) {
-    const { title, description, image_url, video_url, github_url, demo_url, tech_stack } = data;
-    const [result]: any = await pool.query(
-      'INSERT INTO projects (title, description, image_url, video_url, github_url, demo_url, tech_stack) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [title, description, image_url, video_url ?? null, github_url ?? null, demo_url ?? null, tech_stack]
+    const { title, description, image_url, video_url, github_url, demo_url, tech_stack, challenge, action, result } = data;
+    const [dbResult]: any = await pool.query(
+      'INSERT INTO projects (title, description, image_url, video_url, github_url, demo_url, tech_stack, challenge, action, result) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [title, description, image_url, video_url ?? null, github_url ?? null, demo_url ?? null, tech_stack, challenge ?? null, action ?? null, result ?? null]
     );
-    return result.insertId;
+    return dbResult.insertId;
   }
 
   static async delete(id: number) {
