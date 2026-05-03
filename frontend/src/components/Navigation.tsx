@@ -5,9 +5,6 @@ import { Menu, X, Globe, LogOut, Code, ArrowRight, Zap } from 'lucide-react';
 import LoginModal from './LoginModal';
 import MobileMenu from './navigation-parts/MobileMenu';
 import { useLanguage } from '../context/LanguageContext';
-import { cn } from '../utils/cn';
-
-
 import { useAuthStore } from '../store/useAuthStore';
 import { cn } from '../utils/cn';
 
