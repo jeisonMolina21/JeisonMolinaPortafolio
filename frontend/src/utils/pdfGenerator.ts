@@ -29,18 +29,51 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   // Header - Contact Info
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
+  doc.setTextColor(textColor);
   doc.text('Bogotá, Colombia | andreyyeisonmg@gmail.com | +57 350 549 8014', 105, y, { align: 'center' });
-  y += 5;
+  y += 6;
 
-  // Clickable Links
+  // Clickable Shortened Links (Centered)
   const portfolioUrl = 'https://jeison-molina-portafolio.vercel.app';
   const linkedinUrl = 'https://linkedin.com/in/jeisonmolina';
   const githubUrl = 'https://github.com/jeisonMolina21';
 
-  doc.setTextColor('#0000EE');
-  const linksText = `Portafolio: ${portfolioUrl} | LinkedIn: linkedin.com/in/jeisonmolina`;
-  doc.text(linksText, 105, y, { align: 'center' });
-  y += 10;
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(wineRed);
+  
+  const pWidth = doc.getTextWidth('Portafolio');
+  const lWidth = doc.getTextWidth('LinkedIn');
+  const gWidth = doc.getTextWidth('GitHub');
+  const separatorWidth = doc.getTextWidth('  |  ');
+  
+  const totalWidth = pWidth + lWidth + gWidth + (separatorWidth * 2);
+  let startX = (210 - totalWidth) / 2;
+
+  // Portafolio Link
+  doc.text('Portafolio', startX, y);
+  doc.link(startX, y - 4, pWidth, 6, { url: portfolioUrl });
+  startX += pWidth;
+  
+  doc.setTextColor(textColor);
+  doc.text('  |  ', startX, y);
+  startX += separatorWidth;
+  
+  // LinkedIn Link
+  doc.setTextColor(wineRed);
+  doc.text('LinkedIn', startX, y);
+  doc.link(startX, y - 4, lWidth, 6, { url: linkedinUrl });
+  startX += lWidth;
+  
+  doc.setTextColor(textColor);
+  doc.text('  |  ', startX, y);
+  startX += separatorWidth;
+  
+  // GitHub Link
+  doc.setTextColor(wineRed);
+  doc.text('GitHub', startX, y);
+  doc.link(startX, y - 4, gWidth, 6, { url: githubUrl });
+
+  y += 12;
 
   // Section Title Helper
   const sectionTitle = (title: string) => {
