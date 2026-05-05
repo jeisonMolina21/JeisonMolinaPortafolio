@@ -27,20 +27,15 @@ const currentYear = new Date().getFullYear();
           <a href="https://calendly.com/jeisonmolina/15min" target="_blank" class="text-primary font-black hover:underline">Agenda una reunión estratégica →</a>
         </div>
         <div class="flex gap-4 pt-4">
-          {[
-            { icon: <Github size={20} />, href: "https://github.com/jeisonMolina21", label: "GitHub" },
-            { icon: <Linkedin size={20} />, href: "https://linkedin.com/in/jeisonmolina", label: "LinkedIn" },
-            { icon: <Mail size={20} />, href: "mailto:andreyyeisonmg@gmail.com", label: "Email" }
-          ].map(social => (
-            <a 
-              href={social.href} 
-              target="_blank" 
-              class="footer-social-link"
-              aria-label={`Visitar perfil de ${social.label} de Jeison Molina`}
-            >
-              {social.icon}
-            </a>
-          ))}
+          <a href="https://github.com/jeisonMolina21" target="_blank" class="footer-social-link" aria-label="Visitar perfil de GitHub de Jeison Molina">
+            <Github size={20} />
+          </a>
+          <a href="https://www.linkedin.com/in/jeison-molina12/" target="_blank" class="footer-social-link" aria-label="Visitar perfil de LinkedIn de Jeison Molina">
+            <Linkedin size={20} />
+          </a>
+          <a href="mailto:andreyyeisonmg@gmail.com" class="footer-social-link" aria-label="Enviar email a Jeison Molina">
+            <Mail size={20} />
+          </a>
         </div>
       </div>
 

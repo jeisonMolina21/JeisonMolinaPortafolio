@@ -138,7 +138,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="flex min-h-screen bg-bg-deep text-text-main font-sans fixed inset-0 overflow-hidden">
+    <div className="flex min-h-screen bg-bg-deep text-text-main font-sans relative overflow-x-hidden">
       {/* Sidebar */}
       <aside className="w-72 bg-midnight/50 backdrop-blur-xl border-r border-white/5 p-8 flex flex-col h-full shrink-0">
         <div className="mb-12">

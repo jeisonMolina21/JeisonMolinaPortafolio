@@ -2,12 +2,7 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import Footer from '../components/Footer.astro';
 import Navigation from '../components/Navigation';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Experience from '../components/Experience.astro';
-import Education from '../components/Education.astro';
-import Metrics from '../components/Metrics.astro';
-import ProjectList from '../components/ProjectList.astro';
+import NarrativeExperience from '../components/narrative/NarrativeExperience';
 import Contact from '../components/Contact';
 import WhatsAppButton from '../components/WhatsAppButton';
 import { LanguageProvider } from '../context/LanguageContext';
@@ -33,23 +28,21 @@ const groupedSkills = (data.skills || []).reduce((acc: any, skill: any) => {
 }, {});
 ---
 
-<MainLayout title="Jeison Molina | Full Stack Developer">
+<MainLayout title="Jeison Molina | Narrative Experience">
     <LanguageProvider client:load>
         <Navigation client:load />
         
-        <main class="relative">
-            <Hero 
-              profile={data.profile} 
-              experience={data.experience}
-              education={data.education}
+        <main class="bg-midnight">
+            <NarrativeExperience 
+              projects={data.projects} 
+              profile={data.profile}
               groupedSkills={groupedSkills}
+              client:load 
             />
-            <About profile={data.profile} groupedSkills={groupedSkills} />
-            <Experience experience={data.experience} />
-            <Education education={data.education} />
-            <Metrics metrics={data.profile?.metrics || []} />
-            <ProjectList projects={data.projects} />
-            <Contact client:visible />
+            
+            <div id="contact" class="bg-midnight">
+              <Contact client:visible />
+            </div>
         </main>
 
         <WhatsAppButton client:idle />

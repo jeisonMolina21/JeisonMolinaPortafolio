@@ -1,6 +1,5 @@
 ---
-import { Github, ExternalLink, Code, ArrowRight } from 'lucide-react';
-import { Image } from 'astro:assets';
+import { Github, ExternalLink, Code, ArrowRight, Layers, Cpu, Globe } from 'lucide-react';
 
 interface Props {
   projects: any[];
@@ -9,91 +8,84 @@ interface Props {
 const { projects } = Astro.props;
 ---
 
-<section id="projects" class="section-padding bg-bg-deep relative z-10">
-  <div class="container-custom">
-    <div class="text-center mb-24">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border-white/10 mb-6">
-        <Code size={14} class="text-primary" />
-        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Casos de Éxito</span>
+<section id="projects" class="section-padding bg-midnight relative overflow-hidden">
+  <!-- Decorative background element -->
+  <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+  <div class="container-custom relative z-10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-lg mb-6">
+          <Layers size={14} class="text-primary" />
+          <span class="text-[10px] font-bold uppercase tracking-widest text-primary">Portafolio</span>
+        </div>
+        <h2 class="text-4xl md:text-6xl font-display font-bold text-text-main leading-tight">
+          Soluciones de Ingeniería que <span class="text-primary">generan valor</span>
+        </h2>
       </div>
-      <h2 class="text-5xl md:text-7xl lg:text-8xl font-display font-black text-text-main tracking-tighter leading-none">
-        Ingeniería de <br />
-        <span class="text-primary italic">Software</span>
-      </h2>
+      <p class="text-text-dim max-w-sm text-sm leading-relaxed">
+        Una selección de proyectos donde la arquitectura de software y la eficiencia operativa se encuentran.
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
       {projects.map((project) => (
-        <div class="group flex flex-col bg-bg-surface glass rounded-[3rem] overflow-hidden border-white/5 hover:border-primary/30 transition-all duration-700">
+        <div class="group relative flex flex-col bg-bg-surface border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
           <!-- Image container -->
-          <div class="relative aspect-[16/10] overflow-hidden">
+          <div class="relative aspect-[16/9] overflow-hidden">
             <img 
               src={project.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80'} 
               alt={project.title} 
-              class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+              class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-            <div class="absolute top-6 right-6">
-              <span class="px-3 py-1 bg-primary/20 backdrop-blur-md border border-primary/40 rounded-full text-[8px] font-black uppercase tracking-widest text-primary-bright">
-                {project.category || 'Backend'}
-              </span>
+            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/20 to-transparent opacity-80"></div>
+            
+            <!-- Tech Badges on Image -->
+            <div class="absolute bottom-6 left-6 flex flex-wrap gap-2">
+              {project.technologies?.split(',').slice(0, 3).map((tech: string) => (
+                <span class="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/10 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
+                  {tech.trim()}
+                </span>
+              ))}
             </div>
           </div>
 
           <!-- Content -->
           <div class="p-8 md:p-10 flex flex-col flex-grow">
-            <h3 class="text-2xl font-black text-text-main mb-6 group-hover:text-primary-bright transition-colors">
-              {project.title}
-            </h3>
-            
-            <!-- C-A-R -->
-            <div class="space-y-4 mb-8 flex-grow">
-              {project.challenge && (
-                <div class="flex gap-3">
-                  <span class="text-[10px] font-black text-primary uppercase mt-1">C</span>
-                  <p class="text-sm text-text-dim leading-relaxed italic">
-                    <strong class="text-text-main not-italic">Problema:</strong> {project.challenge}
-                  </p>
-                </div>
-              )}
-              {project.action && (
-                <div class="flex gap-3">
-                  <span class="text-[10px] font-black text-primary-bright uppercase mt-1">A</span>
-                  <p class="text-sm text-text-dim leading-relaxed italic">
-                    <strong class="text-text-main not-italic">Solución:</strong> {project.action}
-                  </p>
-                </div>
-              )}
-              {project.result && (
-                <div class="flex gap-3">
-                  <span class="text-[10px] font-black text-green-400 uppercase mt-1">R</span>
-                  <p class="text-sm text-green-400/90 leading-relaxed font-bold">
-                    {project.result}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            <div class="flex items-center justify-between pt-6 border-t border-white/5">
-              <div class="flex gap-4">
+            <div class="flex items-start justify-between mb-6">
+              <h3 class="text-2xl md:text-3xl font-display font-bold text-text-main group-hover:text-primary transition-colors">
+                {project.title}
+              </h3>
+              <div class="flex gap-3">
                 {project.github_url && (
-                  <a href={project.github_url} target="_blank" class="text-text-dim hover:text-white transition-colors" aria-label="GitHub Repository">
+                  <a href={project.github_url} target="_blank" class="p-2 bg-white/5 hover:bg-primary/20 rounded-xl text-text-dim hover:text-primary transition-all" aria-label="GitHub">
                     <Github size={20} />
                   </a>
                 )}
                 {project.demo_url && (
-                  <a href={project.demo_url} target="_blank" class="text-text-dim hover:text-white transition-colors" aria-label="Live Demo">
+                  <a href={project.demo_url} target="_blank" class="p-2 bg-white/5 hover:bg-primary/20 rounded-xl text-text-dim hover:text-primary transition-all" aria-label="Demo">
                     <ExternalLink size={20} />
                   </a>
                 )}
               </div>
+            </div>
+            
+            <p class="text-text-dim text-sm leading-relaxed mb-8 line-clamp-3">
+              {project.challenge || project.description}
+            </p>
+
+            <div class="mt-auto pt-8 border-t border-white/5 flex items-center justify-between">
+              <div class="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest">
+                <Cpu size={16} />
+                <span>Backend Focused</span>
+              </div>
               <a 
                 href={`/proyectos/${project.title.toLowerCase().split(':')[0].trim().replace(/\s+/g, '-')}`} 
-                class="text-[10px] font-black uppercase tracking-widest text-primary-bright hover:text-white transition-colors flex items-center gap-2"
+                class="flex items-center gap-2 text-xs font-bold text-text-main hover:text-primary transition-colors"
               >
-                Case Study
-                <ArrowRight size={12} />
+                Ver Caso de Estudio
+                <ArrowRight size={16} />
               </a>
             </div>
           </div>

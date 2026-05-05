@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=Poppins:wght@400;600;700;800&display=swap');
 @import "tailwindcss";
 @import "./base.css";
 @import "./components/Hero.css";
@@ -12,42 +12,42 @@
 @import "./components/Forms.css";
 
 :root {
-  --color-primary: #2A9D8F;
-  --color-primary-bright: #38b2ac;
-  --color-primary-glow: rgba(42, 157, 143, 0.4);
-  --color-secondary: #264653;
+  --color-primary: #2563eb;
+  --color-primary-bright: #3b82f6;
+  --color-primary-glow: rgba(37, 99, 235, 0.4);
+  --color-secondary: #64748b;
   --color-midnight: #ffffff;
-  --color-bg-deep: #F8F9FA;
+  --color-bg-deep: #f8fafc;
   --color-bg-surface: #ffffff;
   
-  --color-text-main: #212529;
-  --color-text-dim: #495057;
-  --color-text-muted: #6C757D;
+  --color-text-main: #0f172a;
+  --color-text-dim: #475569;
+  --color-text-muted: #64748b;
   
   --glass-bg: rgba(255, 255, 255, 0.8);
   --glass-border: rgba(0, 0, 0, 0.05);
 
   --font-sans: "Inter", ui-sans-serif, system-ui;
-  --font-display: "Outfit", ui-sans-serif, system-ui;
+  --font-display: "Poppins", ui-sans-serif, system-ui;
   
-  --spacing-section: 80px;
+  --spacing-section: 100px;
   --spacing-container: 24px;
 }
 
 .dark {
-  --color-primary: #2A9D8F;
-  --color-primary-bright: #48bb78;
-  --color-secondary: #0B2B40;
-  --color-midnight: #050a14;
-  --color-bg-deep: #0B2B40;
-  --color-bg-surface: rgba(15, 35, 55, 0.7);
+  --color-primary: #58a6ff;
+  --color-primary-bright: #79c0ff;
+  --color-secondary: #30363d;
+  --color-midnight: #0b0f19; /* Even darker as requested */
+  --color-bg-deep: #05070a;
+  --color-bg-surface: #121721;
   
-  --color-text-main: #F8F9FA;
-  --color-text-dim: #dee2e6;
-  --color-text-muted: #adb5bd;
+  --color-text-main: #f0f6fc;
+  --color-text-dim: #8b949e;
+  --color-text-muted: #6e7681;
   
-  --glass-bg: rgba(11, 43, 64, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(11, 15, 25, 0.8);
+  --glass-border: rgba(240, 246, 252, 0.1);
 }
 
 @theme {
