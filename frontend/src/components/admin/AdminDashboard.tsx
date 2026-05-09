@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { api } from '../../services/api';
+import { api } from '../../utils/api';
 import { useAuthStore } from '../../store/useAuthStore';
 import { 
   Save, Image as ImageIcon, Plus, Trash2, Edit2, Loader2, 
