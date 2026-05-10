@@ -2,6 +2,8 @@ import pool from '@/lib/db';
 import { ProfileModel } from '@/models/ProfileModel';
 import { ExperienceModel } from '@/models/ExperienceModel';
 import { ProjectModel } from '@/models/ProjectModel';
+import { EducationModel } from '@/models/EducationModel';
+import { RecognitionModel } from '@/models/RecognitionModel';
 import { translate } from '@/lib/translator';
 import { localizeObject } from '@/constants/languages';
 
@@ -11,13 +13,13 @@ export class PortfolioService {
    */
   static async getFullSummary(lang: string = 'es') {
     // 1. Obtención de datos en paralelo (Repositorios)
-    const [profileRaw, experienceRaw, projectRaw, [skillRows], [educationRows], [recognitionRows]]: any = await Promise.all([
+    const [profileRaw, experienceRaw, projectRaw, [skillRows], educationRows, recognitionRows]: any = await Promise.all([
       ProfileModel.getById(1),
       ExperienceModel.getAll(lang),
       ProjectModel.getAll(),
       pool.query('SELECT * FROM skills ORDER BY name ASC'),
-      pool.query('SELECT * FROM education ORDER BY created_at DESC'),
-      pool.query('SELECT * FROM recognitions ORDER BY created_at DESC')
+      EducationModel.getAll(),
+      RecognitionModel.getAll()
     ]);
 
     // 2. Procesamiento y Traducción en paralelo (Lógica de Negocio)
@@ -50,13 +52,9 @@ export class PortfolioService {
   static async addEducation(data: any) { return EducationModel.create(data); }
   static async deleteEducation(id: number) { return EducationModel.delete(id); }
 
-  static async getRecognitions() { return pool.query('SELECT * FROM recognitions ORDER BY created_at DESC').then(([rows]) => rows); }
-  static async addRecognition(data: any) {
-    const { name, entity, date, image_url } = data;
-    const [result]: any = await pool.query('INSERT INTO recognitions (name, entity, date, image_url) VALUES (?, ?, ?, ?)', [name, entity, date, image_url]);
-    return result.insertId;
-  }
-  static async deleteRecognition(id: number) { return pool.query('DELETE FROM recognitions WHERE id = ?', [id]); }
+  static async getRecognitions() { return RecognitionModel.getAll(); }
+  static async addRecognition(data: any) { return RecognitionModel.create(data); }
+  static async deleteRecognition(id: number) { return RecognitionModel.delete(id); }
 
   private static async processProfile(profile: any, lang: string) {
     if (!profile) return null;
