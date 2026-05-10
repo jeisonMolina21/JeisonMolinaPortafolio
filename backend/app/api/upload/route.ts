@@ -36,11 +36,13 @@ export async function POST(req: NextRequest) {
       return withCors(NextResponse.json({ error: `El archivo supera el límite de ${MAX_SIZE_MB}MB` }, { status: 400 }), origin);
     }
 
-    const blobToken = process.env.BLOB_READ_WRITE_TOKEN || process.env.TOKEN_DE_LECTURA_Y_ESCRITURA_DE_BLOB;
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
     if (!blobToken) {
-      console.error('BLOB_READ_WRITE_TOKEN is missing');
-      return withCors(NextResponse.json({ error: 'Configuración de almacenamiento incompleta' }, { status: 500 }), origin);
+      console.error('❌ CRITICAL: BLOB_READ_WRITE_TOKEN is not defined in environment variables.');
+      return withCors(NextResponse.json({ error: 'Configuración de almacenamiento incompleta en el servidor' }, { status: 500 }), origin);
     }
+
+    console.log(`🚀 Uploading to Vercel Blob: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`);
 
     const blob = await put(file.name, file, {
       access: 'public',
