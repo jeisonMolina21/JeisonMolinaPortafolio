@@ -35,7 +35,8 @@ const Navigation = () => {
   };
 
   const navItems = [
-    { key: 'nav.about', href: '#hero' },
+    { key: 'nav.about', href: '#about' },
+
     { key: 'nav.projects', href: '#projects' },
     { key: 'nav.experience', href: '#experience' },
     { key: 'nav.education', href: '#education' },
