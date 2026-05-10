@@ -4,7 +4,7 @@ import { useAuthStore } from '../../store/useAuthStore';
 import { 
   Save, Image as ImageIcon, Plus, Trash2, Edit2, Loader2, 
   LayoutDashboard, Briefcase, Code, GraduationCap, Settings, LogOut,
-  ChevronRight, ExternalLink
+  ChevronRight, ExternalLink, Trophy
 } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -79,7 +79,15 @@ const AdminDashboard = () => {
       if (currentItem.id) {
         await api.put(endpoint, currentItem.id, currentItem, token);
       } else {
-        await api.post(endpoint, currentItem, token);
+        // Asegurar que para reconocimientos enviamos los campos correctos
+        const dataToSave = activeTab === 'reconocimientos' ? {
+          name: currentItem.name || currentItem.title,
+          entity: currentItem.entity,
+          date: currentItem.date || currentItem.period,
+          image_url: currentItem.image_url
+        } : currentItem;
+        
+        await api.post(endpoint, dataToSave, token);
       }
       setIsFormOpen(false);
       fetchAllData();
@@ -134,6 +142,7 @@ const AdminDashboard = () => {
     { id: 'experiencia', icon: <Briefcase size={20} />, label: 'Experiencia' },
     { id: 'proyectos', icon: <Code size={20} />, label: 'Proyectos' },
     { id: 'educacion', icon: <GraduationCap size={20} />, label: 'Educación' },
+    { id: 'reconocimientos', icon: <Trophy size={20} />, label: 'Certificaciones' },
     { id: 'ajustes', icon: <Settings size={20} />, label: 'Ajustes' },
   ];
 
@@ -268,25 +277,25 @@ const AdminDashboard = () => {
           </section>
         )}
 
-        {['experiencia', 'proyectos', 'educacion'].includes(activeTab) && !isFormOpen && (
+        {['experiencia', 'proyectos', 'educacion', 'reconocimientos'].includes(activeTab) && !isFormOpen && (
           <section className="space-y-8 animate-fade-in">
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-black text-white capitalize">Listado de <span className="text-primary italic">{activeTab}</span></h3>
               <button onClick={() => handleEdit()} className="flex items-center gap-3 px-8 py-4 bg-primary text-white font-black text-xs uppercase tracking-widest rounded-2xl hover:scale-105 transition-all shadow-xl">
-                <Plus size={18} /> Añadir {activeTab === 'experiencia' ? 'Cargo' : activeTab === 'educacion' ? 'Título' : 'Proyecto'}
+                <Plus size={18} /> Añadir {activeTab === 'experiencia' ? 'Cargo' : activeTab === 'educacion' ? 'Título' : activeTab === 'reconocimientos' ? 'Certificación' : 'Proyecto'}
               </button>
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-              {(activeTab === 'experiencia' ? experience : activeTab === 'educacion' ? education : projects).map((item) => (
+              {(activeTab === 'experiencia' ? experience : activeTab === 'educacion' ? education : activeTab === 'reconocimientos' ? recognitions : projects).map((item) => (
                 <div key={item.id} className="glass p-8 rounded-[3rem] border border-white/5 flex gap-8 group hover:border-primary/40 transition-all">
                   <div className="w-24 h-24 rounded-3xl overflow-hidden bg-white/5 shrink-0 border border-white/10">
                     <img src={item.logo_url || item.image_url || '/placeholder.png'} className="w-full h-full object-cover" alt="" />
                   </div>
                   <div className="flex-1 min-w-0 flex flex-col justify-center">
-                    <h4 className="text-xl font-bold text-white truncate mb-1">{item.company || item.institution || item.title}</h4>
-                    <p className="text-primary text-xs font-black uppercase tracking-widest mb-2">{item.role || item.degree || item.tech_stack}</p>
-                    <p className="text-text-muted text-xs font-medium">{item.period || 'Periodo no definido'}</p>
+                    <h4 className="text-xl font-bold text-white truncate mb-1">{item.company || item.institution || item.title || item.name}</h4>
+                    <p className="text-primary text-xs font-black uppercase tracking-widest mb-2">{item.role || item.degree || item.entity || item.tech_stack}</p>
+                    <p className="text-text-muted text-xs font-medium">{item.period || item.date || 'Periodo no definido'}</p>
                     
                     <div className="flex gap-3 mt-6">
                       <button onClick={() => handleEdit(item)} className="px-4 py-2 bg-white/5 rounded-xl text-white text-[10px] font-black uppercase tracking-widest hover:bg-primary transition-all">Editar</button>
@@ -311,20 +320,20 @@ const AdminDashboard = () => {
               <div className="space-y-8">
                 <div className="space-y-3">
                   <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary ml-2">Nombre Principal</label>
-                  <input type="text" value={currentItem.title || currentItem.company || currentItem.institution || ''} 
-                         onChange={(e) => setCurrentItem({ ...currentItem, [activeTab === 'experiencia' ? 'company' : activeTab === 'educacion' ? 'institution' : 'title']: e.target.value })}
+                  <input type="text" value={currentItem.title || currentItem.company || currentItem.institution || currentItem.name || ''} 
+                         onChange={(e) => setCurrentItem({ ...currentItem, [activeTab === 'experiencia' ? 'company' : activeTab === 'educacion' ? 'institution' : activeTab === 'reconocimientos' ? 'name' : 'title']: e.target.value })}
                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none focus:border-primary/50" required />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary ml-2">Subtítulo / Cargo / Grado</label>
-                  <input type="text" value={currentItem.role || currentItem.degree || currentItem.tech_stack || ''} 
-                         onChange={(e) => setCurrentItem({ ...currentItem, [activeTab === 'experiencia' ? 'role' : activeTab === 'educacion' ? 'degree' : 'tech_stack']: e.target.value })}
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary ml-2">Subtítulo / Cargo / Entidad</label>
+                  <input type="text" value={currentItem.role || currentItem.degree || currentItem.tech_stack || currentItem.entity || ''} 
+                         onChange={(e) => setCurrentItem({ ...currentItem, [activeTab === 'experiencia' ? 'role' : activeTab === 'educacion' ? 'degree' : activeTab === 'reconocimientos' ? 'entity' : 'tech_stack']: e.target.value })}
                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none focus:border-primary/50" />
                 </div>
                 <div className="space-y-3">
                   <label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary ml-2">Periodo o Fecha</label>
-                  <input type="text" value={currentItem.period || ''} 
-                         onChange={(e) => setCurrentItem({ ...currentItem, period: e.target.value })}
+                  <input type="text" value={currentItem.period || currentItem.date || ''} 
+                         onChange={(e) => setCurrentItem({ ...currentItem, [activeTab === 'reconocimientos' ? 'date' : 'period']: e.target.value })}
                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none focus:border-primary/50" placeholder="Ej: 2024 - Actualidad" />
                 </div>
               </div>
@@ -342,7 +351,7 @@ const AdminDashboard = () => {
                   </div>
                   <label className="flex-1 py-4 bg-primary/10 text-primary text-center text-xs font-black uppercase tracking-widest rounded-2xl cursor-pointer hover:bg-primary hover:text-white transition-all">
                     Actualizar Imagen
-                    <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, activeTab === 'proyectos' ? 'image_url' : 'logo_url')} />
+                    <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, (activeTab === 'proyectos' || activeTab === 'reconocimientos') ? 'image_url' : 'logo_url')} />
                   </label>
                 </div>
               </div>

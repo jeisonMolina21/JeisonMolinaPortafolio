@@ -15,7 +15,7 @@ export const EntityList = ({ items, type, onEdit, onDelete }: EntityListProps) =
                 <div key={item.id} className="glass p-5 rounded-2xl border-white/5 flex flex-col gap-4 group hover:border-primary/20 transition-all">
                     <div className="flex justify-between items-start">
                         <div>
-                            <h5 className="font-bold text-white leading-tight">{item.title || item.company || item.institution || item.degree}</h5>
+                            <h5 className="font-bold text-white leading-tight">{item.title || item.company || item.institution || item.degree || item.name}</h5>
                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">{item.lang}</span>
                         </div>
                         <div className="flex gap-2">

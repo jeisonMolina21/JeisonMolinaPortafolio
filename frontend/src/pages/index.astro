@@ -3,9 +3,11 @@ import Layout from '../layouts/MainLayout.astro';
 import Navbar from '../components/modern/Navbar';
 import Hero from '../components/modern/Hero';
 import About from '../components/modern/About';
+import Skills from '../components/modern/Skills';
 import Projects from '../components/modern/Projects';
 import Experience from '../components/modern/Experience';
-import SocialProof from '../components/modern/SocialProof';
+import Education from '../components/modern/Education';
+import Recognitions from '../components/modern/Recognitions';
 import Contact from '../components/modern/Contact';
 import Footer from '../components/modern/Footer';
 import { profileService } from '../services/apiService';
@@ -17,7 +19,7 @@ try {
   console.error("Error fetching summary data:", error);
 }
 
-const { profile } = summaryData || {};
+const { profile, skills, education, recognitions } = summaryData || {};
 ---
 
 <Layout title="Jeison Molina | Full-Stack Developer & Automation Specialist">
@@ -34,9 +36,11 @@ const { profile } = summaryData || {};
 		<div class="space-y-0">
 			<Hero client:load profile={profile} />
 			<About client:visible />
+			<Skills client:visible skills={skills || []} />
 			<Projects client:visible />
 			<Experience client:visible />
-			<SocialProof client:visible />
+			<Education client:visible education={education || []} />
+			<Recognitions client:visible recognitions={recognitions || []} />
 			<Contact client:visible profile={profile} />
 		</div>
 

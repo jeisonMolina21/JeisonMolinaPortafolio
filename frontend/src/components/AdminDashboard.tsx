@@ -15,7 +15,7 @@ interface Profile { full_name: string; title: string; bio: string; location: str
 const AdminDashboard = ({ token, onLogout }: { token: string, onLogout: () => void }) => {
     const { t, lang } = useLanguage();
     const [mainView, setMainView] = useState<'control' | 'messages'>('control');
-    const [activeTab, setActiveTab] = useState<'profile' | 'projects' | 'experience' | 'skills' | 'education'>('projects');
+    const [activeTab, setActiveTab] = useState<'profile' | 'projects' | 'experience' | 'skills' | 'education' | 'recognitions'>('projects');
     const [loading, setLoading] = useState(false);
     
     const [messages, setMessages] = useState<Message[]>([]);
@@ -71,8 +71,8 @@ const AdminDashboard = ({ token, onLogout }: { token: string, onLogout: () => vo
         
         try {
             setLoading(true);
-            // Handle image upload if it's a project and a file was selected
-            if (activeTab === 'projects') {
+            // Handle image upload if it's a project or recognition and a file was selected
+            if (activeTab === 'projects' || activeTab === 'recognitions') {
                 const imageFile = formData.get('image_file') as File;
                 if (imageFile && imageFile.name) {
                     const uploadRes = await api.upload(imageFile, token);
@@ -175,7 +175,7 @@ const AdminDashboard = ({ token, onLogout }: { token: string, onLogout: () => vo
                             {activeTab === 'profile' && <ProfileManager profile={profile} setProfile={setProfile} onUpdate={handleUpdateProfile} />}
                             {activeTab === 'skills' && <SkillManager skills={skills} onAdd={handleAddSkill} onDelete={handleDelete} />}
                             
-                            {(['projects', 'experience', 'education'].includes(activeTab)) && (
+                            {(['projects', 'experience', 'education', 'recognitions'].includes(activeTab)) && (
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                                     <EntityList items={items} type={activeTab} onEdit={setEditingItem} onDelete={handleDelete} />
                                     <EntityForm type={activeTab} editingItem={editingItem} setEditingItem={setEditingItem} onSave={handleSaveEntity} />

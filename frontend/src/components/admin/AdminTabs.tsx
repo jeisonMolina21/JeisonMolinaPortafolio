@@ -5,7 +5,7 @@ interface AdminTabsProps {
     onTabChange: (tab: any) => void;
 }
 
-const tabs = ['profile', 'projects', 'experience', 'education', 'skills'];
+const tabs = ['profile', 'projects', 'experience', 'education', 'skills', 'recognitions'];
 
 export const AdminTabs = ({ activeTab, onTabChange }: AdminTabsProps) => (
     <div className="flex flex-wrap gap-4 mb-12 p-2 glass rounded-2xl w-full md:w-fit overflow-x-auto">

@@ -35,6 +35,11 @@ export class ProfileController {
       if (!user) return unauthorizedResponse(origin);
 
       const body = await req.json();
+      
+      // Mapeo de campos simples del admin a campos localizados de la DB
+      if (body.title && !body.title_es) body.title_es = body.title;
+      if (body.bio && !body.bio_es) body.bio_es = body.bio;
+
       const { isValid, data } = await validateData(ProfileSchema, body);
       if (!isValid) return validationErrorResponse(data, origin);
 

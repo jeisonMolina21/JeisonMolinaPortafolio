@@ -1,11 +1,11 @@
-import pool from '@/lib/db';
-import { ProfileModel } from '@/models/ProfileModel';
-import { ExperienceModel } from '@/models/ExperienceModel';
-import { ProjectModel } from '@/models/ProjectModel';
-import { EducationModel } from '@/models/EducationModel';
-import { RecognitionModel } from '@/models/RecognitionModel';
-import { translate } from '@/lib/translator';
-import { localizeObject } from '@/constants/languages';
+import pool from '../lib/db';
+import { ProfileModel } from '../models/ProfileModel';
+import { ExperienceModel } from '../models/ExperienceModel';
+import { ProjectModel } from '../models/ProjectModel';
+import { EducationModel } from '../models/EducationModel';
+import { RecognitionModel } from '../models/RecognitionModel';
+import { translate } from '../lib/translator';
+import { localizeObject } from '../constants/languages';
 
 export class PortfolioService {
   /**

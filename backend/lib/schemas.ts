@@ -58,3 +58,10 @@ export const EducationSchema = z.object({
   period: z.string().min(1),
   description: z.string().optional().nullable()
 });
+
+export const RecognitionSchema = z.object({
+  name: z.string().min(2),
+  entity: z.string().min(2),
+  date: z.string().optional().nullable(),
+  image_url: z.string().url().optional().nullable()
+});

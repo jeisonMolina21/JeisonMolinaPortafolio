@@ -29,21 +29,24 @@ export const EntityForm = ({ type, editingItem, setEditingItem, onSave }: Entity
                 {type === 'projects' && <input name="title" defaultValue={editingItem?.title} placeholder="Title" required className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none focus:border-primary" />}
                 {type === 'experience' && <input name="company" defaultValue={editingItem?.company} placeholder="Company" required className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none focus:border-primary" />}
                 {type === 'education' && <input name="institution" defaultValue={editingItem?.institution} placeholder="Institution" required className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none focus:border-primary" />}
+                {type === 'recognitions' && <input name="name" defaultValue={editingItem?.name} placeholder="Recognition / Cert Title" required className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none focus:border-primary" />}
             </div>
 
             {type === 'experience' && <input name="role" defaultValue={editingItem?.role} placeholder="Role" required className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none" />}
             {type === 'education' && <input name="degree" defaultValue={editingItem?.degree} placeholder="Degree" required className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none" />}
+            {type === 'recognitions' && <input name="entity" defaultValue={editingItem?.entity} placeholder="Issuing Entity" required className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none" />}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input name="period" defaultValue={editingItem?.period} placeholder="Period (e.g. 2023 - 2024)" className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none" />
+                {(type === 'experience' || type === 'education') && <input name="period" defaultValue={editingItem?.period} placeholder="Period (e.g. 2023 - 2024)" className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none" />}
                 {type === 'projects' && <input name="tech_stack" defaultValue={editingItem?.tech_stack} placeholder="Tech Stack (comma separated)" className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none" />}
                 {type === 'experience' && <input name="skills" defaultValue={editingItem?.skills} placeholder="Skills used (comma separated)" className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none" />}
+                {type === 'recognitions' && <input name="date" defaultValue={editingItem?.date} placeholder="Date (e.g. Oct 2024)" className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none" />}
             </div>
 
-            {type === 'projects' && (
+            {(type === 'projects' || type === 'recognitions') && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-text-dim">Project Image</label>
+                        <label className="text-[10px] font-black uppercase tracking-widest text-text-dim">{type === 'projects' ? 'Project Image' : 'Certificate Image'}</label>
                         <input 
                             key={editingItem?.id}
                             type="file" 
@@ -53,11 +56,13 @@ export const EntityForm = ({ type, editingItem, setEditingItem, onSave }: Entity
                         />
                         {editingItem?.image_url && <p className="text-[10px] text-text-muted mt-1">Actual: {editingItem.image_url.split('/').pop()}</p>}
                     </div>
-                    <input name="github_url" defaultValue={editingItem?.github_url} placeholder="GitHub URL" className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none flex-grow" />
+                    {type === 'projects' && <input name="github_url" defaultValue={editingItem?.github_url} placeholder="GitHub URL" className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none flex-grow" />}
                 </div>
             )}
 
-            <textarea name="description" defaultValue={editingItem?.description} placeholder="Full Description..." required rows={6} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none focus:border-primary resize-none" />
+            {(type !== 'recognitions') && (
+                <textarea name="description" defaultValue={editingItem?.description} placeholder="Full Description..." required rows={6} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white outline-none focus:border-primary resize-none" />
+            )}
             
             <div className="flex gap-4">
                 <button type="submit" className="flex-1 py-5 bg-primary text-white rounded-2xl font-bold hover:bg-primary-bright transition-all shadow-xl">
