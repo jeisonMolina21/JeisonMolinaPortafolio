@@ -38,7 +38,7 @@ const { profile, skills, education, recognitions } = summaryData || {};
 			<About client:visible />
 			<Skills client:visible skills={skills || []} />
 			<Projects client:visible />
-			<Experience client:visible />
+			<Experience client:visible experience={experience || []} />
 			<Education client:visible education={education || []} />
 			<Recognitions client:visible recognitions={recognitions || []} />
 			<Contact client:visible profile={profile} />

@@ -3,33 +3,11 @@ import React from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { MapPin, Briefcase, TrendingUp } from 'lucide-react';
 
-const experiences = [
-  {
-    role: "Full Stack & IT Specialist",
-    company: "Fundación U. Horizonte",
-    period: "2022 - Presente",
-    location: "Bogotá",
-    achievement: "60h/sem ahorro",
-    bullets: [
-      "Arquitectura que redujo en **60h/semestre** la creación de cuentas.",
-      "Sistema de **Carnetización Digital** para 5,000+ estudiantes.",
-      "Control total de **Inventario TI** del 100% de activos fijos."
-    ]
-  },
-  {
-    role: "Software Developer Freelance",
-    company: "Independiente",
-    period: "2020 - 2022",
-    location: "Remoto",
-    achievement: "< 1s LCP",
-    bullets: [
-      "Optimización de carga reduciendo el LCP a **< 1 segundo**.",
-      "Integración de pasarelas de pago y gestión de stock tiempo real."
-    ]
-  }
-];
-
 const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
+  const bullets = typeof exp.description === 'string' 
+    ? exp.description.split('\n').filter((l: string) => l.trim()) 
+    : [];
+
   return (
     <div className={`relative flex flex-col md:flex-row items-start md:items-center gap-6 mb-8 last:mb-0 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
       {/* Dot */}
@@ -52,19 +30,23 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
       >
         <div className="relative p-6 neo-glass rounded-2xl hover:border-primary/20 transition-all duration-400 overflow-hidden beam-border">
           {/* Achievement badge */}
-          <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-1 neo-glass rounded-full border-emerald/20 text-emerald text-[8px] font-bold uppercase tracking-wider">
-            <TrendingUp size={10} />
-            {exp.achievement}
-          </div>
+          {exp.achievement && (
+            <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-1 neo-glass rounded-full border-emerald/20 text-emerald text-[8px] font-bold uppercase tracking-wider">
+              <TrendingUp size={10} />
+              {exp.achievement}
+            </div>
+          )}
 
           <div className="flex flex-wrap items-center gap-2.5 mb-3">
             <span className="px-2.5 py-1 bg-primary/10 text-primary-bright text-[9px] font-bold uppercase tracking-[0.15em] rounded-full">
               {exp.period}
             </span>
-            <div className="flex items-center gap-1 text-text-muted text-[9px] font-bold uppercase tracking-wider">
-              <MapPin size={10} />
-              {exp.location}
-            </div>
+            {exp.location && (
+              <div className="flex items-center gap-1 text-text-muted text-[9px] font-bold uppercase tracking-wider">
+                <MapPin size={10} />
+                {exp.location}
+              </div>
+            )}
           </div>
 
           <h3 className="text-xl font-display font-bold text-white mb-1">{exp.role}</h3>
@@ -74,7 +56,7 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
           </p>
           
           <ul className="space-y-2.5">
-            {exp.bullets.map((b: string, bi: number) => (
+            {bullets.map((b: string, bi: number) => (
               <li key={bi} className="text-xs text-text-dim flex gap-3 leading-relaxed group-hover:text-slate-300 transition-colors">
                 <div className="w-1 h-1 rounded-full bg-primary/40 mt-1.5 flex-shrink-0" />
                 <div dangerouslySetInnerHTML={{ __html: b.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>') }} />
@@ -90,7 +72,8 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
   );
 };
 
-const Experience = () => {
+const Experience = ({ experience }: { experience: any[] }) => {
+  if (!experience || experience.length === 0) return null;
   const containerRef = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -129,8 +112,8 @@ const Experience = () => {
           </div>
 
           <div className="relative z-10 pl-8 md:pl-0">
-            {experiences.map((exp, i) => (
-              <ExperienceItem key={i} exp={exp} index={i} />
+            {experience.map((exp, i) => (
+              <ExperienceItem key={exp.id || i} exp={exp} index={i} />
             ))}
           </div>
         </div>

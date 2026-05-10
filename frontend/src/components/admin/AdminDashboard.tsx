@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { api } from '../../utils/api';
+import { api, getFullImageUrl } from '../../utils/api';
 import { useAuthStore } from '../../store/useAuthStore';
 import { 
   Save, Image as ImageIcon, Plus, Trash2, Edit2, Loader2, 
@@ -251,7 +251,7 @@ const AdminDashboard = () => {
               <div className="flex flex-col items-center space-y-6">
                 <div className="relative group">
                   <div className="w-56 h-56 rounded-[3rem] overflow-hidden border-4 border-primary/20 shadow-2xl">
-                    <img src={profile?.image_url || '/me.png'} alt="" className="w-full h-full object-cover" />
+                    <img src={getFullImageUrl(profile?.image_url)} alt="" className="w-full h-full object-cover" />
                   </div>
                   <label className="absolute bottom-4 right-4 w-12 h-12 bg-primary text-white rounded-2xl flex items-center justify-center cursor-pointer shadow-xl">
                     <ImageIcon size={20} />
@@ -290,7 +290,7 @@ const AdminDashboard = () => {
               {(activeTab === 'experiencia' ? experience : activeTab === 'educacion' ? education : activeTab === 'reconocimientos' ? recognitions : projects).map((item) => (
                 <div key={item.id} className="glass p-8 rounded-[3rem] border border-white/5 flex gap-8 group hover:border-primary/40 transition-all">
                   <div className="w-24 h-24 rounded-3xl overflow-hidden bg-white/5 shrink-0 border border-white/10">
-                    <img src={item.logo_url || item.image_url || '/placeholder.png'} className="w-full h-full object-cover" alt="" />
+                    <img src={getFullImageUrl(item.logo_url || item.image_url)} className="w-full h-full object-cover" alt="" />
                   </div>
                   <div className="flex-1 min-w-0 flex flex-col justify-center">
                     <h4 className="text-xl font-bold text-white truncate mb-1">{item.company || item.institution || item.title || item.name}</h4>
@@ -347,7 +347,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className="flex items-center gap-8 p-6 bg-white/5 rounded-[2.5rem] border border-white/10">
                   <div className="w-24 h-24 rounded-2xl bg-white/5 overflow-hidden shrink-0 border border-white/10">
-                    <img src={currentItem.logo_url || currentItem.image_url || '/placeholder.png'} className="w-full h-full object-cover" alt="" />
+                    <img src={getFullImageUrl(currentItem.logo_url || currentItem.image_url)} className="w-full h-full object-cover" alt="" />
                   </div>
                   <label className="flex-1 py-4 bg-primary/10 text-primary text-center text-xs font-black uppercase tracking-widest rounded-2xl cursor-pointer hover:bg-primary hover:text-white transition-all">
                     Actualizar Imagen

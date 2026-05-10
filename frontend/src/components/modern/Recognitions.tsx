@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, ExternalLink, Calendar, ShieldCheck, Trophy } from 'lucide-react';
+import { getFullImageUrl } from '../../utils/api';
 
 const Recognitions = ({ recognitions }: { recognitions: any[] }) => {
   if (!recognitions || recognitions.length === 0) return null;
@@ -46,7 +47,7 @@ const Recognitions = ({ recognitions }: { recognitions: any[] }) => {
             >
               <div className="relative aspect-video rounded-xl overflow-hidden bg-white/5 border border-white/5">
                 {rec.image_url ? (
-                  <img src={rec.image_url} alt={rec.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={getFullImageUrl(rec.image_url)} alt={rec.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-white/10 italic">
                     <Award size={48} strokeWidth={1} />

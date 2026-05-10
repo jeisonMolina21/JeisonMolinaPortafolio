@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, animate } f
 import { ArrowRight, Download, Rocket, Users, Clock, Zap } from 'lucide-react';
 import GlitchText from './GlitchText';
 import HeroBackground from './HeroBackground';
+import { getFullImageUrl } from '../../utils/api';
 
 /* ── Animated Counter ── */
 const AnimatedCounter = ({ value, label, icon }: { value: string, label: string, icon: React.ReactNode }) => {
@@ -164,7 +165,7 @@ const Hero = ({ profile }: { profile: any }) => {
               className="relative w-full h-full neo-glass rounded-[2.5rem] overflow-hidden border-primary/10 group"
             >
               <img 
-                src={profile?.image_url || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800"} 
+                src={getFullImageUrl(profile?.image_url)} 
                 alt="Jeison Molina"
                 className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-105 transition-all duration-700"
               />
