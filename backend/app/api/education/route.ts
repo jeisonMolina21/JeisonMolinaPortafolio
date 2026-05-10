@@ -1,50 +1,62 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { PortfolioService } from '@/services/PortfolioService';
+import { successResponse, errorResponse, unauthorizedResponse } from '@/constants/api-responses';
+import { getAuthUser } from '@/lib/auth';
+import { optionsResponse } from '@/lib/cors';
 import pool from '@/lib/db';
-import { verifyToken } from '@/lib/auth';
-import { translate } from '@/lib/translator';
+
+export async function OPTIONS(req: NextRequest) {
+  return optionsResponse(req.headers.get('origin'));
+}
 
 export async function GET(req: NextRequest) {
+  const origin = req.headers.get('origin');
   try {
-    const { searchParams } = new URL(req.url);
-    const lang = searchParams.get('lang') || 'es';
-    const [rows]: any = await pool.query('SELECT * FROM education ORDER BY created_at DESC');
-    
-    const processedRows = await Promise.all(rows.map(async (row: any) => ({
-      ...row,
-      degree: await translate(row.degree, lang),
-      description: await translate(row.description, lang)
-    })));
-
-    return NextResponse.json(processedRows);
+    const data = await PortfolioService.getEducation();
+    return successResponse(data, origin);
   } catch (error: any) {
-    return NextResponse.json({ error: 'Error fetching education' }, { status: 500 });
+    return errorResponse('Error fetching education', 500, error.message, origin);
   }
 }
 
-import { EducationSchema } from '@/lib/schemas';
-import { validateData } from '@/lib/validation';
-
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get('origin');
   try {
-    const token = req.headers.get('Authorization')?.split(' ')[1];
-    if (!token || !verifyToken(token)) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
+    const user = getAuthUser(req);
+    if (!user) return unauthorizedResponse(origin);
     const body = await req.json();
-    const { isValid, data, response } = await validateData(EducationSchema, body);
-    
-    if (!isValid) return response;
-
-    const { institution, degree, period, description } = data;
-
-    const [result]: any = await pool.query(
-      'INSERT INTO education (institution, degree, period, description) VALUES (?, ?, ?, ?)',
-      [institution, degree, period, description]
-    );
-
-    return NextResponse.json({ id: result.insertId, message: 'Education added successfully' }, { status: 201 });
+    const id = await PortfolioService.addEducation(body);
+    return successResponse({ id, message: 'Education added' }, origin);
   } catch (error: any) {
-    return NextResponse.json({ error: 'Error adding education' }, { status: 500 });
+    return errorResponse('Error adding education', 500, error.message, origin);
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  const origin = req.headers.get('origin');
+  try {
+    const user = getAuthUser(req);
+    if (!user) return unauthorizedResponse(origin);
+    const body = await req.json();
+    const { id, ...data } = body;
+    await pool.query('UPDATE education SET institution = ?, degree = ?, period = ?, description = ? WHERE id = ?', [data.institution, data.degree, data.period, data.description, id]);
+
+    return successResponse({ message: 'Education updated' }, origin);
+  } catch (error: any) {
+    return errorResponse('Error updating education', 500, error.message, origin);
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  const origin = req.headers.get('origin');
+  try {
+    const user = getAuthUser(req);
+    if (!user) return unauthorizedResponse(origin);
+    const id = req.nextUrl.searchParams.get('id');
+    if (!id) return errorResponse('ID required', 400, null, origin);
+    await PortfolioService.deleteEducation(parseInt(id));
+    return successResponse({ message: 'Education deleted' }, origin);
+  } catch (error: any) {
+    return errorResponse('Error deleting education', 500, error.message, origin);
   }
 }

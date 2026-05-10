@@ -2,12 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, Calendar, BookOpen } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useEducation } from '../hooks/useEducation';
-import '../styles/components/Timeline.css';
+
+
+import { usePortfolioData } from '../context/PortfolioContext';
+
 
 const Education = () => {
-  const { lang, t } = useLanguage();
-  const { items, loading } = useEducation(lang);
+  const { t } = useLanguage();
+  const { data, loading } = usePortfolioData();
+  const items = data?.education || [];
 
   if (loading || items.length === 0) return null;
 
@@ -32,7 +35,7 @@ const Education = () => {
         <div className="timeline-container">
           <div className="timeline-line"></div>
 
-          {items.map((edu, index) => (
+          {items.map((edu: any, index: number) => (
             <div key={edu.id} className={`timeline-item ${index % 2 !== 0 ? 'timeline-item-reverse' : ''}`}>
               <div className="timeline-dot"></div>
               

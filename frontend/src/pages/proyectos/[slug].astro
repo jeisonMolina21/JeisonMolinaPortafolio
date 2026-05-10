@@ -1,0 +1,145 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import Navigation from '../../components/Navigation';
+import Footer from '../../components/Footer.astro';
+import { ArrowLeft, Zap, Target, Award, Github, ExternalLink } from 'lucide-react';
+
+export async function getStaticPaths() {
+  // Since we use a DB, in a real static Astro build we would fetch them here.
+  // For this demonstration, we'll define the main one requested: 'hermes'
+  return [
+    { params: { slug: 'hermes' } },
+    { params: { slug: 'kairós' } },
+    { params: { slug: 'saas-e-commerce' } },
+  ];
+}
+
+const { slug } = Astro.params;
+
+// Content for Hermes (as requested in the plan)
+const projectData = {
+  hermes: {
+    title: "Hermes: Automatización Microsoft 365",
+    tagline: "De 40 horas a 5 minutos",
+    problem: "Talento Humano gastaba 1 semana cada semestre creando +500 cuentas de estudiantes una por una de forma manual.",
+    action: "Diseñé un motor de automatización en Python usando Microsoft Graph API que integra la creación de identidades, asignación de licencias por volumen y configuración de grupos de seguridad.",
+    result: "40h → 5min. Implementado con éxito durante 3 semestres consecutivos con un margen de error del 0%.",
+    architecture: "Excel Master List → Python Engine → Graph API → Azure AD / M365",
+    learnings: "Gestión de Rate Limits de APIs empresariales, manejo de excepciones en flujos masivos y optimización de scripts PowerShell para integración híbrida.",
+    tech: ["Python", "Microsoft Graph API", "PowerShell", "Docker", "Pandas"]
+  }
+}[slug] || {
+    title: "Proyecto en Detalle",
+    tagline: "Optimizando procesos de alto impacto",
+    problem: "Cargando datos del proyecto...",
+    action: "",
+    result: "",
+    architecture: "",
+    learnings: "",
+    tech: []
+};
+
+---
+
+<MainLayout title={projectData.title}>
+  <div class="min-h-screen bg-midnight pt-32 pb-20">
+    <div class="container-custom">
+      <a href="/" class="inline-flex items-center gap-2 text-white/50 hover:text-white mb-12 transition-colors group">
+        <ArrowLeft size={16} class="group-hover:-translate-x-2 transition-transform" />
+        Volver al Inicio
+      </a>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+        <div class="lg:col-span-8">
+          <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-none">
+            {projectData.title.split(':')[0]}<br/>
+            <span class="wine-gradient italic">{projectData.title.split(':')[1] || ''}</span>
+          </h1>
+          <p class="text-2xl text-primary-bright font-bold mb-16">{projectData.tagline}</p>
+
+          <div class="space-y-20">
+            <section>
+              <h2 class="text-xs font-black uppercase tracking-[0.4em] text-white/30 mb-8 flex items-center gap-4">
+                <span class="w-8 h-px bg-white/10"></span> EL DOLOR (EL PROBLEMA)
+              </h2>
+              <p class="text-xl text-white/80 leading-relaxed italic border-l-4 border-primary pl-8">
+                "{projectData.problem}"
+              </p>
+            </section>
+
+            <section>
+              <h2 class="text-xs font-black uppercase tracking-[0.4em] text-white/30 mb-8 flex items-center gap-4">
+                <span class="w-8 h-px bg-white/10"></span> MI ROL Y SOLUCIÓN
+              </h2>
+              <p class="text-xl text-white/70 leading-relaxed">
+                {projectData.action}
+              </p>
+            </section>
+
+            <section class="bg-white/5 rounded-3xl p-10 border border-white/10">
+              <h2 class="text-xs font-black uppercase tracking-[0.4em] text-white/30 mb-8">ARQUITECTURA DEL SISTEMA</h2>
+              <div class="flex flex-wrap items-center gap-6 text-lg font-mono">
+                {projectData.architecture.split(' → ').map((step, i, arr) => (
+                  <>
+                    <span class="px-6 py-3 bg-midnight rounded-xl border border-white/5 text-white">{step}</span>
+                    {i < arr.length - 1 && <span class="text-primary-bright">→</span>}
+                  </>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <h2 class="text-xs font-black uppercase tracking-[0.4em] text-white/30 mb-8 flex items-center gap-4">
+                <span class="w-8 h-px bg-white/10"></span> RESULTADO (EL IMPACTO)
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 bg-primary/10 rounded-3xl border border-primary/20">
+                  <div class="text-4xl font-black text-primary-bright mb-2">40h → 5min</div>
+                  <p class="text-white/60">Ahorro de tiempo operativo semanal</p>
+                </div>
+                <div class="p-8 bg-green-500/10 rounded-3xl border border-green-500/20">
+                  <div class="text-4xl font-black text-green-400 mb-2">0 Errores</div>
+                  <p class="text-white/60">Precisión en despliegue masivo</p>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="text-xs font-black uppercase tracking-[0.4em] text-white/30 mb-8 flex items-center gap-4">
+                <span class="w-8 h-px bg-white/10"></span> LECCIONES APRENDIDAS
+              </h2>
+              <p class="text-lg text-white/60 leading-relaxed">
+                {projectData.learnings}
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <div class="lg:col-span-4">
+          <div class="sticky top-32 space-y-12">
+            <div class="p-8 bg-white/5 rounded-3xl border border-white/10">
+              <h3 class="text-xs font-black uppercase tracking-[0.4em] text-white/30 mb-8">STACK TÉCNICO</h3>
+              <div class="flex flex-wrap gap-3">
+                {projectData.tech.map(t => (
+                  <span class="px-4 py-2 bg-white/5 rounded-full text-xs font-bold text-white/80 border border-white/10">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+              <a href="#" class="btn-primary w-full justify-center py-5">
+                <ExternalLink size={20} class="mr-2" /> Ver Código en GitHub
+              </a>
+              <a href="#" class="btn-secondary w-full justify-center py-5 border-white/10">
+                <Zap size={20} class="mr-2" /> Solicitar Demo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <Footer />
+</MainLayout>

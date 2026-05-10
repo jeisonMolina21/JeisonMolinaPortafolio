@@ -1,25 +1,48 @@
 import mysql from 'mysql2/promise';
 
-const dbConfig = process.env.DATABASE_URL || process.env.URL_DE_LA_BASE_DE_DATOS
-  ? (process.env.DATABASE_URL || process.env.URL_DE_LA_BASE_DE_DATOS)
-  : {
-      host: process.env.DB_HOST || process.env.HOST_DE_LA_BASE_DE_DATOS || 'localhost',
-      port: parseInt(process.env.DB_PORT || process.env.Puerto_DB || '3306'),
-      user: process.env.DB_USER || process.env.USUARIO_DE_LA_BASE_DE_DATOS || 'root',
-      password: process.env.DB_PASSWORD || process.env.CONTRASEÑA_DE_BASE_DE_DATOS || '',
-      database: process.env.DB_NAME || process.env.NOMBRE_DE_LA_BASE_DE_DATOS || 'my_proyectsast',
-    };
+/**
+ * Singleton pattern for Database Pool to avoid multiple connections in Serverless.
+ */
+let pool: mysql.Pool;
 
-const pool = typeof dbConfig === 'string' 
-  ? mysql.createPool(dbConfig)
-  : mysql.createPool({
-      ...dbConfig,
-      waitForConnections: true,
-      connectionLimit: 10,
-      queueLimit: 0,
-      ssl: {
-        rejectUnauthorized: false
+const DB_CONFIG = {
+  url: process.env.DATABASE_URL,
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT || '3306'),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+};
+
+if (!(global as any).pool) {
+  const connectionOptions: any = DB_CONFIG.url
+    ? {
+        uri: DB_CONFIG.url,
+        ssl: { rejectUnauthorized: false },
       }
-    });
+    : {
+        host: DB_CONFIG.host,
+        port: DB_CONFIG.port,
+        user: DB_CONFIG.user,
+        password: DB_CONFIG.password,
+        database: DB_CONFIG.database,
+        ssl: { rejectUnauthorized: false },
+      };
+
+  (global as any).pool = mysql.createPool({
+    ...connectionOptions,
+    waitForConnections: true,
+    connectionLimit: 1, // Reducimos a 1 para serverless para evitar saturar Aiven
+    maxIdle: 1,
+    idleTimeout: 60000,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 0,
+  });
+  
+  console.log('🔌 [DB]: Pool de conexiones inicializado (Modo Serverless)');
+}
+
+pool = (global as any).pool;
 
 export default pool;
+

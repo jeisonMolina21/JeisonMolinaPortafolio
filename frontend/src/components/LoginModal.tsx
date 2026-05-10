@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { api } from '../utils/api';
 
 const LoginModal = ({ isOpen, onClose, onLoginSuccess }: { isOpen: boolean, onClose: () => void, onLoginSuccess: (token: string) => void }) => {
   const [username, setUsername] = useState('');
@@ -12,24 +13,25 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }: { isOpen: boolean, onCl
     setError('');
 
     try {
-      const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+      const data = await api.post('auth/login', { 
+        username: username.trim(), 
+        password 
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (data && data.token) {
         localStorage.setItem('token', data.token);
         onLoginSuccess(data.token);
         onClose();
       } else {
-        setError(data.error || 'Credenciales inválidas');
+        setError('Respuesta del servidor no válida');
       }
-    } catch (err) {
-      setError('Error de conexión con el servidor');
+    } catch (err: any) {
+      console.error('❌ Login Error Details:', {
+        message: err.message,
+        stack: err.stack,
+        cause: err.cause
+      });
+      setError(err.message || 'Error de conexión con el servidor');
     } finally {
       setIsLoading(false);
     }

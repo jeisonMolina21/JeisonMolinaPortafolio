@@ -1,22 +1,28 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
+import { withCors, optionsResponse } from '@/lib/cors';
 
-export async function GET() {
+export async function OPTIONS(req: NextRequest) {
+  return optionsResponse(req.headers.get('origin'));
+}
+
+export async function GET(req: NextRequest) {
+  const origin = req.headers.get('origin');
   try {
+    // Intentamos una consulta simple a la DB
     await pool.query('SELECT 1');
-    return NextResponse.json({
-      status: 'healthy',
+    
+    return withCors(NextResponse.json({ 
+      status: 'ok', 
       database: 'connected',
-      message: 'Portfolio API is running',
-      timestamp: new Date().toISOString()
-    });
+      message: 'Backend está respondiendo correctamente'
+    }), origin);
+    
   } catch (error: any) {
-    return NextResponse.json({
-      status: 'unhealthy',
+    return withCors(NextResponse.json({ 
+      status: 'error', 
       database: 'disconnected',
-      error: error.message,
-      message: 'Portfolio API is running but database is not reachable',
-      timestamp: new Date().toISOString()
-    }, { status: 500 });
+      error: error.message 
+    }, { status: 500 }), origin);
   }
 }

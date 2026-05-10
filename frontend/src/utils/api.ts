@@ -1,10 +1,32 @@
-const API_BASE_URL = typeof window !== 'undefined' 
-    ? (import.meta.env.PUBLIC_API_URL || '/api') 
-    : (import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api');
+// Configura aquí la URL de tu proyecto de Backend en Vercel
+const PRODUCTION_BACKEND_URL = 'https://jeison-molina-portafolio-yerl.vercel.app'; 
 
-if (typeof window !== 'undefined' && !import.meta.env.PUBLIC_API_URL) {
-    console.warn('PUBLIC_API_URL is not defined. Falling back to /api');
+const isLocal = import.meta.env.DEV;
+const envApiUrl = import.meta.env.PUBLIC_API_URL;
+
+let rawApiUrl = '';
+
+if (isLocal) {
+    rawApiUrl = 'http://localhost:3000/api';
+} else {
+    rawApiUrl = (envApiUrl && envApiUrl !== '/api') 
+        ? envApiUrl 
+        : PRODUCTION_BACKEND_URL;
+    
+    // Aseguramos que termine en /api
+    if (!rawApiUrl.endsWith('/api')) {
+        rawApiUrl = `${rawApiUrl.replace(/\/+$/, '')}/api`;
+    }
 }
+
+export const API_BASE_URL = rawApiUrl.replace(/\/+$/, '');
+
+if (typeof window !== 'undefined') {
+    console.log('📡 API_BASE_URL initialized as:', API_BASE_URL);
+}
+
+// Ensure images load correctly regardless of whether it's local or production
+export const IMAGE_BASE_URL = API_BASE_URL.replace('/api', '');
 
 const handleResponse = async (res: Response, endpoint: string) => {
     if (!res.ok) {
@@ -34,6 +56,10 @@ export const api = {
             console.error(`Fetch error for ${endpoint}:`, err);
             return null;
         }
+    },
+
+    async getSummary(lang: string = 'es') {
+        return this.get('summary', lang);
     },
 
     async getAuthenticated(endpoint: string, token: string) {

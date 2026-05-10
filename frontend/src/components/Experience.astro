@@ -1,0 +1,85 @@
+---
+import { Briefcase, Calendar, MapPin } from 'lucide-react';
+
+interface Props {
+  experience: any[];
+}
+
+const { experience } = Astro.props;
+
+// Filter to ensure one per company/role if needed, but the backend fix already filters by lang.
+const items = experience || [];
+---
+
+<section id="experience" class="section-padding bg-bg-deep dark:bg-black/50 transition-colors duration-500">
+  <div class="container-custom relative z-10">
+    <div class="text-center mb-24">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border-primary/20 mb-6">
+        <Briefcase size={12} class="text-primary" />
+        <span class="text-[10px] font-bold uppercase tracking-widest text-primary italic">Trayectoria Profesional</span>
+      </div>
+      <h2 class="text-5xl md:text-7xl lg:text-8xl font-display font-black text-text-main tracking-tighter leading-none">
+        Mi <span class="text-primary italic">Impacto</span><br/> en la Industria
+      </h2>
+    </div>
+
+    <div class="relative">
+      <!-- Timeline Line -->
+      <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/20 to-transparent md:-translate-x-1/2"></div>
+
+      <div class="space-y-16">
+        {items.map((exp, index) => (
+          <div class={`relative flex flex-col md:flex-row items-center gap-8 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+            <!-- Dot -->
+            <div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary-bright border-4 border-midnight shadow-[0_0_20px_rgba(220,38,38,0.5)] z-20 md:-translate-x-1/2"></div>
+
+            <!-- Content Card -->
+            <div class="w-full md:w-[45%]">
+              <div class="glass p-8 md:p-10 rounded-[2.5rem] border-white/5 hover:border-primary/30 transition-all duration-500 group">
+                <div class="flex items-center justify-between mb-6">
+                  <div class="flex items-center gap-2 text-primary-bright font-black text-[10px] uppercase tracking-widest">
+                    <Calendar size={14} />
+                    {exp.period}
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-primary/10 text-primary-bright text-[8px] font-black uppercase tracking-widest">Full Time</span>
+                </div>
+
+                <h3 class="text-2xl md:text-3xl font-black text-text-main mb-2 group-hover:text-primary-bright transition-colors">
+                  {exp.role}
+                </h3>
+                
+                <div class="flex items-center gap-4 text-text-dim text-sm font-medium mb-6">
+                  <span class="flex items-center gap-1.5">
+                    <Briefcase size={14} class="text-primary" />
+                    {exp.company}
+                  </span>
+                  {exp.location && (
+                    <span class="flex items-center gap-1.5">
+                      <MapPin size={14} />
+                      {exp.location}
+                    </span>
+                  )}
+                </div>
+
+                <p class="text-text-dim leading-relaxed mb-8 italic">
+                  "{exp.description}"
+                </p>
+
+                <div class="flex flex-wrap gap-2">
+                  {exp.skills?.split(',').map((skill: string) => (
+                    <span class="px-3 py-1.5 bg-white/5 rounded-xl border border-white/5 text-[10px] font-bold text-white/60 group-hover:text-primary-bright group-hover:border-primary/20 transition-all">
+                      {skill.trim()}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <!-- Spacer for Desktop -->
+            <div class="hidden md:block w-[45%]"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,3 +1,4 @@
+/** @jsxImportSource react */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'es' | 'en';
@@ -77,6 +78,13 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (!context) throw new Error('useLanguage must be used within a LanguageProvider');
+  if (!context) {
+    // Fallback for SSR or if used outside provider
+    return {
+      lang: 'es' as Language,
+      setLang: () => {},
+      t: (key: string) => (translations.es as any)[key] || key
+    };
+  }
   return context;
 };

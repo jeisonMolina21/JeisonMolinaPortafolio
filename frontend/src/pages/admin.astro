@@ -1,0 +1,31 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import AdminDashboard from '../components/admin/AdminDashboard';
+---
+
+<MainLayout title="Admin Dashboard | Jeison Molina">
+  {/* Forzamos client:load para asegurar que los eventos de clic se activen de inmediato */}
+  <AdminDashboard client:load />
+
+  <script>
+    import { useAuthStore } from '../store/useAuthStore';
+    
+    // Protección de ruta a nivel de cliente
+    const checkAuth = () => {
+      const { isAdmin } = useAuthStore.getState();
+      if (!isAdmin && window.location.pathname === '/admin') {
+        window.location.href = '/login';
+      }
+    };
+
+    // Ejecutar al cargar
+    checkAuth();
+    
+    // Re-checkear si el usuario cambia el estado (opcional pero recomendado)
+    useAuthStore.subscribe((state) => {
+      if (!state.isAdmin && window.location.pathname === '/admin') {
+        window.location.href = '/login';
+      }
+    });
+  </script>
+</MainLayout>

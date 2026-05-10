@@ -1,0 +1,97 @@
+---
+import { User, Zap, Sparkles, Database, Terminal, Cpu, CheckCircle2 } from 'lucide-react';
+
+interface Props {
+  profile: any;
+  groupedSkills: any;
+}
+
+const { profile, groupedSkills } = Astro.props;
+
+const valueProps = [
+  "Optimización de procesos críticos",
+  "Arquitecturas escalables y seguras",
+  "Automatización RPA de alto impacto",
+  "Liderazgo técnico y consultoría"
+];
+---
+
+<section id="about" class="section-padding bg-midnight relative overflow-hidden">
+  <div class="container-custom relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+      
+      <!-- Bio Column -->
+      <div class="lg:col-span-6 space-y-10">
+        <div class="space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-lg">
+            <User size={14} class="text-primary" />
+            <span class="text-[10px] font-bold uppercase tracking-widest text-primary">Sobre Mí</span>
+          </div>
+          <h2 class="text-4xl md:text-5xl font-display font-bold text-text-main leading-tight">
+            Transformo problemas complejos en <span class="text-primary">ventajas competitivas</span>
+          </h2>
+          <p class="text-lg text-text-dim leading-relaxed">
+            {profile?.bio || "Desarrollador Full Stack apasionado por crear soluciones que no solo funcionen, sino que escalen. Mi enfoque se centra en la eficiencia operativa y la excelencia técnica."}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {valueProps.map(prop => (
+            <div class="flex items-center gap-3 p-4 bg-bg-surface border border-white/5 rounded-2xl group hover:border-primary/20 transition-colors">
+              <CheckCircle2 size={18} class="text-primary shrink-0" />
+              <span class="text-sm font-medium text-text-dim group-hover:text-text-main transition-colors">{prop}</span>
+            </div>
+          ))}
+        </div>
+
+        <!-- Metric -->
+        <div class="p-8 bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 rounded-[2rem] relative overflow-hidden group">
+          <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary/10 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+          <div class="relative z-10">
+            <p class="text-5xl font-display font-bold text-primary mb-2">40h → 5m</p>
+            <p class="text-sm font-bold text-text-muted uppercase tracking-widest">Caso de éxito: Automatización de Reportes</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Column -->
+      <div class="lg:col-span-6">
+        <div class="glass p-8 md:p-12 rounded-[3rem] border border-white/5 shadow-2xl relative">
+          <h3 class="text-xl font-bold text-text-main mb-8 flex items-center gap-3">
+            <Terminal size={20} class="text-primary" />
+            Stack Especializado
+          </h3>
+
+          <div class="space-y-8">
+            {Object.entries(groupedSkills || {}).map(([category, catSkills]: [string, any]) => (
+              <div class="space-y-4">
+                <h4 class="text-xs font-bold text-text-muted uppercase tracking-[0.2em]">{category}</h4>
+                <div class="flex flex-wrap gap-2">
+                  {catSkills.map((skill: any) => (
+                    <span class="px-3 py-1.5 bg-white/5 border border-white/5 rounded-lg text-xs font-medium text-text-dim hover:text-primary hover:border-primary/30 transition-all cursor-default">
+                      {skill.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-10 pt-8 border-t border-white/5">
+             <div class="flex items-center gap-4">
+               <div class="flex -space-x-2">
+                 {[1, 2, 3].map(i => (
+                   <div class="w-8 h-8 rounded-full bg-primary/20 border-2 border-midnight flex items-center justify-center text-[10px] font-bold text-primary">
+                     {i}
+                   </div>
+                 ))}
+               </div>
+               <p class="text-xs text-text-muted italic">Evolución constante con las últimas tecnologías.</p>
+             </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

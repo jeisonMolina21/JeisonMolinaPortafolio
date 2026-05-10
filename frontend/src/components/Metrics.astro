@@ -1,0 +1,46 @@
+---
+interface Metric {
+  value: string;
+  label: string;
+  sublabel: string;
+}
+
+interface Props {
+  metrics: Metric[];
+}
+
+const { metrics } = Astro.props;
+
+const defaultMetrics = [
+  { value: '+50k', label: '/día', sublabel: 'Registros procesados con <br/> <span class="text-text-main">Pandas & MySQL</span>' },
+  { value: '6', label: 'APIs', sublabel: 'Sistemas integrados con <br/> <span class="text-text-main">OAuth2 & Graph API</span>' },
+  { value: '99.8%', label: '', sublabel: 'Integridad de datos <br/> <span class="text-text-main">en producción</span>' },
+  { value: '98/100', label: '', sublabel: 'Lighthouse Score <br/> <span class="text-text-main">Astro + Next.js</span>' }
+];
+
+const displayMetrics = metrics && metrics.length > 0 ? metrics : defaultMetrics;
+---
+<section class="py-20 bg-bg-deep relative overflow-hidden border-y border-white/5">
+  <div class="container mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      {displayMetrics.map((metric) => (
+        <div class="glass p-10 rounded-[3rem] border border-white/5 text-center group hover:border-primary/30 transition-all">
+          <div class="text-7xl font-black text-white mb-4 tracking-tighter group-hover:text-primary transition-colors">
+            {metric.value}
+            {metric.label && <span class="text-2xl text-primary block mt-2">{metric.label}</span>}
+          </div>
+          <p class="text-text-muted font-bold uppercase tracking-widest text-[10px] leading-relaxed" set:html={metric.sublabel}></p>
+        </div>
+      ))}
+
+    </div>
+  </div>
+  
+  <!-- Decorative background element -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] -z-10"></div>
+</section>
+  
+  <!-- Decorative background element -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] -z-10"></div>
+</section>

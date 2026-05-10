@@ -1,6 +1,12 @@
 ---
 import { Github, Linkedin, Twitter, Mail, ArrowUpCircle } from 'lucide-react';
-import '../styles/components/Footer.css';
+import DownloadFooter from './DownloadFooter';
+
+interface Props {
+  data: any;
+}
+
+const { data } = Astro.props;
 const currentYear = new Date().getFullYear();
 ---
 
@@ -11,26 +17,25 @@ const currentYear = new Date().getFullYear();
     <div class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start mb-20">
       <div class="md:col-span-5 space-y-8">
         <a href="#" class="footer-logo">
-          PORT<span class="wine-gradient italic">AFOLIO</span>
+          JEI<span class="text-primary italic">SON</span>
         </a>
         <p class="footer-bio">
-          Diseñando el futuro a través de la <span class="text-white">automatización</span> y la excelencia técnica en cada línea de código.
+          Automatizando <span class="text-white font-black italic">40 horas</span> de trabajo manual a <span class="text-primary font-black">5 minutos</span> con ingeniería de software.
         </p>
-        <div class="flex gap-4">
-          {[
-            { icon: <Github size={20} />, href: "https://github.com/jeisonMolina21" },
-            { icon: <Linkedin size={20} />, href: "https://linkedin.com/in/jeisonmolina" },
-            { icon: <Twitter size={20} />, href: "#" },
-            { icon: <Mail size={20} />, href: "mailto:andreyyeisonmg@gmail.com" }
-          ].map(social => (
-            <a 
-              href={social.href} 
-              target="_blank" 
-              class="footer-social-link"
-            >
-              {social.icon}
-            </a>
-          ))}
+        <div class="flex flex-col gap-4">
+          <a href="mailto:andreyyeisonmg@gmail.com" class="text-white/60 hover:text-white transition-colors">andreyyeisonmg@gmail.com</a>
+          <a href="https://calendly.com/jeisonmolina/15min" target="_blank" class="text-primary font-black hover:underline">Agenda una reunión estratégica →</a>
+        </div>
+        <div class="flex gap-4 pt-4">
+          <a href="https://github.com/jeisonMolina21" target="_blank" class="footer-social-link" aria-label="Visitar perfil de GitHub de Jeison Molina">
+            <Github size={20} />
+          </a>
+          <a href="https://www.linkedin.com/in/jeison-molina12/" target="_blank" class="footer-social-link" aria-label="Visitar perfil de LinkedIn de Jeison Molina">
+            <Linkedin size={20} />
+          </a>
+          <a href="mailto:andreyyeisonmg@gmail.com" class="footer-social-link" aria-label="Enviar email a Jeison Molina">
+            <Mail size={20} />
+          </a>
         </div>
       </div>
 
@@ -43,6 +48,9 @@ const currentYear = new Date().getFullYear();
                 <a href={`#${item.toLowerCase()}`} class="footer-nav-link">{item}</a>
               </li>
             ))}
+            <li>
+              <DownloadFooter data={data} client:load />
+            </li>
           </ul>
         </div>
         
@@ -63,7 +71,7 @@ const currentYear = new Date().getFullYear();
             class="footer-back-to-top"
           >
             Back to Top
-            <ArrowUpCircle size={20} class="group-hover:-translate-y-1 transition-transform" />
+            <ArrowUpCircle size={20} className="group-hover:-translate-y-1 transition-transform" />
           </button>
         </div>
       </div>

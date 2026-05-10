@@ -2,32 +2,41 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, ArrowRight, Sparkles, Zap, Clock, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useProfile } from '../hooks/useProfile';
 import HeroBadge from './hero-parts/HeroBadge';
 import HeroAvatar from './hero-parts/HeroAvatar';
 import SocialLinks from './hero-parts/SocialLinks';
-import '../styles/components/Hero.css';
+
+
+import { usePortfolioData } from '../context/PortfolioContext';
+
 
 const Hero = () => {
-  const { lang, t } = useLanguage();
-  const { profile: profileData, loading, error } = useProfile(lang);
+  const { t } = useLanguage();
+  const { data, loading, error } = usePortfolioData();
+  const profileData = data?.profile;
 
   if (error) {
     return (
       <section className="error-container">
         <div className="error-card">
           <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            initial={{ scale: 0.9, opacity: 0, rotate: -10 }}
+            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+            transition={{ type: "spring", stiffness: 200 }}
             className="error-icon-box"
           >
             <AlertCircle size={40} />
           </motion.div>
           <h2 className="error-title">Sincronización Fallida</h2>
           <p className="error-message">{error}</p>
-          <button onClick={() => window.location.reload()} className="btn-secondary">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.location.reload()} 
+            className="btn-secondary"
+          >
             Reintentar Conexión
-          </button>
+          </motion.button>
         </div>
       </section>
     );
@@ -38,49 +47,51 @@ const Hero = () => {
     { icon: <Linkedin size={20} />, url: profileData.linkedin || 'https://linkedin.com' }
   ] : [];
 
-  const metrics = [
-    { 
-      value: "12 Días", 
-      label: "Ahorrados al mes", 
-      icon: <Clock className="text-primary-bright" size={16} />,
-      desc: "Optimización de procesos operativos"
-    },
-    { 
-      value: "60%", 
-      label: "Mejora en Reportes", 
-      icon: <Sparkles className="text-primary-bright" size={16} />,
-      desc: "Automatización de data analytics"
-    },
-    { 
-      value: "<1 Hora", 
-      label: "Gestión de Cuentas", 
-      icon: <Zap className="text-primary-bright" size={16} />,
-      desc: "Respuesta inmediata automatizada"
-    }
-  ];
-
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.3 } }
+    visible: { 
+      opacity: 1, 
+      transition: { 
+        staggerChildren: 0.2, 
+        delayChildren: 0.4,
+        ease: "easeOut"
+      } 
+    }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+    hidden: { y: 40, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1, 
+      transition: { 
+        duration: 1, 
+        ease: [0.16, 1, 0.3, 1] 
+      } 
+    }
   };
 
   if (loading || !profileData || !profileData.full_name) {
     return (
       <section className="loader-container">
-        <div className="flex flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-12">
           <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+            animate={{ 
+              rotate: 360,
+              scale: [1, 1.1, 1],
+              borderColor: ["#991b1b", "#dc2626", "#991b1b"]
+            }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
             className="loader-spinner"
           />
           <motion.div 
-            animate={{ opacity: [0.4, 1, 0.4] }} 
-            transition={{ duration: 2, repeat: Infinity }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
             className="loader-text"
           >
             Arquitectura en Proceso...
@@ -114,65 +125,86 @@ const Hero = () => {
           </motion.div>
           
           <motion.div variants={itemVariants} className="hero-title-container">
-            <p className="hero-tagline">
-              <span className="w-8 h-px bg-primary-bright"></span>
-              {profileData?.title}
-            </p>
+            <h2 className="hero-tagline">
+              <span className="w-12 h-px bg-primary-bright"></span>
+              {profileData?.title || 'Backend Python Developer'}
+            </h2>
             <h1 className="hero-title">
-              {firstName}<br/>
-              <span className="wine-gradient italic">{lastName}</span>
+              {profileData?.full_name || 'Jeison Molina'}
             </h1>
+            <h3 className="hero-headline mt-6">
+              {profileData?.headline_metric ? (
+                <span className="block text-4xl md:text-6xl lg:text-7xl font-black">
+                  {profileData.headline_metric.split(' ').map((word: string, i: number) => (
+                    <span key={i} className={word.includes('40') || word.includes('5') || word.includes('minutos') || word.includes('horas') ? 'wine-gradient italic px-2' : ''}>
+                      {word}{' '}
+                    </span>
+                  ))}
+                </span>
+              ) : (
+                <span className="wine-gradient italic">Automatizo 40h a 5min</span>
+              )}
+            </h3>
           </motion.div>
 
-          <motion.p variants={itemVariants} className="hero-description">
-            {profileData?.title}
+          <motion.p variants={itemVariants} className="hero-description max-w-2xl text-xl mt-4 text-white/70">
+            {profileData?.bio || 'Python + SQL + Docker | Astro + Next.js | Open to Remote LATAM/US'}
           </motion.p>
 
-          <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {metrics.map((metric, i) => (
-              <div key={i} className="glass p-6 rounded-[2rem] group hover:border-primary/40 transition-all">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 bg-primary/10 rounded-xl group-hover:scale-110 transition-transform">
-                    {metric.icon}
-                  </div>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-text-muted">{metric.label}</span>
-                </div>
-                <div className="text-3xl font-black text-white mb-1">{metric.value}</div>
-                <p className="text-[10px] text-text-muted leading-tight">{metric.desc}</p>
-              </div>
-            ))}
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-8 items-center pt-4">
-            <a href="#projects" className="btn-primary">
-              {t('hero.talk') || 'Ver Proyectos'}
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <SocialLinks links={socialLinks} />
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 items-center pt-10">
+            <motion.a 
+              href="#projects" 
+              className="btn-primary group px-8 py-4 text-lg"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Ver casos de éxito
+              <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
+            </motion.a>
+            
+            <motion.a 
+              href="/cv-jeison-molina.pdf" 
+              className="btn-secondary px-8 py-4 text-lg border-white/10 hover:border-primary/50"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Descargar CV
+            </motion.a>
           </motion.div>
         </motion.div>
 
         {/* Avatar Section */}
         <motion.div 
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+          initial={{ opacity: 0, scale: 0.9, x: 50 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
           className="lg:col-span-5 relative hidden lg:flex justify-end"
         >
-          <HeroAvatar imageUrl={profileData?.image_url} fullName={profileData?.full_name} />
+          <HeroAvatar 
+            imageUrl={profileData?.image_url} 
+            fullName={profileData?.full_name} 
+            cvUrl={profileData?.cv_url}
+            skills={data?.skills}
+          />
           
-          <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-text-muted">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] [writing-mode:vertical-lr]">Scroll</span>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+            className="absolute -bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 text-white/30"
+          >
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] [writing-mode:vertical-lr]">Explorar</span>
             <motion.div 
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-px h-12 bg-gradient-to-b from-primary to-transparent"
+              animate={{ y: [0, 15, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="w-px h-16 bg-gradient-to-b from-primary to-transparent"
             />
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
   );
 };
+
 
 export default Hero;

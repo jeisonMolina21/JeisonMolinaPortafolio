@@ -1,0 +1,88 @@
+
+.skills-section {
+    @apply relative overflow-hidden bg-[#0a0a0a] py-24 md:py-32;
+}
+
+.skills-ambient-glow {
+    @apply absolute pointer-events-none;
+}
+
+.skills-glow-1 {
+    @apply top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 blur-[150px] rounded-full opacity-40;
+}
+
+.skills-glow-2 {
+    @apply bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/10 blur-[130px] rounded-full opacity-30;
+}
+
+.skills-container {
+    @apply max-w-7xl mx-auto px-6 relative z-10;
+}
+
+.skills-header {
+    @apply max-w-3xl mb-24;
+}
+
+.skills-title {
+    @apply text-6xl md:text-8xl font-display font-black leading-[0.9] tracking-tighter mb-10 text-white drop-shadow-xl;
+}
+
+.skills-description {
+    @apply text-white/60 text-xl font-medium leading-relaxed max-w-2xl;
+}
+
+.skills-grid {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-14;
+}
+
+.skill-category-card {
+    @apply p-12 rounded-[4rem] bg-white/[0.02] border border-white/5 flex flex-col h-full hover:border-primary/40 transition-all duration-700 relative overflow-hidden backdrop-blur-xl;
+}
+
+.skill-category-glow {
+    @apply absolute -top-10 -right-10 w-48 h-48 bg-primary/10 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000;
+}
+
+.skill-category-header {
+    @apply flex items-start justify-between mb-12;
+}
+
+.skill-icon-container {
+    @apply w-16 h-16 glass rounded-2xl flex items-center justify-center bg-white/5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-700 shadow-2xl border border-white/5 group-hover:border-primary/30;
+}
+
+.skill-category-name {
+    @apply text-4xl font-display font-black text-white tracking-tight;
+}
+
+.skill-category-desc {
+    @apply text-primary-bright font-black uppercase tracking-[0.4em] text-[10px] opacity-70;
+}
+
+.skill-category-number {
+    @apply text-white/[0.03] font-display font-black text-8xl leading-none transition-colors duration-700 group-hover:text-primary/10;
+}
+
+.skills-token-grid {
+    @apply grid grid-cols-2 sm:grid-cols-3 gap-6;
+}
+
+.skill-token {
+    @apply flex items-center gap-4 p-5 bg-white/[0.02] rounded-[1.8rem] border border-transparent hover:border-primary/30 hover:bg-white/[0.05] transition-all duration-500 shadow-xl;
+}
+
+.skill-token-icon {
+    @apply text-3xl filter drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:scale-110 transition-transform duration-500;
+}
+
+.skill-token-name {
+    @apply text-[11px] font-black uppercase tracking-wider text-white/90 leading-none mb-1.5;
+}
+
+.skill-token-label {
+    @apply text-[9px] font-black text-primary-bright/50 uppercase tracking-[0.2em];
+}
+
+.skill-card-bg-icon {
+    @apply absolute -bottom-10 -right-10 opacity-[0.02] group-hover:opacity-[0.08] transition-opacity duration-1000 pointer-events-none text-white;
+}

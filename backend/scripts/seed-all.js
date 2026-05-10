@@ -1,5 +1,6 @@
 const mysql = require('mysql2/promise');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 async function seed() {
   console.log('--- Seeding Professional CV Data for Jeison Molina ---');
@@ -7,9 +8,11 @@ async function seed() {
   try {
     const connection = await mysql.createConnection({
       host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT || '15903'),
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME
+      database: process.env.DB_NAME,
+      ssl: { rejectUnauthorized: false }
     });
 
     // 1. Clear existing data
@@ -21,20 +24,21 @@ async function seed() {
 
     // 2. Profile Settings
     console.log('Seeding Profile...');
-    await connection.query(
-        'INSERT INTO profile_settings (id, full_name, title_es, title_en, bio_es, bio_en, location, whatsapp, email, linkedin) VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [
-            'Jeison Molina',
-            'Desarrollador de Software | Automatización con Python | Desarrollo Backend',
-            'Software Developer | Python Automation | Backend Development',
-            'Desarrollador de software con experiencia en automatización de procesos, desarrollo backend y procesamiento de datos, especializado en soluciones basadas en Python, integración de APIs y gestión de bases de datos. Interesado en continuar desarrollando soluciones escalables enfocadas en backend, automatización y desarrollo de software empresarial.',
-            'Software developer with experience in process automation, backend development, and data processing, specialized in Python-based solutions, API integration, and database management. Interested in continuing to develop scalable solutions focused on backend, automation, and enterprise software development.',
-            'Bogotá, Colombia',
-            '+573505498014',
-            'andreyyeisonmg@gmail.com',
-            'https://linkedin.com/in/jeisonmolina'
-        ]
-    );
+    const profileData = {
+      id: 1,
+      full_name: 'Jeison Molina',
+      title_es: 'Desarrollador de Software | Automatización con Python | Desarrollo Backend',
+      title_en: 'Software Developer | Python Automation | Backend Development',
+      bio_es: 'Desarrollador de software con experiencia en automatización de procesos, desarrollo backend y procesamiento de datos, especializado en soluciones basadas en Python, integración de APIs y gestión de bases de datos. Interesado en continuar desarrollando soluciones escalables enfocadas en backend, automatización y desarrollo de software empresarial.',
+      bio_en: 'Software developer with experience in process automation, backend development, and data processing, specialized in Python-based solutions, API integration, and database management. Interested in continuing to develop scalable solutions focused on backend, automation, and enterprise software development.',
+      location: 'Bogotá, Colombia',
+      whatsapp: '+573505498014',
+      email: 'andreyyeisonmg@gmail.com',
+      linkedin: 'https://linkedin.com/in/jeisonmolina',
+      cv_url: 'https://jeison-molina-portafolio.vercel.app/cv.pdf'
+    };
+
+    await connection.query('INSERT INTO profile_settings SET ?', profileData);
 
     // 3. Skills
     console.log('Seeding Skills...');
