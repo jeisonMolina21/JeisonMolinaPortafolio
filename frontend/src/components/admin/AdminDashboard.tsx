@@ -120,7 +120,7 @@ const AdminDashboard = () => {
     setIsSaving(true);
     try {
       const res = await api.upload(file, token);
-      if (field === 'profile' || field === 'cv_url') setProfile({ ...profile, [field]: res.url });
+      if (field === 'image_url' || field === 'cv_url') setProfile({ ...profile, [field]: res.url });
       else setCurrentItem({ ...currentItem, [field]: res.url });
       alert('✅ Archivo subido');
     } catch (err: any) {
@@ -255,7 +255,7 @@ const AdminDashboard = () => {
                   </div>
                   <label className="absolute bottom-4 right-4 w-12 h-12 bg-primary text-white rounded-2xl flex items-center justify-center cursor-pointer shadow-xl">
                     <ImageIcon size={20} />
-                    <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'profile')} />
+                    <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'image_url')} />
                   </label>
                 </div>
                 <div className="w-full p-6 bg-white/5 rounded-3xl border border-white/10">

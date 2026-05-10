@@ -9,8 +9,8 @@ export const MessageSchema = z.object({
 });
 
 export const LoginSchema = z.object({
-  username: z.string().min(3, "El usuario es obligatorio"),
-  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres")
+  username: z.string().min(1, "El usuario es obligatorio"),
+  password: z.string().min(1, "La contraseña es obligatoria")
 });
 
 export const ProfileSchema = z.object({

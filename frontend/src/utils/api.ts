@@ -41,7 +41,8 @@ const handleResponse = async (res: Response, endpoint: string) => {
         let errorMessage = `Failed to ${endpoint}`;
         try {
             const errorData = await res.json();
-            errorMessage = errorData.details || errorData.error || errorMessage;
+            const detail = errorData.details;
+            errorMessage = typeof detail === 'object' ? JSON.stringify(detail) : (detail || errorData.error || errorMessage);
         } catch (e) {
             // No JSON body
         }
