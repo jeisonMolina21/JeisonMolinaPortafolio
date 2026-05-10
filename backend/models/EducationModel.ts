@@ -7,10 +7,10 @@ export class EducationModel {
   }
 
   static async create(data: any) {
-    const { institution, title, period, logo_url } = data;
+    const { institution, degree, period, description, lang = 'es' } = data;
     const [result]: any = await pool.query(
-      'INSERT INTO education (institution, title, period, logo_url) VALUES (?, ?, ?, ?)',
-      [institution, title, period, logo_url]
+      'INSERT INTO education (institution, degree, period, description, lang) VALUES (?, ?, ?, ?, ?)',
+      [institution, degree, period, description, lang]
     );
     return result.insertId;
   }
@@ -19,3 +19,4 @@ export class EducationModel {
     await pool.query('DELETE FROM education WHERE id = ?', [id]);
   }
 }
+

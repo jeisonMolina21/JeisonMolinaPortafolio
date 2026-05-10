@@ -7,13 +7,14 @@ export class ExperienceModel {
   }
 
   static async create(data: any) {
-    const { company, role, period, description, logo_url } = data;
+    const { company, role, period, description, skills, lang = 'es' } = data;
     const [result]: any = await pool.query(
-      'INSERT INTO experience (company, role, period, description, logo_url) VALUES (?, ?, ?, ?, ?)',
-      [company, role, period, description, logo_url]
+      'INSERT INTO experience (company, role, period, description, skills, lang) VALUES (?, ?, ?, ?, ?, ?)',
+      [company, role, period, description, skills, lang]
     );
     return result.insertId;
   }
+
 
   static async delete(id: number) {
     await pool.query('DELETE FROM experience WHERE id = ?', [id]);
