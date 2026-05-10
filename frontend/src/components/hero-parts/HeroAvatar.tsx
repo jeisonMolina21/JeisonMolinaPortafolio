@@ -74,13 +74,17 @@ const HeroAvatar: React.FC<HeroAvatarProps> = ({ imageUrl, fullName, cvUrl, skil
         download="Jeison_Molina_CV.pdf"
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-6 -right-6 w-24 h-24 glass rounded-3xl flex items-center justify-center border-white/5 -rotate-6 shadow-xl hover:scale-110 hover:rotate-0 transition-all group/cv z-20 cursor-pointer"
+        className="absolute -top-10 -right-10 w-28 h-28 glass rounded-[2.5rem] flex flex-col items-center justify-center border-primary/40 -rotate-6 shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:scale-110 hover:rotate-0 transition-all group/cv z-20 cursor-pointer bg-primary/10 backdrop-blur-2xl animate-pulse-soft"
         title="Descargar CV"
       >
-        <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover/cv:opacity-100 transition-opacity"></div>
-        <span className="text-3xl relative z-10">🚀</span>
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/80 text-[8px] text-white rounded opacity-0 group-hover/cv:opacity-100 whitespace-nowrap">DOWNLOAD CV</div>
+        <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover/cv:opacity-100 transition-opacity rounded-full"></div>
+        <span className="text-4xl relative z-10 animate-bounce">🚀</span>
+        <span className="text-[10px] font-black text-primary-bright tracking-widest relative z-10 mt-1">CV</span>
+        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-primary text-black font-black text-[9px] rounded-lg opacity-0 group-hover/cv:opacity-100 whitespace-nowrap shadow-xl">
+          DESCARGAR CV ↗
+        </div>
       </motion.a>
+
 
       {/* Side-aligned Technology Stack */}
       <div className="absolute -right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10 pointer-events-none">
