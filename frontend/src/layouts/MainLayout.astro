@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import CustomCursor from '../components/narrative/CustomCursor';
 
 interface Props {
 	title: string;
@@ -12,51 +11,32 @@ const { title } = Astro.props;
 <!doctype html>
 <html lang="es" class="scroll-smooth">
 	<head>
-		<script is:inline>
-			const theme = (() => {
-				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-					return localStorage.getItem('theme');
-				}
-				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-					return 'dark';
-				}
-				return 'light';
-			})();
-		
-			if (theme === 'light') {
-				document.documentElement.classList.remove('dark');
-			} else {
-				document.documentElement.classList.add('dark');
-			}
-			window.localStorage.setItem('theme', theme);
-		</script>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Backend Python Developer en Bogotá. Automatizo procesos de 40h a 5min con Python, SQL y Docker. Experto en RPA, ETL y APIs. Open to Remote." />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content="Jeison Molina — Full-Stack Developer & Automation Specialist en Bogotá. Automatizo procesos de 40h a 5min con Python, SQL y Docker. Experto en RPA, ETL y APIs." />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		
-		<!-- Google Fonts -->
+		<!-- OG Tags -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content="Full-Stack Developer & Automation Specialist — Transformo procesos complejos en sistemas eficientes." />
+		<meta property="og:type" content="website" />
+		
+		<!-- Google Fonts with preconnect -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 		
-		<title>{title} | Backend Python Developer | Automatización RPA | Bogotá</title>
+		<title>{title}</title>
 	</head>
-	<body class="bg-midnight text-slate-50 font-sans selection:bg-primary/30 selection:text-primary overflow-x-hidden">
-		<CustomCursor client:load />
-		<!-- Premium Background System -->
+	<body class="bg-slate-950 text-slate-50 font-sans overflow-x-hidden">
+		<!-- Background System -->
 		<div class="fixed inset-0 -z-50 pointer-events-none">
-			<!-- Grain Overlay -->
-			<div class="absolute inset-0 opacity-[0.03] mix-blend-overlay" style="background-image: url('/noise.svg');"></div>
-			
-			<!-- Dynamic Gradients -->
-			<div class="absolute top-0 left-0 w-full h-full bg-midnight"></div>
-			<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[120px] animate-pulse-slow"></div>
-			<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-wine-dark/20 blur-[120px]"></div>
-			
-			<!-- Elegant Grid -->
-			<div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+			<div class="absolute inset-0 bg-slate-950"></div>
+			<div class="absolute top-[-15%] left-[-10%] w-[35%] h-[35%] rounded-full bg-primary/8 blur-[120px]"></div>
+			<div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] rounded-full bg-secondary/6 blur-[120px]"></div>
+			<!-- Subtle Grid -->
+			<div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 		</div>
 		<slot />
 	</body>
