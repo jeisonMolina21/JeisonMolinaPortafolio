@@ -39,7 +39,8 @@ export async function PUT(req: NextRequest) {
     if (!user) return unauthorizedResponse(origin);
     const body = await req.json();
     const { id, ...data } = body;
-    await pool.query('UPDATE education SET institution = ?, degree = ?, period = ?, logo_url = ? WHERE id = ?', [data.institution, data.degree, data.period, data.logo_url, id]);
+    await pool.query('UPDATE education SET institution = ?, degree = ?, period = ?, description = ? WHERE id = ?', [data.institution, data.degree, data.period, data.description, id]);
+
     return successResponse({ message: 'Education updated' }, origin);
   } catch (error: any) {
     return errorResponse('Error updating education', 500, error.message, origin);

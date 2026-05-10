@@ -39,7 +39,8 @@ export async function PUT(req: NextRequest) {
     if (!user) return unauthorizedResponse(origin);
     const body = await req.json();
     const { id, ...data } = body;
-    await pool.query('UPDATE experience SET company = ?, role = ?, period = ?, description = ?, logo_url = ? WHERE id = ?', [data.company, data.role, data.period, data.description, data.logo_url, id]);
+    await pool.query('UPDATE experience SET company = ?, role = ?, period = ?, description = ?, skills = ? WHERE id = ?', [data.company, data.role, data.period, data.description, data.skills, id]);
+
     return successResponse({ message: 'Experience updated' }, origin);
   } catch (error: any) {
     return errorResponse('Error updating experience', 500, error.message, origin);
