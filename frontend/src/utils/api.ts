@@ -28,6 +28,14 @@ if (typeof window !== 'undefined') {
 // Ensure images load correctly regardless of whether it's local or production
 export const IMAGE_BASE_URL = API_BASE_URL.replace('/api', '');
 
+export const getFullImageUrl = (path?: string) => {
+    if (!path) return '/placeholder.png';
+    if (path.startsWith('http')) return path;
+    if (path.startsWith('/uploads/')) return `${IMAGE_BASE_URL}${path}`;
+    if (path.startsWith('/')) return path; // Local public assets
+    return path;
+};
+
 const handleResponse = async (res: Response, endpoint: string) => {
     if (!res.ok) {
         let errorMessage = `Failed to ${endpoint}`;
