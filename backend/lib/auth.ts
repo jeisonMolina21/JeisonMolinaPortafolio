@@ -37,9 +37,11 @@ export const getAuthUser = (req: NextRequest): UserToken | null => {
   return verifyToken(token);
 };
 
+import { unauthorizedResponse as coreUnauthorizedResponse } from '@/constants/api-responses';
+
 /**
- * Standard unauthorized response
+ * Standard unauthorized response with CORS
  */
-export const unauthorizedResponse = () => {
-  return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+export const unauthorizedResponse = (origin: string | null = null) => {
+  return coreUnauthorizedResponse(origin);
 };
