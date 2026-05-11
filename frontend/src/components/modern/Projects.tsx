@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, CheckCircle2, Target, Lightbulb, X, Layers, Zap, Award, ArrowRight } from 'lucide-react';
+import { getFullImageUrl } from '../../utils/api';
 
 const projects = [
   {
@@ -116,8 +117,18 @@ const ProjectCard = ({ project, onClick }: { project: any, onClick: (e: React.Mo
   );
 };
 
-const Projects = () => {
+const Projects = ({ projects: dynamicProjects }: { projects?: any[] }) => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
+  
+  // Use dynamic projects if available, otherwise fallback to static ones (as mock)
+  const displayProjects = (dynamicProjects && dynamicProjects.length > 0) 
+    ? dynamicProjects.map((p, i) => ({
+        ...p,
+        num: String(i + 1).padStart(2, '0'),
+        stack: typeof p.tech_stack === 'string' ? p.tech_stack.split(',').map((s: string) => s.trim()) : (p.stack || []),
+        image: getFullImageUrl(p.image_url || p.image)
+      }))
+    : projects;
 
   return (
     <section id="projects" className="section-padding bg-slate-950 relative">
@@ -136,8 +147,8 @@ const Projects = () => {
 
         {/* Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((p, i) => (
-            <ProjectCard key={i} project={p} onClick={() => setSelectedProject(p)} />
+          {displayProjects.map((p, i) => (
+            <ProjectCard key={p.id || i} project={p} onClick={() => setSelectedProject(p)} />
           ))}
         </div>
       </div>
@@ -192,14 +203,14 @@ const Projects = () => {
                         <Target size={16} />
                         <span className="text-[10px] font-bold uppercase tracking-wider text-white">El Reto</span>
                       </div>
-                      <p className="text-text-dim text-sm leading-relaxed">{selectedProject.problem}</p>
+                      <p className="text-text-dim text-sm leading-relaxed">{selectedProject.problem || selectedProject.challenge}</p>
                     </div>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-primary-bright">
                         <Lightbulb size={16} />
                         <span className="text-[10px] font-bold uppercase tracking-wider text-white">La Solución</span>
                       </div>
-                      <p className="text-text-dim text-sm leading-relaxed">{selectedProject.solution}</p>
+                      <p className="text-text-dim text-sm leading-relaxed">{selectedProject.solution || selectedProject.action}</p>
                     </div>
                   </div>
 
@@ -208,20 +219,24 @@ const Projects = () => {
                       <Award size={16} />
                       <span className="text-[10px] font-bold uppercase tracking-wider text-white">Resultados</span>
                     </div>
-                    <div className="grid grid-cols-3 gap-3">
-                      {selectedProject.results.map((r: string, ri: number) => (
-                        <motion.div
-                          key={ri}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.3 + (ri * 0.1), type: "spring" }}
-                          className="p-3 neo-glass rounded-xl border-primary/15 text-center"
-                        >
-                          <CheckCircle2 size={16} className="text-primary-bright mx-auto mb-1.5" />
-                          <p className="text-[10px] font-bold text-white leading-tight">{r}</p>
-                        </motion.div>
-                      ))}
-                    </div>
+                    {selectedProject.results ? (
+                      <div className="grid grid-cols-3 gap-3">
+                        {selectedProject.results.map((r: string, ri: number) => (
+                          <motion.div
+                            key={ri}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.3 + (ri * 0.1), type: "spring" }}
+                            className="p-3 neo-glass rounded-xl border-primary/15 text-center"
+                          >
+                            <CheckCircle2 size={16} className="text-primary-bright mx-auto mb-1.5" />
+                            <p className="text-[10px] font-bold text-white leading-tight">{r}</p>
+                          </motion.div>
+                        ))}
+                      </div>
+                    ) : (
+                       <p className="text-text-dim text-sm leading-relaxed">{selectedProject.result}</p>
+                    )}
                   </div>
                 </div>
               </div>

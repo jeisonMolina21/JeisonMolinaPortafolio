@@ -36,7 +36,7 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
 
   // Links (Individually clickable)
   const portfolioUrl = 'https://jeison-molina-portafolio-yerl.vercel.app';
-  const linkedinUrl = profile.linkedin || 'https://www.linkedin.com/in/jeison-molina-fullstack';
+  const linkedinUrl = profile.linkedin || 'https://www.linkedin.com/in/jeison-molina12/';
   const githubUrl = profile.github || 'https://github.com/jeisonMolina21';
 
   doc.setFontSize(9);

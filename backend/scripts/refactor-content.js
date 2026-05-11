@@ -23,14 +23,16 @@ He desarrollado sistemas institucionales en producción enfocados en optimizaci�
     const newTitle = "Backend Python Developer | Automation & Systems Integration";
 
     await connection.query(
-      'UPDATE profile_settings SET full_name = ?, title_es = ?, bio_es = ?, email = ?, whatsapp = ?, location = ? WHERE id = 1',
+      'UPDATE profile_settings SET full_name = ?, title_es = ?, bio_es = ?, email = ?, whatsapp = ?, location = ?, linkedin = ?, github = ? WHERE id = 1',
       [
         'Jeison Molina',
         newTitle,
         newBio,
         'andreyyeisonmg@gmail.com',
         '+57 350 549 8014',
-        'Bogotá, Colombia'
+        'Bogotá, Colombia',
+        'https://www.linkedin.com/in/jeison-molina12/',
+        'https://github.com/jeisonMolina21'
       ]
     );
     console.log('✅ Profile updated with new focus.');

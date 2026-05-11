@@ -10,7 +10,7 @@ export const fallbackData = {
     location: 'Bogotá, Colombia',
     whatsapp: '+573505498014',
     email: 'andreyyeisonmg@gmail.com',
-    linkedin: 'https://linkedin.com/in/jeisonmolina',
+    linkedin: 'https://www.linkedin.com/in/jeison-molina12/',
     github: 'https://github.com/jeisonmolina',
     image_url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800',
     cv_url: 'https://jeison-molina-portafolio.vercel.app/cv.pdf'
