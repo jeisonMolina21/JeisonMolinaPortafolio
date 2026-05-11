@@ -280,17 +280,46 @@ const AdminDashboard = () => {
               </div>
 
               <div className="lg:col-span-2 space-y-6">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">Nombre Completo</label>
-                  <input type="text" value={profile?.full_name || ''} onChange={(e) => setProfile({ ...profile, full_name: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary/50 outline-none" placeholder="Tu Nombre Completo" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">Nombre Completo</label>
+                    <input type="text" value={profile?.full_name || ''} onChange={(e) => setProfile({ ...profile, full_name: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary/50 outline-none" placeholder="Tu Nombre Completo" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">Ubicación</label>
+                    <input type="text" value={profile?.location || ''} onChange={(e) => setProfile({ ...profile, location: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary/50 outline-none" placeholder="Ciudad, País" />
+                  </div>
                 </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">WhatsApp</label>
+                    <input type="text" value={profile?.whatsapp || ''} onChange={(e) => setProfile({ ...profile, whatsapp: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary/50 outline-none" placeholder="+57 ..." />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">Email Profesional</label>
+                    <input type="email" value={profile?.email || ''} onChange={(e) => setProfile({ ...profile, email: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary/50 outline-none" placeholder="email@ejemplo.com" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">LinkedIn URL</label>
+                    <input type="text" value={profile?.linkedin || ''} onChange={(e) => setProfile({ ...profile, linkedin: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary/50 outline-none" placeholder="https://linkedin.com/in/..." />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">GitHub URL</label>
+                    <input type="text" value={profile?.github || ''} onChange={(e) => setProfile({ ...profile, github: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary/50 outline-none" placeholder="https://github.com/..." />
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">Título Profesional (ES)</label>
                   <input type="text" value={profile?.title_es || ''} onChange={(e) => setProfile({ ...profile, title_es: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary/50 outline-none" placeholder="Título Profesional" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">Biografía (ES)</label>
-                  <textarea rows={6} value={profile?.bio_es || ''} onChange={(e) => setProfile({ ...profile, bio_es: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-3xl px-6 py-4 text-white focus:border-primary/50 outline-none resize-none" placeholder="Biografía unificada..." />
+                  <textarea rows={4} value={profile?.bio_es || ''} onChange={(e) => setProfile({ ...profile, bio_es: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-3xl px-6 py-4 text-white focus:border-primary/50 outline-none resize-none" placeholder="Biografía unificada..." />
                 </div>
               </div>
             </div>

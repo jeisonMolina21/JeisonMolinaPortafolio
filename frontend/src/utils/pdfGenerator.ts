@@ -36,7 +36,7 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   doc.text(`${profile.location || 'Bogotá, Colombia'} | ${profile.email || 'andreyyeisonmg@gmail.com'} | ${profile.whatsapp || '+57 350 549 8014'}`, 105, y, { align: 'center' });
   y += 5;
 
-  // 2. LINKS (Clean & Clickable)
+  // 2. LINKS (100% Dynamic from Database)
   const portfolioUrl = 'https://jeison-molina-portafolio-yerl.vercel.app';
   const linkedinUrl = profile.linkedin || 'https://www.linkedin.com/in/jeison-molina12/';
   const githubUrl = profile.github || 'https://github.com/jeisonMolina21';

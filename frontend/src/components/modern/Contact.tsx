@@ -7,8 +7,8 @@ const Contact = ({ profile }: { profile: any }) => {
   const [copied, setCopied] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const email = profile?.email || "andreyyeisonmg@gmail.com";
-  const linkedin = profile?.linkedin_url || "https://www.linkedin.com/in/jeison-molina12/";
-  const github = profile?.github_url || "https://github.com/jeisonMolina21";
+  const linkedin = profile?.linkedin || "https://www.linkedin.com/in/jeison-molina12/";
+  const github = profile?.github || "https://github.com/jeisonMolina21";
   const phone = "+573505498014";
   const whatsappMsg = encodeURIComponent("Hola Jeison, vi tu portafolio y me gustaría que trabajemos juntos.");
   const whatsappUrl = `https://wa.me/${phone.replace('+', '')}?text=${whatsappMsg}`;
