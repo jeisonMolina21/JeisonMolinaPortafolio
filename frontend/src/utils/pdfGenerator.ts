@@ -114,56 +114,64 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   const categories = [...new Set(skillRows.map((s: any) => s.category))];
   
   categories.forEach((cat: any) => {
-    const items = skillRows.filter((s: any) => s.category === cat).map((s: any) => s.name).join(', ');
+    const items = skillRows.filter((s: any) => s.category === cat).map((s: any) => s.name).sort().join(', ');
     if (items) {
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9);
+      doc.setFontSize(8.5);
       doc.text(String(cat).toUpperCase() + ':', margin, y);
       doc.setFont('helvetica', 'normal');
       const itemsWidth = doc.getTextWidth(String(cat).toUpperCase() + ': ');
-      doc.text(items, margin + itemsWidth + 2, y);
-      y += 4.5;
+      
+      const skillLines = doc.splitTextToSize(items, contentWidth - itemsWidth - 5);
+      doc.text(skillLines, margin + itemsWidth + 2, y);
+      y += (skillLines.length * 4.5) + 1;
     }
   });
 
   // Projects
-  y += 5;
+  y += 4;
   sectionTitle(lang === 'es' ? 'Proyectos Estratégicos' : 'Key Strategic Projects');
   const projects = (data?.projects || []).slice(0, 3);
   projects.forEach((proj: any) => {
     doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9.5);
     doc.text(proj.title, margin, y);
     y += 4.5;
     doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
     const projLines = doc.splitTextToSize(proj.description, contentWidth);
     doc.text(projLines, margin, y);
     y += (projLines.length * 4.5) + 1;
     
     if (proj.result) {
-        const resultLines = doc.splitTextToSize(`Impacto: ${proj.result}`, contentWidth);
-        doc.setFont('helvetica', 'italic');
+        doc.setFont('helvetica', 'bolditalic');
+        const resultText = lang === 'es' ? `Impacto: ${proj.result}` : `Impact: ${proj.result}`;
+        const resultLines = doc.splitTextToSize(resultText, contentWidth);
         doc.text(resultLines, margin, y);
-        y += (resultLines.length * 4.5) + 3;
+        y += (resultLines.length * 4.5) + 4;
     } else {
-        y += 2;
+        y += 3;
     }
   });
 
   // Education & Languages
-  y += 5;
+  if (y > 240) doc.addPage(); // Prevent cutoff
   sectionTitle(lang === 'es' ? 'Educación e Idiomas' : 'Education & Languages');
   const education = (data?.education || []);
   education.forEach((edu: any) => {
     doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
     doc.text(edu.degree, margin, y);
     doc.setFont('helvetica', 'normal');
-    doc.text(edu.institution, margin + 60, y);
+    // Align institution better
+    doc.text(edu.institution, margin + 70, y);
     doc.text(edu.period, 190, y, { align: 'right' });
-    y += 5;
+    y += 5.5;
   });
   
-  y += 2;
+  y += 3;
   doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
   doc.text(lang === 'es' ? 'IDIOMAS:' : 'LANGUAGES:', margin, y);
   doc.setFont('helvetica', 'normal');
   doc.text(lang === 'es' ? 'Español (Nativo), Inglés (B1 - Colombo Americano, En formación)' : 'Spanish (Native), English (B1 - Colombo Americano, In training)', margin + 25, y);
