@@ -52,21 +52,21 @@ Experiencia diseñando soluciones empresariales para sectores educativos y admin
     `, [newBio]);
     console.log('✅ Profile settings updated.');
 
-    // 4. Ensure Experience is clean and updated
+    // 4. Ensure Experience is clean and updated in correct chronological order
     await connection.query('DELETE FROM experience');
     
+    // Insertamos desde la más antigua a la más reciente 
+    // para que con ORDER BY id DESC la más reciente (Horizonte) quede arriba.
     const experiences = [
       {
-        company: 'Fundación Universitaria Horizonte',
-        role: 'Backend Developer / Automation Engineer',
-        period: 'Jul 2025 – Actualidad',
-        description: `• Diseñé e implementé 4 sistemas institucionales en producción utilizando Python, Django, React y MySQL.
-• Automaticé el procesamiento de más de 1,000 correos institucionales en menos de 5 minutos mediante flujos automatizados y validaciones internas.
-• Eliminó más de 60 horas mensuales de trabajo operativo mediante automatización de procesos institucionales.
-• Desarrollé APIs REST integradas con Microsoft 365 y Azure AD mediante Microsoft Graph API y OAuth2.
-• Implementé pipelines ETL con Pandas procesando más de 50,000 registros biométricos diarios con alta integridad de datos.
-• Integré múltiples sistemas institucionales mediante APIs REST y automatización backend.`,
-        skills: 'Python, Django, Node.js, React, MySQL, Pandas, ETL'
+        company: 'Gi Group',
+        role: 'Automation Engineer & Operations Support',
+        period: 'Oct 2023 – Mar 2024',
+        description: `• Diseñé procesos ETL automatizados utilizando Python y MySQL para consolidación y transformación de datos destinados a dashboards ejecutivos en Power BI.
+• Optimicé flujos operativos y generación de reportes mediante consultas SQL avanzadas, reduciendo aproximadamente un 50% los tiempos de procesamiento.
+• Desarrollé scripts de conciliación y validación de datos financieros con manejo automatizado de logs y control de errores.
+• Implementé automatizaciones orientadas a reducir tareas repetitivas y mejorar la integridad de datos operacionales.`,
+        skills: 'Python, MySQL, SQL, Power BI, ETL, Automatización'
       },
       {
         company: 'Freelance',
@@ -79,14 +79,16 @@ Experiencia diseñando soluciones empresariales para sectores educativos y admin
         skills: 'Next.js, Node.js, Python, SQL Server, RPA, ETL, APIs REST'
       },
       {
-        company: 'Gi Group',
-        role: 'Automation Engineer & Operations Support',
-        period: 'Oct 2023 – Mar 2024',
-        description: `• Diseñé procesos ETL automatizados utilizando Python y MySQL para consolidación y transformación de datos destinados a dashboards ejecutivos en Power BI.
-• Optimicé flujos operativos y generación de reportes mediante consultas SQL avanzadas, reduciendo aproximadamente un 50% los tiempos de procesamiento.
-• Desarrollé scripts de conciliación y validación de datos financieros con manejo automatizado de logs y control de errores.
-• Implementé automatizaciones orientadas a reducir tareas repetitivas y mejorar la integridad de datos operacionales.`,
-        skills: 'Python, MySQL, SQL, Power BI, ETL, Automatización'
+        company: 'Fundación Universitaria Horizonte',
+        role: 'Backend Developer / Automation Engineer',
+        period: 'Jul 2025 – Actualidad',
+        description: `• Diseñé e implementé 4 sistemas institucionales en producción utilizando Python, Django, React y MySQL.
+• Automaticé el procesamiento de más de 1,000 correos institucionales en menos de 5 minutos mediante flujos automatizados y validaciones internas.
+• Eliminé más de 60 horas mensuales de trabajo operativo mediante automatización de procesos institucionales.
+• Desarrollé APIs REST integradas con Microsoft 365 y Azure AD mediante Microsoft Graph API y OAuth2.
+• Implementé pipelines ETL con Pandas procesando más de 50,000 registros biométricos diarios con alta integridad de datos.
+• Integré múltiples sistemas institucionales mediante APIs REST y automatización backend.`,
+        skills: 'Python, Django, Node.js, React, MySQL, Pandas, ETL'
       }
     ];
 
@@ -96,7 +98,7 @@ Experiencia diseñando soluciones empresariales para sectores educativos y admin
         VALUES (?, ?, ?, ?, ?, ?)
       `, [exp.company, exp.role, exp.period, exp.description, exp.skills, 'es']);
     }
-    console.log('✅ All experiences updated and inserted.');
+    console.log('✅ All experiences updated in reverse chronological order.');
 
   } catch (err) {
     console.error('❌ Error during optimization:', err);
