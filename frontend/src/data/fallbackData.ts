@@ -30,18 +30,36 @@ export const fallbackData = {
     {
       id: 1,
       company: 'Fundación Universitaria Horizonte',
-      role: 'Asistente de Tecnología / Desarrollador de Software',
-      period: 'Julio 2025 – Marzo 2026',
-      description: 'Automatización de procesos académicos y administrativos. Liderazgo en proyectos Kairós y Hermes.',
-      skills: 'Python, React, Node.js, MySQL'
+      role: 'Backend Developer / Automation Engineer',
+      period: 'Jul 2024 – Actualidad',
+      description: `• Diseñé e implementé 4 sistemas institucionales en producción utilizando Python, Django, React y MySQL.
+• Automaticé el procesamiento de más de 1,000 correos institucionales en menos de 5 minutos.
+• Eliminé más de 60 horas mensuales de trabajo operativo mediante automatización.
+• Desarrollé APIs REST integradas con Microsoft 365 y Azure AD.
+• Implementé pipelines ETL con Pandas procesando más de 50,000 registros biométricos diarios.`,
+      skills: 'Python, Django, Node.js, React, MySQL, Pandas, ETL'
     },
     {
       id: 2,
       company: 'Freelance',
-      role: 'Junior Python Developer / Automation Specialist',
-      period: 'Abril 2024 – Mayo 2025',
-      description: 'Soluciones de automatización de datos (Excel -> MySQL).',
-      skills: 'Python, Pandas, MySQL'
+      role: 'Backend Developer & Automation Engineer',
+      period: 'Abr 2024 – Jun 2025',
+      description: `• Diseñé arquitectura multi-tenant para plataforma E-commerce SaaS utilizando Next.js 14, Node.js y SQL Server con integración de facturación electrónica DIAN.
+• Constuí automatizaciones ETL y bots RPA en Python para migración, validación y consolidación de datos empresariales, reduciendo hasta un 60% los tiempos operativos.
+• Implementé integraciones backend mediante APIs REST y procesamiento automatizado de información utilizando Pandas y SQL.
+• Optimicé consultas críticas en SQL Server mediante índices y refactorización de queries, mejorando significativamente el rendimiento de extracción de datos.`,
+      skills: 'Next.js, Node.js, Python, SQL Server, RPA, ETL, APIs REST'
+    },
+    {
+      id: 3,
+      company: 'Gi Group',
+      role: 'Automation Engineer & Operations Support',
+      period: 'Oct 2023 – Mar 2024',
+      description: `• Diseñé procesos ETL automatizados utilizando Python y MySQL para consolidación y transformación de datos destinados a dashboards ejecutivos en Power BI.
+• Optimicé flujos operativos y generación de reportes mediante consultas SQL avanzadas, reduciendo aproximadamente un 50% los tiempos de procesamiento.
+• Desarrollé scripts de conciliación y validación de datos financieros con manejo automatizado de logs y control de errores.
+• Implementé automatizaciones orientadas a reducir tareas repetitivas y mejorar la integridad de datos operacionales.`,
+      skills: 'Python, MySQL, SQL, Power BI, ETL, Automatización'
     }
   ],
   projects: [

@@ -59,12 +59,13 @@ Experiencia diseñando soluciones empresariales para sectores educativos y admin
       {
         company: 'Fundación Universitaria Horizonte',
         role: 'Backend Developer / Automation Engineer',
-        period: 'Jul 2024 – Actualidad',
+        period: 'Jul 2025 – Actualidad',
         description: `• Diseñé e implementé 4 sistemas institucionales en producción utilizando Python, Django, React y MySQL.
-• Automaticé el procesamiento de más de 1,000 correos institucionales en menos de 5 minutos.
-• Eliminé más de 60 horas mensuales de trabajo operativo mediante automatización.
-• Desarrollé APIs REST integradas con Microsoft 365 y Azure AD.
-• Implementé pipelines ETL con Pandas procesando más de 50,000 registros biométricos diarios.`,
+• Automaticé el procesamiento de más de 1,000 correos institucionales en menos de 5 minutos mediante flujos automatizados y validaciones internas.
+• Eliminó más de 60 horas mensuales de trabajo operativo mediante automatización de procesos institucionales.
+• Desarrollé APIs REST integradas con Microsoft 365 y Azure AD mediante Microsoft Graph API y OAuth2.
+• Implementé pipelines ETL con Pandas procesando más de 50,000 registros biométricos diarios con alta integridad de datos.
+• Integré múltiples sistemas institucionales mediante APIs REST y automatización backend.`,
         skills: 'Python, Django, Node.js, React, MySQL, Pandas, ETL'
       },
       {
@@ -95,7 +96,7 @@ Experiencia diseñando soluciones empresariales para sectores educativos y admin
         VALUES (?, ?, ?, ?, ?, ?)
       `, [exp.company, exp.role, exp.period, exp.description, exp.skills, 'es']);
     }
-    console.log('✅ All experiences normalized and inserted.');
+    console.log('✅ All experiences updated and inserted.');
 
   } catch (err) {
     console.error('❌ Error during optimization:', err);
