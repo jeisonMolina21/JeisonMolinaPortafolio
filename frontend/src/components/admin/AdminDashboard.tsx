@@ -258,6 +258,16 @@ const AdminDashboard = () => {
                     <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'image_url')} />
                   </label>
                 </div>
+                <div className="w-full space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1">URL de Imagen (Opcional)</label>
+                  <input 
+                    type="text" 
+                    value={profile?.image_url || ''} 
+                    onChange={(e) => setProfile({ ...profile, image_url: e.target.value })} 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-xs text-white focus:border-primary/50 outline-none" 
+                    placeholder="https://..." 
+                  />
+                </div>
                 <div className="w-full p-6 bg-white/5 rounded-3xl border border-white/10">
                   <p className="text-[10px] font-black text-primary uppercase tracking-widest text-center mb-4">Gestor de CV (PDF)</p>
                   <label className="flex items-center justify-center gap-2 w-full py-4 bg-white/5 text-white text-xs font-bold rounded-2xl border border-dashed border-white/20 cursor-pointer hover:border-primary/50 transition-all">
