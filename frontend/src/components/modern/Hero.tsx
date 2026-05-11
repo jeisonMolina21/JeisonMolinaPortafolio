@@ -174,7 +174,9 @@ const Hero = ({ profile, allData }: { profile: any, allData: any }) => {
               className="relative w-full h-full neo-glass rounded-[2.5rem] overflow-hidden border-primary/10 group"
             >
               <img 
-                src={getFullImageUrl(profile?.image_url)} 
+                src={getFullImageUrl(profile?.image_url) === '/placeholder.png' 
+                  ? 'https://r5gn07qd2saa8p0c.public.blob.vercel-storage.com/WhatsApp%20Image%202026-03-15%20at%207.22.08%20PM%20%281%29.jpeg' 
+                  : getFullImageUrl(profile?.image_url)} 
                 alt="Jeison Molina"
                 className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-105 transition-all duration-700"
               />
