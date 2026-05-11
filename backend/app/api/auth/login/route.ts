@@ -13,8 +13,12 @@ export async function POST(req: NextRequest) {
   const origin = req.headers.get('origin');
   try {
     const body = await req.json();
+    console.log('🔑 Login attempt for:', body.username);
     const { isValid, data, response } = await validateData(LoginSchema, body);
-    if (!isValid) return withCors(response!, origin);
+    if (!isValid) {
+      console.warn('❌ Login validation failed:', body);
+      return withCors(response!, origin);
+    }
 
     const { username, password } = data!;
     
