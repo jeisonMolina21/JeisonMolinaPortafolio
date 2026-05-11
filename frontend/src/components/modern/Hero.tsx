@@ -5,6 +5,7 @@ import { ArrowRight, Download, Rocket, Users, Clock, Zap } from 'lucide-react';
 import GlitchText from './GlitchText';
 import HeroBackground from './HeroBackground';
 import { getFullImageUrl } from '../../utils/api';
+import { generateATSPDF } from '../../utils/pdfGenerator';
 
 /* ── Animated Counter ── */
 const AnimatedCounter = ({ value, label, icon }: { value: string, label: string, icon: React.ReactNode }) => {
@@ -41,8 +42,13 @@ const AnimatedCounter = ({ value, label, icon }: { value: string, label: string,
   );
 };
 
-const Hero = ({ profile }: { profile: any }) => {
+const Hero = ({ profile, allData }: { profile: any, allData: any }) => {
   const containerRef = useRef(null);
+  
+  const handleDownloadCV = () => {
+    if (!allData) return;
+    generateATSPDF(allData, 'es');
+  };
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -119,12 +125,15 @@ const Hero = ({ profile }: { profile: any }) => {
               </span>
             </a>
             
-            <a href={profile?.cv_url || "/cv.pdf"} className="group px-7 py-3.5 neo-glass text-white font-bold rounded-2xl hover:bg-white/5 transition-all active:scale-95">
+            <button 
+              onClick={handleDownloadCV}
+              className="group px-7 py-3.5 neo-glass text-white font-bold rounded-2xl hover:bg-white/5 transition-all active:scale-95"
+            >
               <span className="flex items-center gap-2 text-sm">
                 Descargar CV
                 <Download size={16} className="group-hover:translate-y-0.5 transition-transform" />
               </span>
-            </a>
+            </button>
           </motion.div>
 
           {/* Metrics */}

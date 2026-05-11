@@ -13,30 +13,32 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
 
   let y = 20;
 
+  const profile = data?.profile || {};
+  
   // Header - Name
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(22);
   doc.setTextColor(wineRed);
-  doc.text('JEISON MOLINA', 105, y, { align: 'center' });
+  doc.text((profile.full_name || 'JEISON MOLINA').toUpperCase(), 105, y, { align: 'center' });
   y += 8;
-
+  
   // Header - Title
   doc.setFontSize(12);
   doc.setTextColor(textColor);
-  doc.text('Full Stack Developer | Backend & Data Engineering Specialist', 105, y, { align: 'center' });
+  doc.text(profile.title || 'Full Stack Developer', 105, y, { align: 'center' });
   y += 6;
-
+  
   // Header - Contact Info
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
   doc.setTextColor(textColor);
-  doc.text('Bogotá, Colombia | andreyyeisonmg@gmail.com | +57 350 549 8014', 105, y, { align: 'center' });
+  doc.text(`${profile.location || 'Bogotá, Colombia'} | ${profile.email || 'andreyyeisonmg@gmail.com'} | ${profile.whatsapp || '+57 350 549 8014'}`, 105, y, { align: 'center' });
   y += 6;
 
   // Clickable Shortened Links (Centered)
-  const portfolioUrl = 'https://jeison-molina-portafolio.vercel.app';
-  const linkedinUrl = 'https://linkedin.com/in/jeisonmolina';
-  const githubUrl = 'https://github.com/jeisonMolina21';
+  const portfolioUrl = 'https://jeison-molina-portafolio-yerl.vercel.app';
+  const linkedinUrl = profile.linkedin || 'https://linkedin.com/in/jeisonmolina';
+  const githubUrl = profile.github || 'https://github.com/jeisonMolina21';
 
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(wineRed);
@@ -114,38 +116,21 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   // Experience
   sectionTitle(lang === 'es' ? 'Experiencia Profesional' : 'Professional Experience');
   
-  const experiences = [
-    {
-      company: 'Fundación Universitaria Horizonte',
-      role: lang === 'es' ? 'Full Stack Developer / Auxiliar de Tecnología' : 'Full Stack Developer',
-      period: '2024 – Actualidad',
-      bullets: lang === 'es' ? [
-        'Lideré la migración de sistemas legacy a una arquitectura moderna (Python/React), mejorando el rendimiento en un 60%.',
-        'Automaticé la gestión de +500 identidades en Azure AD usando Microsoft Graph API, eliminando errores manuales.',
-        'Desarrollé un motor ETL con Pandas que procesa 50k+ registros biométricos diarios para auditoría de nómina.'
-      ] : [
-        'Led migration of legacy systems to modern architecture (Python/React), improving performance by 60%.',
-        'Automated 500+ identity management in Azure AD using Microsoft Graph API, eliminating manual errors.',
-        'Developed ETL engine with Pandas processing 50k+ daily biometric records for payroll auditing.'
-      ]
-    },
-    {
-      company: 'Proyectos Independientes / Freelance',
-      role: 'Python & JavaScript Specialist',
-      period: '2023 – Actualidad',
-      bullets: lang === 'es' ? [
-        'Arquitectura de microservicios para sistemas de carnetización digital desplegados en entornos Linux/VPS.',
-        'Optimización de consultas SQL críticas, logrando una reducción del 40% en tiempos de respuesta de reportes.',
-        'Diseño y despliegue de soluciones SaaS con Astro y SQL Server para facturación electrónica.'
-      ] : [
-        'Microservices architecture for digital ID systems deployed in Linux/VPS environments.',
-        'Optimization of critical SQL queries, achieving a 40% reduction in report response times.',
-        'Design and deployment of SaaS solutions with Astro and SQL Server for electronic invoicing.'
-      ]
-    }
-  ];
+  const experiences = (data?.experience || []).map((exp: any) => ({
+    company: exp.company,
+    role: exp.role,
+    period: exp.period,
+    bullets: typeof exp.description === 'string' ? exp.description.split('\n').filter((l: string) => l.trim()) : []
+  }));
 
-  experiences.forEach(exp => {
+  if (experiences.length === 0) {
+    // Fallback if no data
+    doc.setFont('helvetica', 'italic');
+    doc.text(lang === 'es' ? 'Información en proceso de actualización.' : 'Information being updated.', margin, y);
+    y += 10;
+  }
+
+  experiences.forEach((exp: any) => {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
     doc.setTextColor(textColor);
@@ -158,60 +143,50 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
     doc.text(exp.role, margin, y);
     y += 6;
     
-    exp.bullets.forEach(bullet => {
-      y = addBullet(bullet, y);
+    exp.bullets.forEach((bullet: string) => {
+      y = addBullet(bullet.replace(/^- /, ''), y);
     });
     y += 3;
   });
 
   // Categorized Skills
+  // Dynamic Skills
   sectionTitle(lang === 'es' ? 'Habilidades Técnicas' : 'Technical Skills');
-  const skillGroups = lang === 'es' ? [
-    { label: 'LENGUAJES', items: 'Python (Django/DRF), JavaScript ES6+, TypeScript, SQL, PowerShell' },
-    { label: 'BACKEND & DATA', items: 'Node.js, REST APIs, OAuth2/JWT, Pandas, ETL, Microsoft Graph API' },
-    { label: 'BASES DE DATOS', items: 'MySQL, SQL Server, PostgreSQL, Redis, Optimización de Queries' },
-    { label: 'FRONTEND', items: 'React, Next.js 14, Astro, Tailwind CSS, Framer Motion' },
-    { label: 'DEVOPS & TOOLS', items: 'Docker, Git/GitHub, Vercel, Linux (Ubuntu), Azure AD, CI/CD' }
-  ] : [
-    { label: 'LANGUAGES', items: 'Python (Django/DRF), JavaScript ES6+, TypeScript, SQL, PowerShell' },
-    { label: 'BACKEND & DATA', items: 'Node.js, REST APIs, OAuth2/JWT, Pandas, ETL, Microsoft Graph API' },
-    { label: 'DATABASES', items: 'MySQL, SQL Server, PostgreSQL, Redis, Query Optimization' },
-    { label: 'FRONTEND', items: 'React, Next.js 14, Astro, Tailwind CSS, Framer Motion' },
-    { label: 'DEVOPS & TOOLS', items: 'Docker, Git/GitHub, Vercel, Linux (Ubuntu), Azure AD, CI/CD' }
-  ];
-
-  skillGroups.forEach(group => {
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8.5);
-    doc.setTextColor(wineRed);
-    doc.text(group.label + ':', margin, y);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(textColor);
-    const itemsWidth = doc.getTextWidth(group.label + ': ');
-    doc.text(group.items, margin + itemsWidth + 2, y);
-    y += 4.5;
+  
+  const skillRows = data?.skills || [];
+  const categories = [...new Set(skillRows.map((s: any) => s.category || (lang === 'es' ? 'Otros' : 'Others')))];
+  
+  categories.forEach((cat: any) => {
+    const items = skillRows.filter((s: any) => (s.category || (lang === 'es' ? 'Otros' : 'Others')) === cat).map((s: any) => s.name).join(', ');
+    if (items) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8.5);
+      doc.setTextColor(wineRed);
+      doc.text(String(cat).toUpperCase() + ':', margin, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(textColor);
+      const itemsWidth = doc.getTextWidth(String(cat).toUpperCase() + ': ');
+      doc.text(items, margin + itemsWidth + 2, y);
+      y += 4.5;
+    }
   });
 
   // Projects
   y += 5;
   sectionTitle(lang === 'es' ? 'Proyectos Estratégicos' : 'Key Strategic Projects');
   
-  const projects = [
-    {
-      name: 'Marketify: Multi-Tenant E-commerce',
-      desc: lang === 'es' 
-        ? 'Sistema escalable con aislamiento de datos por cliente, integración de pasarela de pagos y facturación legal automática.'
-        : 'Scalable system with per-client data isolation, payment gateway integration, and automatic legal invoicing.'
-    },
-    {
-      name: 'Identity Pass: Microservices System',
-      desc: lang === 'es'
-        ? 'Arquitectura desacoplada en Node.js que gestiona identidades digitales masivas con alta disponibilidad en VPS.'
-        : 'Decoupled Node.js architecture managing massive digital identities with high availability on VPS.'
-    }
-  ];
+  const projects = (data?.projects || []).slice(0, 3).map((p: any) => ({
+    name: p.title,
+    desc: p.description
+  }));
 
-  projects.forEach(proj => {
+  if (projects.length === 0) {
+    doc.setFont('helvetica', 'italic');
+    doc.text(lang === 'es' ? 'Proyectos en actualización.' : 'Projects being updated.', margin, y);
+    y += 10;
+  }
+
+  projects.forEach((proj: any) => {
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(textColor);
     doc.text(proj.name, margin, y);
@@ -225,18 +200,23 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   // Education
   y += 5;
   sectionTitle(lang === 'es' ? 'Formación Académica' : 'Education');
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(textColor);
-  doc.text('Ingeniería de Sistemas', margin, y);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Corporación Unificada Nacional (CUN)', margin + 40, y);
-  doc.text('2023 - 2027', 190, y, { align: 'right' });
-  y += 5;
-  doc.setFont('helvetica', 'bold');
-  doc.text('Tecnología en Desarrollo de Software', margin, y);
-  doc.setFont('helvetica', 'normal');
-  doc.text('SENA', margin + 65, y);
-  doc.text('2024 - 2026', 190, y, { align: 'right' });
+  
+  const education = (data?.education || []);
+  if (education.length === 0) {
+    doc.setFont('helvetica', 'normal');
+    doc.text(lang === 'es' ? 'Ingeniería de Sistemas - CUN (En curso)' : 'Systems Engineering - CUN (Ongoing)', margin, y);
+    y += 5;
+  } else {
+    education.forEach((edu: any) => {
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(textColor);
+      doc.text(edu.degree, margin, y);
+      doc.setFont('helvetica', 'normal');
+      doc.text(edu.institution, margin + 60, y);
+      doc.text(edu.period, 190, y, { align: 'right' });
+      y += 6;
+    });
+  }
 
-  doc.save(`CV_JeisonMolina_FullStack.pdf`);
+  doc.save(`CV_${(profile.full_name || 'JeisonMolina').replace(/\s+/g, '')}_FullStack.pdf`);
 };

@@ -19,7 +19,7 @@ try {
   console.error("Error fetching summary data:", error);
 }
 
-const { profile, skills, education, recognitions } = summaryData || {};
+const { profile, skills, education, recognitions, experience, projects } = summaryData || {};
 ---
 
 <Layout title="Jeison Molina | Full-Stack Developer & Automation Specialist">
@@ -34,10 +34,10 @@ const { profile, skills, education, recognitions } = summaryData || {};
 		<Navbar client:load />
 		
 		<div class="space-y-0">
-			<Hero client:load profile={profile} />
+			<Hero client:load profile={profile} allData={summaryData} />
 			<About client:visible />
 			<Skills client:visible skills={skills || []} />
-			<Projects client:visible />
+			<Projects client:visible projects={projects || []} />
 			<Experience client:visible experience={experience || []} />
 			<Education client:visible education={education || []} />
 			<Recognitions client:visible recognitions={recognitions || []} />
