@@ -34,15 +34,48 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   doc.text(`${profile.location || 'Bogotá, Colombia'} | ${profile.email || 'andreyyeisonmg@gmail.com'} | ${profile.whatsapp || '+57 350 549 8014'}`, 105, y, { align: 'center' });
   y += 5;
 
-  // Links
+  // Links (Individually clickable)
   const portfolioUrl = 'https://jeison-molina-portafolio-yerl.vercel.app';
-  const linkedinUrl = profile.linkedin || 'https://linkedin.com/in/jeisonmolina';
+  const linkedinUrl = profile.linkedin || 'https://www.linkedin.com/in/jeison-molina-fullstack';
   const githubUrl = profile.github || 'https://github.com/jeisonMolina21';
 
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
+  
+  const pWidth = doc.getTextWidth('Portafolio');
+  const lWidth = doc.getTextWidth('LinkedIn');
+  const gWidth = doc.getTextWidth('GitHub');
+  const sep = '  |  ';
+  const sWidth = doc.getTextWidth(sep);
+  
+  const totalLinksWidth = pWidth + lWidth + gWidth + (sWidth * 2);
+  let currentX = (210 - totalLinksWidth) / 2;
+
+  // Portafolio
   doc.setTextColor(primaryColor);
-  const links = `Portafolio | LinkedIn | GitHub`;
-  doc.text(links, 105, y, { align: 'center' });
+  doc.text('Portafolio', currentX, y);
+  doc.link(currentX, y - 4, pWidth, 6, { url: portfolioUrl });
+  currentX += pWidth;
+  
+  doc.setTextColor(textColor);
+  doc.text(sep, currentX, y);
+  currentX += sWidth;
+
+  // LinkedIn
+  doc.setTextColor(primaryColor);
+  doc.text('LinkedIn', currentX, y);
+  doc.link(currentX, y - 4, lWidth, 6, { url: linkedinUrl });
+  currentX += lWidth;
+
+  doc.setTextColor(textColor);
+  doc.text(sep, currentX, y);
+  currentX += sWidth;
+
+  // GitHub
+  doc.setTextColor(primaryColor);
+  doc.text('GitHub', currentX, y);
+  doc.link(currentX, y - 4, gWidth, 6, { url: githubUrl });
+
   y += 10;
 
   // Section Title Helper
