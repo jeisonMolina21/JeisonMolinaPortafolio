@@ -1,7 +1,7 @@
 /** @jsxImportSource react */
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, Calendar, MapPin, Award } from 'lucide-react';
+import { GraduationCap, Calendar, MapPin, Award, Globe } from 'lucide-react';
 
 const Education = ({ education }: { education: any[] }) => {
   if (!education || education.length === 0) return null;
@@ -63,6 +63,37 @@ const Education = ({ education }: { education: any[] }) => {
               </div>
             </motion.div>
           ))}
+
+          {/* Languages Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="md:col-span-2 group p-7 neo-glass rounded-[2rem] border-white/5 hover:border-primary/20 transition-all relative overflow-hidden"
+          >
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-secondary/5 blur-3xl rounded-full group-hover:bg-secondary/10 transition-all" />
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-all">
+                  <Globe size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-display font-bold text-white mb-1">Idiomas</h3>
+                  <p className="text-text-dim text-sm">Competencia lingüística global</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <div className="px-4 py-2 neo-glass rounded-xl border-white/10">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Español</p>
+                  <p className="text-sm font-bold text-white">Nativo</p>
+                </div>
+                <div className="px-4 py-2 neo-glass rounded-xl border-primary/20 bg-primary/5">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Inglés</p>
+                  <p className="text-sm font-bold text-white">B1 — Colombo Americano <span className="text-[10px] font-normal text-primary-bright">(En formación)</span></p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

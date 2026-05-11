@@ -1,39 +1,39 @@
 /** @jsxImportSource react */
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Code2, Cpu, BrainCircuit, TrendingUp } from 'lucide-react';
+import { Zap, Code2, Cpu, BrainCircuit, TrendingUp, Database } from 'lucide-react';
 
 const specialties = [
   {
-    title: "Automatización RPA",
-    stat: "60h+",
-    statLabel: "ahorro/semestre",
-    description: "Creación de 1,000 cuentas en 5 min. Liberación de trabajo manual repetitivo.",
-    icon: <Zap size={22} />,
-    gradient: "from-cyan-500 to-blue-500",
+    title: "Backend & APIs",
+    stat: "99.8%",
+    statLabel: "integridad",
+    description: "Desarrollo de arquitecturas robustas con Python, Django y Node.js para procesamiento masivo.",
+    icon: <Database size={22} />,
+    gradient: "from-indigo-500 to-purple-500",
     featured: true
   },
   {
-    title: "Full Stack Dev",
-    stat: "5K+",
-    statLabel: "usuarios",
-    description: "Sistemas robustos con MySQL, Node.js y React. Escalabilidad y rendimiento.",
-    icon: <Code2 size={22} />,
-    gradient: "from-indigo-500 to-purple-500"
+    title: "Automatización",
+    stat: "1000",
+    statLabel: "correos / 5min",
+    description: "Flujos automatizados con Microsoft Graph API para eliminación de tareas manuales repetitivas.",
+    icon: <Zap size={22} />,
+    gradient: "from-cyan-500 to-blue-500"
   },
   {
-    title: "Activos IT",
-    stat: "100%",
-    statLabel: "trazabilidad",
-    description: "Control total de inventario con generación automática de reportes.",
+    title: "Data Workflows",
+    stat: "50K+",
+    statLabel: "registros/día",
+    description: "Pipelines ETL optimizados con Pandas para ingesta y normalización de datos críticos.",
     icon: <Cpu size={22} />,
     gradient: "from-emerald-500 to-teal-500"
   },
   {
-    title: "Python Scripts",
-    stat: "1K+",
-    statLabel: "cuentas/5min",
-    description: "Scripts especializados para eliminar tareas repetitivas y optimizar procesos.",
+    title: "Integraciones",
+    stat: "60h+",
+    statLabel: "tiempo liberado",
+    description: "Conexión de ecosistemas empresariales mediante APIs REST y flujos en n8n.",
     icon: <BrainCircuit size={22} />,
     gradient: "from-amber-500 to-orange-500"
   }
