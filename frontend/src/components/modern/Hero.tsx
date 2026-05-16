@@ -107,7 +107,7 @@ const Hero = ({ profile }: { profile: any }) => {
 
               {/* Description with high-end feel */}
               <p className="max-w-lg text-lg md:text-xl text-text-dim font-sans font-light leading-relaxed">
-                Diseño arquitecturas escalables y pipelines ETL que procesan <span className="text-text-main font-medium italic">+50k registros diarios</span>. Especialista en Python, Node.js y n8n con mentalidad orientada a resultados técnicos.
+                Ingeniero de software especializado en <span className="text-text-main font-medium italic">Backend y Automatización</span>. Diseño arquitecturas eficientes y flujos de datos invisibles que eliminan el trabajo operativo y transforman la complejidad en rendimiento escalable.
               </p>
 
               {/* High-Contrast CTAs */}
