@@ -36,81 +36,61 @@ const projects = [
   }
 ];
 
-const ProjectCard = ({ project, onClick }: { project: any, onClick: (e: React.MouseEvent) => void }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    setTilt({
-      x: (y - 0.5) * -8,
-      y: (x - 0.5) * 8,
-    });
-    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
-  const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-  };
-
+const ProjectCard = ({ project, index, onClick }: { project: any, index: number, onClick: (e: React.MouseEvent) => void }) => {
+  const isLarge = index === 0;
+  
   return (
     <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative h-[320px] neo-glass rounded-2xl overflow-hidden cursor-pointer hover:border-primary/20 transition-all duration-300"
-      style={{
-        "--x": `${mousePos.x}px`,
-        "--y": `${mousePos.y}px`,
-        transform: `perspective(600px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: 'transform 0.15s ease-out',
-      } as any}
+      transition={{ duration: 0.8, delay: index * 0.1 }}
+      className={`group relative overflow-hidden cursor-pointer border border-white/5 bg-black ${
+        isLarge ? 'lg:col-span-2 lg:row-span-2 h-[500px]' : 'h-[320px]'
+      }`}
     >
-      {/* Radial Glow */}
-      <div className="absolute inset-0 radial-glow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-
-      {/* Image */}
-      <div className="absolute inset-0">
-        <img src={project.image} alt={project.title} className="w-full h-full object-cover grayscale brightness-40 group-hover:grayscale-0 group-hover:brightness-60 group-hover:scale-105 transition-all duration-500" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
+      {/* Background Image with Cinematic Filter */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={project.image} 
+          alt={project.title} 
+          className="w-full h-full object-cover grayscale contrast-125 brightness-50 group-hover:scale-105 group-hover:brightness-75 transition-all duration-1000 ease-out" 
+        />
+        <div className="absolute inset-0 bg-secondary/30 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
       </div>
 
-      {/* Project Number */}
-      <div className="absolute top-5 left-5 text-6xl font-display font-bold text-white/[0.06] group-hover:text-primary/10 transition-colors">
-        {project.num}
-      </div>
+      {/* Editorial Content */}
+      <div className="absolute inset-0 z-10 p-8 flex flex-col justify-end">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <span className="text-primary font-mono text-[10px] font-bold tracking-[0.3em] uppercase">
+              {project.num} / Case Study
+            </span>
+            <div className="h-px w-8 bg-primary/30" />
+          </div>
+          
+          <h3 className={`font-display font-black leading-none text-white uppercase tracking-tighter ${
+            isLarge ? 'text-4xl md:text-6xl' : 'text-2xl md:text-3xl'
+          }`}>
+            {project.title.split(' ')[0]} <br />
+            <span className="text-primary italic">{project.title.split(' ').slice(1).join(' ')}</span>
+          </h3>
 
-      {/* Content */}
-      <div className="absolute inset-0 z-10 p-6 flex flex-col justify-end">
-        <div className="space-y-2.5 translate-y-4 group-hover:translate-y-0 transition-transform duration-400">
-          <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
-            {project.stack.slice(0, 4).map((s: string) => (
-              <span key={s} className="px-2 py-0.5 neo-glass rounded text-[8px] font-bold uppercase tracking-wider text-primary-bright">
-                {s}
+          <div className="flex flex-wrap gap-2 pt-2">
+            {project.stack.slice(0, 3).map((s: string) => (
+              <span key={s} className="text-[9px] font-mono font-bold uppercase tracking-widest text-white/40 group-hover:text-primary transition-colors">
+                [{s}]
               </span>
             ))}
           </div>
-          <h3 className="text-xl md:text-2xl font-display font-bold text-white">{project.title}</h3>
-          <p className="text-text-dim text-xs line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
-            {project.description}
-          </p>
-          <div className="flex items-center gap-1.5 text-primary-bright font-bold text-[9px] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-400 pt-1">
-            Ver detalles <ArrowRight size={12} />
-          </div>
         </div>
       </div>
-      
-      {/* Corner Icon */}
-      <div className="absolute top-5 right-5 w-8 h-8 neo-glass rounded-lg flex items-center justify-center text-white/50 scale-0 group-hover:scale-100 transition-transform">
-        <Layers size={14} />
+
+      {/* Decorative Corner */}
+      <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+        <ArrowRight className="text-white" size={24} />
       </div>
     </motion.div>
   );
@@ -120,108 +100,108 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
   return (
-    <section id="projects" className="section-padding bg-slate-950 relative">
-      <div className="container-custom">
-        {/* Header */}
-        <div className="mb-10 space-y-3">
-          <motion.h2 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="text-3xl md:text-4xl font-display font-bold tracking-tighter"
-          >
-            Casos de <span className="text-gradient-primary italic">Éxito</span>
-          </motion.h2>
-          <p className="text-text-dim text-sm">Soluciones transformadoras implementadas en entornos de producción real.</p>
+    <section id="projects" className="py-24 bg-black relative">
+      {/* Texture Background */}
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')] opacity-[0.02] pointer-events-none" />
+
+      <div className="container-custom relative z-10">
+        {/* Editorial Header */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-end">
+          <div className="lg:col-span-8">
+            <motion.h2 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="text-[12vw] lg:text-[8vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-white"
+            >
+              CASOS <br />
+              <span className="text-primary">DE ÉXITO</span>
+            </motion.h2>
+          </div>
+          <div className="lg:col-span-4 lg:text-right">
+            <p className="text-text-dim text-sm font-sans font-light uppercase tracking-widest leading-relaxed">
+              Soluciones transformadoras <br />
+              implementadas en entornos de producción real.
+            </p>
+          </div>
         </div>
 
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Asymmetrical Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
           {projects.map((p, i) => (
-            <ProjectCard key={i} project={p} onClick={() => setSelectedProject(p)} />
+            <ProjectCard key={i} index={i} project={p} onClick={() => setSelectedProject(p)} />
           ))}
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal - Editorial Detail */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-slate-950/90 backdrop-blur-xl"
+              className="absolute inset-0 bg-black/95 backdrop-blur-sm"
               onClick={() => setSelectedProject(null)}
             />
             
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="relative w-full max-w-4xl neo-glass rounded-3xl overflow-hidden z-20 shadow-2xl max-h-[85vh]"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              className="relative w-full h-full lg:h-[90vh] lg:max-w-6xl bg-black border border-white/10 overflow-y-auto z-20"
             >
               <button 
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 w-10 h-10 neo-glass rounded-xl flex items-center justify-center text-white z-30 hover:bg-white/10 transition-colors"
+                className="absolute top-8 right-8 text-white z-50 hover:text-primary transition-colors"
               >
-                <X size={18} />
+                <X size={32} />
               </button>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                <div className="relative h-48 lg:h-auto">
-                  <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950/60 to-transparent lg:bg-gradient-to-r" />
+              <div className="grid grid-cols-1 lg:grid-cols-12 h-full">
+                {/* Visual Side */}
+                <div className="lg:col-span-7 relative h-[40vh] lg:h-full">
+                  <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover grayscale brightness-50" />
+                  <div className="absolute inset-0 bg-secondary/20 mix-blend-multiply" />
+                  <div className="absolute bottom-12 left-12">
+                     <h3 className="text-6xl md:text-8xl font-display font-black text-white uppercase leading-none tracking-tighter">
+                        {selectedProject.title}
+                     </h3>
+                  </div>
                 </div>
                 
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[60vh]">
-                  <div>
-                    <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-3">{selectedProject.title}</h3>
-                    <div className="flex flex-wrap gap-1.5">
-                      {selectedProject.stack.map((s: string) => (
-                        <span key={s} className="px-2.5 py-1 neo-glass rounded-lg text-[9px] font-bold uppercase tracking-wider text-primary-bright">
-                          {s}
-                        </span>
-                      ))}
-                    </div>
+                {/* Content Side */}
+                <div className="lg:col-span-5 p-12 lg:p-20 space-y-12 bg-black">
+                  <div className="space-y-4">
+                    <span className="text-primary font-mono text-xs font-bold uppercase tracking-widest">El Desafío</span>
+                    <p className="text-xl text-text-dim leading-relaxed font-light italic">"{selectedProject.problem}"</p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-primary-bright">
-                        <Target size={16} />
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-white">El Reto</span>
-                      </div>
-                      <p className="text-text-dim text-sm leading-relaxed">{selectedProject.problem}</p>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-primary-bright">
-                        <Lightbulb size={16} />
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-white">La Solución</span>
-                      </div>
-                      <p className="text-text-dim text-sm leading-relaxed">{selectedProject.solution}</p>
-                    </div>
+                  <div className="space-y-4">
+                    <span className="text-primary font-mono text-xs font-bold uppercase tracking-widest">La Solución</span>
+                    <p className="text-lg text-white font-sans leading-relaxed">{selectedProject.solution}</p>
                   </div>
 
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-primary-bright">
-                      <Award size={16} />
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-white">Resultados</span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-3">
+                  <div className="space-y-6">
+                    <span className="text-primary font-mono text-xs font-bold uppercase tracking-widest">Resultados</span>
+                    <div className="grid grid-cols-1 gap-4">
                       {selectedProject.results.map((r: string, ri: number) => (
-                        <motion.div
-                          key={ri}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.3 + (ri * 0.1), type: "spring" }}
-                          className="p-3 neo-glass rounded-xl border-primary/15 text-center"
-                        >
-                          <CheckCircle2 size={16} className="text-primary-bright mx-auto mb-1.5" />
-                          <p className="text-[10px] font-bold text-white leading-tight">{r}</p>
-                        </motion.div>
+                        <div key={ri} className="flex items-center gap-4 border-b border-white/5 pb-4">
+                          <span className="text-primary font-mono text-xl">0{ri+1}</span>
+                          <span className="text-white font-bold uppercase tracking-tighter text-lg">{r}</span>
+                        </div>
                       ))}
                     </div>
+                  </div>
+
+                  <div className="pt-8">
+                     <div className="flex flex-wrap gap-3">
+                        {selectedProject.stack.map((s: string) => (
+                           <span key={s} className="px-3 py-1 border border-white/10 text-[10px] font-mono text-white/60 uppercase">
+                              {s}
+                           </span>
+                        ))}
+                     </div>
                   </div>
                 </div>
               </div>
