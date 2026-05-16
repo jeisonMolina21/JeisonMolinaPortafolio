@@ -15,7 +15,7 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
                {exp.period}
             </span>
             <div className="h-[1px] w-12 bg-primary/30" />
-            <div className="mt-4 flex items-center gap-2 text-white/40 text-[10px] font-bold uppercase tracking-widest">
+            <div className="mt-4 flex items-center gap-2 text-text-main/40 text-[10px] font-bold uppercase tracking-widest">
                <MapPin size={10} />
                {exp.location || 'Colombia'}
             </div>
@@ -52,7 +52,7 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
             {exp.description ? (
                <li className="flex gap-6 group/item">
                   <span className="text-primary font-mono text-xs mt-1 opacity-40">01</span>
-                  <p className="text-lg text-text-dim leading-relaxed font-light group-hover/item:text-white transition-colors">
+                  <p className="text-lg text-text-dim leading-relaxed font-light group-hover/item:text-text-main transition-colors">
                      {exp.description}
                   </p>
                </li>
@@ -60,8 +60,8 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
               <li key={bi} className="flex gap-6 group/item">
                 <span className="text-primary font-mono text-xs mt-1 opacity-40">0{bi+1}</span>
                 <div 
-                   className="text-lg text-text-dim leading-relaxed font-light group-hover/item:text-white transition-colors"
-                   dangerouslySetInnerHTML={{ __html: b.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>') }} 
+                   className="text-lg text-text-dim leading-relaxed font-light group-hover/item:text-text-main transition-colors"
+                   dangerouslySetInnerHTML={{ __html: b.replace(/\*\*(.*?)\*\*/g, '<strong class="text-text-main font-bold">$1</strong>') }} 
                 />
               </li>
             ))}

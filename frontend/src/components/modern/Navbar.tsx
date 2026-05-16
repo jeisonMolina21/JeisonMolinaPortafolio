@@ -60,7 +60,7 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${isScrolled ? 'py-2' : 'py-6'}`}>
       <div className="container-custom">
-        <div className={`relative px-8 py-3 flex items-center justify-between transition-all duration-500 ${isScrolled ? 'bg-black/90 dark:bg-black/90 light:bg-white/90 border-b border-white/5 backdrop-blur-xl' : 'bg-transparent'}`}>
+        <div className={`relative px-8 py-3 flex items-center justify-between transition-all duration-500 ${isScrolled ? 'bg-midnight/90 border-b border-text-main/10 backdrop-blur-xl' : 'bg-transparent'}`}>
           
           {/* Logo - Editorial Style */}
           <motion.a 

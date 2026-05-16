@@ -90,7 +90,7 @@ const Hero = ({ profile }: { profile: any }) => {
 
               {/* Massive Editorial Heading */}
               <div className="relative">
-                <h1 className="text-[12vw] lg:text-[10vw] font-display font-black leading-[0.85] text-white tracking-[-0.04em] uppercase">
+                <h1 className="text-[12vw] lg:text-[10vw] font-display font-black leading-[0.85] text-text-main tracking-[-0.04em] uppercase">
                   SISTEMAS <br />
                   <span className="text-primary italic">INVISIBLES</span>
                 </h1>
@@ -109,14 +109,14 @@ const Hero = ({ profile }: { profile: any }) => {
 
               {/* High-Contrast CTAs */}
               <div className="flex flex-wrap gap-6 pt-4">
-                <a href="#projects" className="group relative overflow-hidden bg-primary px-10 py-4 rounded-none transition-all hover:bg-white hover:text-black">
-                  <span className="relative z-10 flex items-center gap-3 text-sm font-bold uppercase tracking-widest">
+                <a href="#projects" className="group relative overflow-hidden bg-primary px-10 py-4 rounded-none transition-all hover:bg-text-main hover:text-midnight">
+                  <span className="relative z-10 flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-white">
                     Portafolio
                     <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                   </span>
                 </a>
                 
-                <a href={profile?.cv_url || "/cv.pdf"} className="group flex items-center gap-4 text-white hover:text-primary transition-colors">
+                <a href={profile?.cv_url || "/cv.pdf"} className="group flex items-center gap-4 text-text-main hover:text-primary transition-colors">
                   <span className="text-sm font-bold uppercase tracking-widest border-b border-white/20 pb-1 group-hover:border-primary">
                     Curriculum
                   </span>
@@ -159,7 +159,7 @@ const Hero = ({ profile }: { profile: any }) => {
                   {metrics.slice(0, 2).map((m, i) => (
                     <div key={i} className="flex flex-col gap-1">
                       <span className="text-[9px] font-mono font-bold text-primary uppercase tracking-[0.2em]">{m.label}</span>
-                      <span className="text-2xl font-display font-bold text-white">{m.value}</span>
+                      <span className="text-2xl font-display font-bold text-text-main">{m.value}</span>
                     </div>
                   ))}
                 </div>

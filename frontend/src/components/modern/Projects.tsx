@@ -33,17 +33,17 @@ const Projects = ({ projects: propProjects }: { projects?: any[] }) => {
             <motion.h2 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="text-[12vw] lg:text-[7vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-white"
+              className="text-[12vw] lg:text-[7vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-text-main"
             >
               CASOS <br />
               <span className="text-primary italic">DESTACADOS</span>
             </motion.h2>
           </div>
           <div className="lg:col-span-4 lg:text-right flex items-center justify-end gap-6">
-            <button onClick={prev} className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all">
+            <button onClick={prev} className="w-14 h-14 rounded-full border border-primary/20 flex items-center justify-center text-text-main hover:bg-primary hover:text-white transition-all">
                <ArrowLeft size={24} />
             </button>
-            <button onClick={next} className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all">
+            <button onClick={next} className="w-14 h-14 rounded-full border border-primary/20 flex items-center justify-center text-text-main hover:bg-primary hover:text-white transition-all">
                <ArrowRight size={24} />
             </button>
           </div>
@@ -156,7 +156,7 @@ const Projects = ({ projects: propProjects }: { projects?: any[] }) => {
             >
               <button 
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-8 right-8 text-white z-50 hover:text-primary transition-colors"
+                className="absolute top-8 right-8 text-text-main z-50 hover:text-primary transition-colors"
               >
                 <X size={32} />
               </button>
@@ -175,7 +175,7 @@ const Projects = ({ projects: propProjects }: { projects?: any[] }) => {
 
                   <div className="space-y-4">
                     <span className="text-primary font-mono text-[10px] font-bold uppercase tracking-widest">Solution</span>
-                    <p className="text-lg text-white font-sans leading-relaxed font-light">{selectedProject.solution}</p>
+                    <p className="text-lg text-text-main font-sans leading-relaxed font-light">{selectedProject.solution}</p>
                   </div>
 
                   <div className="space-y-6">
@@ -184,7 +184,7 @@ const Projects = ({ projects: propProjects }: { projects?: any[] }) => {
                       {selectedProject.results.map((r: string, ri: number) => (
                         <div key={ri} className="flex items-center gap-4 border-b border-white/5 pb-4">
                           <span className="text-primary font-mono text-lg">0{ri+1}</span>
-                          <span className="text-white font-bold uppercase tracking-tighter text-md">{r}</span>
+                          <span className="text-text-main font-bold uppercase tracking-tighter text-md">{r}</span>
                         </div>
                       ))}
                     </div>

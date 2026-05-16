@@ -30,7 +30,7 @@ const Contact = ({ profile }: { profile: any }) => {
             <motion.h2 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="text-[12vw] lg:text-[7vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-white"
+              className="text-[12vw] lg:text-[7vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-text-main"
             >
               HABLEMOS <br />
               <span className="text-primary italic">DEL FUTURO</span>
@@ -47,7 +47,7 @@ const Contact = ({ profile }: { profile: any }) => {
                   <span className="text-primary font-mono text-xs font-bold uppercase tracking-[0.3em]">Email Directo</span>
                   <button 
                      onClick={copyEmail}
-                     className="text-2xl font-display font-black text-white hover:text-primary transition-colors flex items-center gap-3 group"
+                     className="text-2xl font-display font-black text-text-main hover:text-primary transition-colors flex items-center gap-3 group"
                   >
                      {email.split('@')[0]}
                      <ArrowUpRight className="opacity-20 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" size={24} />
@@ -58,8 +58,8 @@ const Contact = ({ profile }: { profile: any }) => {
                <div className="space-y-4">
                   <span className="text-primary font-mono text-xs font-bold uppercase tracking-[0.3em]">Social</span>
                   <div className="flex gap-6">
-                     <a href={linkedin} className="text-white/40 hover:text-white transition-colors"><Linkedin size={24} /></a>
-                     <a href={github} className="text-white/40 hover:text-white transition-colors"><Github size={24} /></a>
+                     <a href={linkedin} className="text-text-main/40 hover:text-primary transition-colors"><Linkedin size={24} /></a>
+                     <a href={github} className="text-text-main/40 hover:text-primary transition-colors"><Github size={24} /></a>
                   </div>
                </div>
             </div>
@@ -79,7 +79,7 @@ const Contact = ({ profile }: { profile: any }) => {
                   <input 
                     type="text" 
                     placeholder="Escribe tu nombre..." 
-                    className="w-full bg-transparent focus:outline-none text-white text-xl font-bold placeholder:text-white/5"
+                    className="w-full bg-transparent focus:outline-none text-text-main text-xl font-bold placeholder:text-text-dim/20"
                   />
                 </div>
                 
@@ -88,7 +88,7 @@ const Contact = ({ profile }: { profile: any }) => {
                   <input 
                     type="email" 
                     placeholder="tu@empresa.com" 
-                    className="w-full bg-transparent focus:outline-none text-white text-xl font-bold placeholder:text-white/5"
+                    className="w-full bg-transparent focus:outline-none text-text-main text-xl font-bold placeholder:text-text-dim/20"
                   />
                 </div>
                 
@@ -97,11 +97,11 @@ const Contact = ({ profile }: { profile: any }) => {
                   <textarea 
                     rows={2} 
                     placeholder="Describe brevemente el reto..." 
-                    className="w-full bg-transparent focus:outline-none text-white text-lg font-light placeholder:text-white/5 resize-none"
+                    className="w-full bg-transparent focus:outline-none text-text-main text-lg font-light placeholder:text-text-dim/20 resize-none"
                   ></textarea>
                 </div>
 
-                <button className="w-full py-6 bg-primary text-white font-black text-xs uppercase tracking-[0.4em] hover:bg-white hover:text-black transition-all duration-500">
+                <button className="w-full py-6 bg-primary text-white font-black text-xs uppercase tracking-[0.4em] hover:bg-text-main hover:text-midnight transition-all duration-500">
                   Enviar Propuesta
                 </button>
               </form>

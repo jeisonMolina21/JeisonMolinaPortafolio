@@ -52,7 +52,7 @@ const About = () => {
             <motion.h2 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="text-[12vw] lg:text-[7vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-white"
+              className="text-[12vw] lg:text-[7vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-text-main"
             >
               IMPACTO <br />
               <span className="text-primary italic">MEDIBLE</span>
@@ -90,7 +90,7 @@ const About = () => {
 
               {/* Metric - Technical Luxury Style */}
               <div className="space-y-1 mb-8">
-                <div className="text-4xl font-display font-black text-white group-hover:text-primary transition-colors tracking-tighter">
+                <div className="text-4xl font-display font-black text-text-main group-hover:text-primary transition-colors tracking-tighter">
                    {s.stat}
                 </div>
                 <div className="text-[10px] font-mono font-bold text-white/40 uppercase tracking-[0.2em]">
@@ -98,7 +98,7 @@ const About = () => {
                 </div>
               </div>
               
-              <h3 className="text-lg font-display font-black text-white uppercase tracking-tight mb-4">{s.title}</h3>
+              <h3 className="text-lg font-display font-black text-text-main uppercase tracking-tight mb-4">{s.title}</h3>
               <p className="text-text-dim text-sm font-light leading-relaxed">
                 {s.description}
               </p>
