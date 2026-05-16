@@ -5,32 +5,32 @@ import { Zap, Code2, Cpu, BrainCircuit, TrendingUp } from 'lucide-react';
 
 const specialties = [
   {
-    title: "Backend Core",
-    stat: "Py/Node",
-    statLabel: "stack principal",
-    description: "Desarrollo de servicios robustos y escalables enfocados en la integridad de datos y el rendimiento.",
+    title: "Automatización e Integración",
+    stat: "60h+",
+    statLabel: "ahorro operativo/mes",
+    description: "Orquestación de flujos de trabajo autónomos con n8n & RPA para conectar CRM, ERP y APIs.",
     icon: <Zap size={22} />,
   },
   {
-    title: "ETL & Data",
+    title: "Backend Architecture",
+    stat: "5K+",
+    statLabel: "usuarios activos",
+    description: "Diseño de sistemas robustos, microservicios y APIs escalables con Node.js, Python y MySQL.",
+    icon: <Code2 size={22} />,
+  },
+  {
+    title: "Data Pipelines & ETL",
     stat: "50K+",
     statLabel: "registros/día",
-    description: "Diseño de tuberías de datos automatizadas para procesamiento masivo y análisis en tiempo real.",
+    description: "Scripts en Python y Pandas para procesamiento, limpieza y migración masiva de datos biométricos.",
     icon: <TrendingUp size={22} />,
   },
   {
-    title: "Orquestación",
-    stat: "n8n",
-    statLabel: "automation engine",
-    description: "Automatización de flujos complejos de negocio integrando múltiples APIs y servicios cloud.",
+    title: "Infraestructura & Logs",
+    stat: "100%",
+    statLabel: "trazabilidad",
+    description: "Gestión absoluta de activos fijos con contenedores y automatización de reportes de auditoría.",
     icon: <Cpu size={22} />,
-  },
-  {
-    title: "T-Shaped Dev",
-    stat: "Next.js",
-    statLabel: "complemento front",
-    description: "Capacidad de construir interfaces administrativas modernas para visualizar datos backend.",
-    icon: <BrainCircuit size={22} />,
   }
 ];
 
