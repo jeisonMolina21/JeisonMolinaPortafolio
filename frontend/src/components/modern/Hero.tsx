@@ -47,157 +47,133 @@ const Hero = ({ profile }: { profile: any }) => {
     offset: ["start start", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   const metrics = [
-    { label: "Proyectos", value: "20+", icon: <Rocket size={16} /> },
-    { label: "Usuarios", value: "1000+", icon: <Users size={16} /> },
-    { label: "Hrs Ahorradas", value: "60+", icon: <Clock size={16} /> },
-    { label: "Sistemas", value: "5+", icon: <Zap size={16} /> },
+    { label: "Proyectos", value: "20+", icon: <Rocket size={14} /> },
+    { label: "Usuarios", value: "1000+", icon: <Users size={14} /> },
+    { label: "Horas Ahorradas", value: "60+", icon: <Clock size={14} /> },
+    { label: "Sistemas", value: "5+", icon: <Zap size={14} /> },
   ];
 
   return (
-    <section ref={containerRef} className="relative min-h-[80vh] flex items-center bg-slate-950 pt-20 pb-8">
-      <HeroBackground />
-      
-      <motion.div style={{ y, opacity }} className="container-custom relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        
-        {/* Left Column */}
-        <div className="lg:col-span-7 space-y-6">
-          <div className="space-y-5">
-            {/* Status Badge */}
+    <section ref={containerRef} className="relative min-h-screen flex items-center bg-black overflow-hidden py-24 md:py-0">
+      {/* Cinematic Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(74,4,4,0.15),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] mix-blend-overlay" />
+      </div>
+
+      <motion.div 
+        style={{ opacity }}
+        className="container-custom relative z-10 w-full"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-center">
+          
+          {/* Left: Editorial Content */}
+          <div className="lg:col-span-8 relative z-20">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 neo-glass rounded-full border-primary/15"
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-8"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald"></span>
-              </span>
-              <span className="text-[10px] font-bold tracking-[0.12em] text-white/70 uppercase">
-                {profile?.title || 'Disponible para proyectos'}
-              </span>
-            </motion.div>
+              {/* Technical Badge */}
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-primary/20 bg-primary/5 rounded-full backdrop-blur-md">
+                <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-primary uppercase">
+                  {profile?.title || 'Automation Architect'}
+                </span>
+              </div>
 
-            {/* Heading */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.1] tracking-tighter">
-                SISTEMAS QUE <br />
-                <GlitchText />
-              </h1>
-            </motion.div>
+              {/* Massive Editorial Heading */}
+              <div className="relative">
+                <h1 className="text-[12vw] lg:text-[10vw] font-display font-black leading-[0.85] text-white tracking-[-0.04em] uppercase">
+                  SISTEMAS <br />
+                  <span className="text-primary italic">INVISIBLES</span>
+                </h1>
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: '100px' }}
+                  transition={{ delay: 1, duration: 1 }}
+                  className="h-1 bg-primary mt-4 hidden lg:block" 
+                />
+              </div>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-base md:text-lg text-text-dim max-w-xl leading-relaxed"
-            >
-              Arquitecto de <span className="text-white font-semibold">soluciones escalables</span> y automatización de procesos críticos en entornos de producción real.
-            </motion.p>
+              {/* Description with high-end feel */}
+              <p className="max-w-lg text-lg md:text-xl text-text-dim font-sans font-light leading-relaxed">
+                Diseñando el <span className="text-white font-medium italic">futuro de la eficiencia</span> a través de arquitectura de software de alto impacto y automatización inteligente.
+              </p>
+
+              {/* High-Contrast CTAs */}
+              <div className="flex flex-wrap gap-6 pt-4">
+                <a href="#projects" className="group relative overflow-hidden bg-primary px-10 py-4 rounded-none transition-all hover:bg-white hover:text-black">
+                  <span className="relative z-10 flex items-center gap-3 text-sm font-bold uppercase tracking-widest">
+                    Portafolio
+                    <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                  </span>
+                </a>
+                
+                <a href={profile?.cv_url || "/cv.pdf"} className="group flex items-center gap-4 text-white hover:text-primary transition-colors">
+                  <span className="text-sm font-bold uppercase tracking-widest border-b border-white/20 pb-1 group-hover:border-primary">
+                    Curriculum
+                  </span>
+                  <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/5">
+                    <Download size={16} />
+                  </div>
+                </a>
+              </div>
+            </motion.div>
           </div>
 
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="flex flex-wrap gap-4"
-          >
-            <a href="#projects" className="liquid-button group px-7 py-3.5 text-white font-bold rounded-2xl active:scale-95 transition-all">
-              <span className="relative flex items-center gap-2 text-sm">
-                Ver Proyectos
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </span>
-            </a>
-            
-            <a href={profile?.cv_url || "/cv.pdf"} className="group px-7 py-3.5 neo-glass text-white font-bold rounded-2xl hover:bg-white/5 transition-all active:scale-95">
-              <span className="flex items-center gap-2 text-sm">
-                Descargar CV
-                <Download size={16} className="group-hover:translate-y-0.5 transition-transform" />
-              </span>
-            </a>
-          </motion.div>
-
-          {/* Metrics */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-4"
-          >
-            {metrics.map((m, i) => (
-              <AnimatedCounter key={i} {...m} />
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Right Column: Photo */}
-        <div className="lg:col-span-5 relative flex justify-center lg:justify-end">
-          <div className="relative z-10 w-full max-w-[300px] aspect-square">
-            {/* Animated Ring */}
+          {/* Right: Cinematic Visual */}
+          <div className="lg:col-span-4 relative mt-12 lg:mt-0">
             <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-5 rounded-full"
-              style={{
-                background: 'conic-gradient(from 0deg, transparent, var(--color-primary), transparent, var(--color-secondary), transparent)',
-                opacity: 0.15,
-              }}
-            />
-            
-            {/* Glow Background */}
-            <div className="absolute inset-0 bg-primary/15 animate-liquid blur-3xl opacity-30" />
-            
-            {/* Image */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
+              style={{ scale }}
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full h-full neo-glass rounded-[2.5rem] overflow-hidden border-primary/10 group"
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="relative aspect-[3/4] lg:aspect-square"
             >
-              <img 
-                src={profile?.image_url || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800"} 
-                alt="Jeison Molina"
-                className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-105 transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-            </motion.div>
+              {/* Geometric Accents */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 border-t-2 border-r-2 border-primary/30 z-0" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 border-b-2 border-l-2 border-primary/30 z-0" />
+              
+              {/* Image Container */}
+              <div className="relative z-10 w-full h-full overflow-hidden border border-white/5 shadow-2xl">
+                <img 
+                  src={profile?.image_url || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800"} 
+                  alt="Jeison Molina"
+                  className="w-full h-full object-cover grayscale brightness-75 contrast-125 hover:grayscale-0 hover:brightness-100 transition-all duration-1000"
+                />
+                {/* Vinotinto Overlay */}
+                <div className="absolute inset-0 bg-secondary/20 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+              </div>
 
-            {/* Floating Badge */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.2, type: "spring" }}
-              className="absolute -top-3 -right-3 p-2.5 neo-glass rounded-xl animate-float-gentle shadow-lg"
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-emerald/20 rounded-full flex items-center justify-center text-emerald">
-                  <Zap size={12} fill="currentColor" />
+              {/* Floating Tech Data (Technical Luxury) */}
+              <div className="absolute bottom-6 -left-12 z-20 hidden xl:block">
+                <div className="bg-black/80 backdrop-blur-xl border border-white/10 p-5 space-y-4">
+                  {metrics.slice(0, 2).map((m, i) => (
+                    <div key={i} className="flex flex-col gap-1">
+                      <span className="text-[9px] font-mono font-bold text-primary uppercase tracking-[0.2em]">{m.label}</span>
+                      <span className="text-2xl font-display font-bold text-white">{m.value}</span>
+                    </div>
+                  ))}
                 </div>
-                <span className="text-[10px] font-bold text-white">99+ Perf</span>
               </div>
             </motion.div>
           </div>
         </div>
       </motion.div>
 
-      {/* Scroll Hint */}
-      <motion.div 
-        animate={{ y: [0, 6, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-20"
-      >
-        <span className="text-[9px] font-bold uppercase tracking-[0.3em]">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-primary to-transparent" />
-      </motion.div>
+      {/* Vertical Navigation Hint */}
+      <div className="absolute right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-10 opacity-30 hidden lg:flex">
+        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.5em] rotate-90 origin-center whitespace-nowrap">Explore</span>
+        <div className="w-px h-32 bg-gradient-to-b from-transparent via-white to-transparent" />
+      </div>
     </section>
   );
 };
