@@ -59,7 +59,7 @@ const Hero = ({ profile }: { profile: any }) => {
   ];
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center bg-black overflow-hidden py-24 md:py-0">
+    <section ref={containerRef} className="relative min-h-screen flex items-center bg-midnight overflow-hidden py-24 md:py-0">
       {/* Cinematic Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(74,4,4,0.15),transparent_70%)]" />

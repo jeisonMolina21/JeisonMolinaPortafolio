@@ -41,7 +41,7 @@ const specialties = [
 
 const About = () => {
   return (
-    <section id="about" className="py-24 bg-black relative overflow-hidden">
+    <section id="about" className="py-24 bg-midnight relative overflow-hidden">
       {/* Decorative Texture */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-secondary/5 skew-x-12 transform origin-top-right -z-10" />
 
@@ -76,7 +76,7 @@ const About = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group relative p-10 bg-black hover:bg-primary/5 transition-all duration-700"
+              className="group relative p-10 bg-surface hover:bg-primary/5 transition-all duration-700"
             >
               {/* Technical Detail */}
               <div className="absolute top-6 right-6">

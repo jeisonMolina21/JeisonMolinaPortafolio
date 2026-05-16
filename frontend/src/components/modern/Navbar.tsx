@@ -1,7 +1,7 @@
 /** @jsxImportSource react */
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Menu, X, Code2, Sun, Moon } from 'lucide-react';
 
 const navItems = [
   { name: "Sobre mí", href: "#about" },
@@ -14,10 +14,15 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 30);
+    // Initial theme check
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+    if (savedTheme === 'light') document.documentElement.classList.add('light');
 
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
     const sections = navItems.map(item => document.querySelector(item.href));
     const observer = new IntersectionObserver(
       (entries) => {
@@ -41,10 +46,21 @@ const Navbar = () => {
     };
   }, []);
 
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    if (newTheme === 'light') {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${isScrolled ? 'py-2' : 'py-6'}`}>
       <div className="container-custom">
-        <div className={`relative px-8 py-3 flex items-center justify-between transition-all duration-500 ${isScrolled ? 'bg-black/90 border-b border-white/5 backdrop-blur-xl' : 'bg-transparent'}`}>
+        <div className={`relative px-8 py-3 flex items-center justify-between transition-all duration-500 ${isScrolled ? 'bg-black/90 dark:bg-black/90 light:bg-white/90 border-b border-white/5 backdrop-blur-xl' : 'bg-transparent'}`}>
           
           {/* Logo - Editorial Style */}
           <motion.a 
@@ -53,7 +69,7 @@ const Navbar = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <span className="text-2xl font-display font-black tracking-tighter text-white">
+            <span className="text-2xl font-display font-black tracking-tighter text-text-main">
               JEISON<span className="text-primary">.</span>
             </span>
           </motion.a>
@@ -67,7 +83,7 @@ const Navbar = () => {
                 className={`relative text-[11px] font-bold uppercase tracking-[0.3em] transition-all ${
                   activeSection === item.href 
                     ? 'text-primary' 
-                    : 'text-white/60 hover:text-white'
+                    : 'text-text-main/60 hover:text-text-main'
                 }`}
               >
                 {item.name}
@@ -83,16 +99,25 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-6">
+            {/* Theme Toggle Button */}
+            <button 
+              onClick={toggleTheme}
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-text-main hover:bg-white/10 transition-all"
+              aria-label="Toggle Theme"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
             <a 
               href="#contact" 
-              className="hidden md:block text-[11px] font-black uppercase tracking-[0.3em] text-white border border-white/20 px-6 py-2.5 hover:bg-white hover:text-black transition-all"
+              className="hidden md:block text-[11px] font-black uppercase tracking-[0.3em] text-text-main border border-white/20 px-6 py-2.5 hover:bg-primary hover:text-white transition-all"
             >
               Contacto
             </a>
 
             {/* Mobile Toggle */}
             <button 
-              className="lg:hidden text-white" 
+              className="lg:hidden text-text-main" 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

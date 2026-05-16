@@ -18,7 +18,7 @@ const Contact = ({ profile }: { profile: any }) => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-black relative overflow-hidden">
+    <section id="contact" className="py-24 bg-midnight relative overflow-hidden">
       {/* Texture Background */}
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')] opacity-[0.02] pointer-events-none" />
 

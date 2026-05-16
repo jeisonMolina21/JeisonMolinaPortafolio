@@ -21,6 +21,20 @@ const { profile, experience, projects } = summaryData || {};
 ---
 
 <Layout title="Jeison Molina | Full-Stack Developer & Automation Specialist">
+	<script is:inline>
+		const theme = (() => {
+			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+				return localStorage.getItem('theme');
+			}
+			return 'dark';
+		})();
+		if (theme === 'light') {
+			document.documentElement.classList.add('light');
+		} else {
+			document.documentElement.classList.remove('light');
+		}
+	</script>
+
 	<main class="bg-slate-950 selection:bg-primary/30 selection:text-white relative">
 		
 		<!-- Scroll Progress Bar -->
