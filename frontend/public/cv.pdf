@@ -1,0 +1,666 @@
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Annots [
+<</Type /Annot /Subtype /Link /Rect [185.8377952755905653 734.1734645669291695 409.4377952755907017 722.8348818897637784] /Border [0 0 0] /A <</S /URI /URI (http://jeison-molina-portafolio.vercel.app) >> >>
+<</Type /Annot /Subtype /Link /Rect [133.1377952755905199 720.0002362204724022 297.6377952755905767 708.6616535433070112] /Border [0 0 0] /A <</S /URI /URI (http://linkedin.com/in/jeisonmolina) >> >>
+<</Type /Annot /Subtype /Link /Rect [297.6377952755905767 720.0002362204724022 462.1377952755906335 708.6616535433070112] /Border [0 0 0] /A <</S /URI /URI (http://github.com/jeisonMolina21) >> >>
+]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 5364
+>>
+stream
+0.5670000000000001 w
+0 G
+BT
+/F2 24 Tf
+27.5999999999999979 TL
+0. g
+203.1977952755906074 785.1970866141732586 Td
+(JEISON MOLINA) Tj
+ET
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0. g
+141.4677952755905608 762.5199212598424765 Td
+(Full Stack Developer | APIs & Data Engineering) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0. g
+78.9377952755907444 739.8427559055118081 Td
+(Bogotá, Colombia | Open to Remote LATAM/US | andreyyeisonmg@gmail.com | +57 350 549 8014) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0. 0. 0.933 rg
+185.8377952755905653 725.6695275590550409 Td
+(Portafolio: http://jeison-molina-portafolio.vercel.app) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0. 0. 0.933 rg
+133.1377952755905199 711.4962992125983874 Td
+(LinkedIn: linkedin.com/in/jeisonmolina | GitHub: github.com/jeisonMolina21) Tj
+ET
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0. g
+210.4877952755905994 663.3073228346456744 Td
+(RESUMEN PROFESIONAL) Tj
+ET
+0. G
+1.4173228346456694 w
+56.6929133858267775 657.6380314960629221 m
+538.5826771653544256 657.6380314960629221 l
+S
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+1.2774803149606404 Tw
+56.6929133858267775 634.9608661417322537 Td
+(Backend Python Developer con 2.5 años construyendo APIs REST y pipelines ETL para) Tj
+1.6554330708661438 Tw
+0. -13.7999999999999989 Td
+(educación y RRHH. Especializado en integración de sistemas con Microsoft Graph API,) Tj
+3.6569763779527595 Tw
+0. -13.7999999999999989 Td
+(procesamiento de datos con Pandas y despliegues con Docker/Linux. En Fundación) Tj
+4.4512204724409434 Tw
+0. -13.7999999999999989 Td
+(Universitaria Horizonte desarrollé sistemas backend que procesan +50,000 registros) Tj
+2.6808876163206956 Tw
+0. -13.7999999999999989 Td
+(biométricos diarios y gestionan +500 usuarios Microsoft 365 con 99.8% de integridad.) Tj
+1.3608876163207035 Tw
+0. -13.7999999999999989 Td
+(Integré 6 sistemas vía REST APIs con OAuth2, reduciendo 70% validaciones manuales.) Tj
+3.6929763779527462 Tw
+0. -13.7999999999999989 Td
+(Stack: Python, Django, MySQL, SQL Server, Pandas, Docker, Linux, React, Next.js,) Tj
+0.5609763779527759 Tw
+0. -13.7999999999999989 Td
+(TypeScript. Busco rol remoto Backend/Data Engineer en equipos que valoren arquitectura) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(escalable y CI/CD.) Tj
+ET
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0. g
+198.0977952755905847 467.716771653543276 Td
+(EXPERIENCIA PROFESIONAL) Tj
+ET
+0. G
+1.4173228346456694 w
+56.6929133858267775 462.0474803149605805 m
+538.5826771653544256 462.0474803149605805 l
+S
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0. g
+56.6929133858267775 439.3703149606298552 Td
+(Fundación Universitaria Horizonte) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+415.4626771653543642 439.3703149606298552 Td
+(Julio 2025 – Actualidad) Tj
+ET
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0. g
+56.6929133858267775 425.1970866141731449 Td
+(Full Stack Developer \(Auxiliar de Tecnología\)) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+1.2058873410054602 Tw
+70.8661417322834666 405.3545669291337958 Td
+(- Diseñé e implementé desde cero la arquitectura integral del sistema \(Base de Datos) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(MySQL, Backend Python/Django y Frontend React\).) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+7.5076535433070788 Tw
+70.8661417322834666 368.5041732283464171 Td
+(- Desarrollé APIs REST con Django para Microsoft 365, gestionando +500) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(usuarios/semestre con autenticación OAuth2.) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+1.1087759484609991 Tw
+70.8661417322834666 331.6537795275589815 Td
+(- Construí pipeline ETL con Pandas que procesa +50,000 registros biométricos diarios) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(con 99.8% de integridad para nómina.) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+1.1043488794669931 Tw
+70.8661417322834666 294.8033858267715459 Td
+(- Automaticé gestión de identidades en Azure AD con Graph API, reduciendo 70% las) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(validaciones manuales.) Tj
+ET
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0. g
+56.6929133858267775 246.614409448818833 Td
+(Freelance) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+416.1826771653543346 246.614409448818833 Td
+(Abril 2024 – Actualidad) Tj
+ET
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0. g
+56.6929133858267775 232.4411811023621794 Td
+(Python Developer & Automation Specialist) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+3.4433214030064412 Tw
+70.8661417322834666 212.5986614173227736 Td
+(- Desarrollo SaaS E-commerce Multi-Tenant con Next.js 14, React y SQL Server,) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(incluyendo facturación electrónica DIAN y arquitectura serverless.) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+2.0735796486977733 Tw
+70.8661417322834666 175.748267716535338 Td
+(- Construí bots RPA con Python para migración ETL Excel -> MySQL y conciliación) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(bancaria, reduciendo 60% tiempo operativo con Pandas.) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+2.0963779527559168 Tw
+70.8661417322834666 138.8978740157479024 Td
+(- Optimicé 8 consultas SQL críticas en SQL Server mediante índices, logrando 60%) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(más velocidad en extracción de datos.) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+1.4089642640823883 Tw
+70.8661417322834666 102.0474803149605805 Td
+(- Diseño APIs REST con Node.js y TypeScript. Portafolio con Astro + React logrando) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(98/100 Lighthouse usando SSR.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 3976
+>>
+stream
+1.4173228346456694 w
+0. G
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0. g
+56.6929133858267775 785.1970866141732586 Td
+(Gi Group) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+390.142677165354371 785.1970866141732586 Td
+(Octubre 2023 – Marzo 2024) Tj
+ET
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0. g
+56.6929133858267775 771.0238582677164914 Td
+(Automation Engineer) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+1.8520411871593137 Tw
+70.8661417322834666 751.1813385826771992 Td
+(- Automaticé procesos ETL con Python y MySQL para Power BI, reduciendo 50% el) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(tiempo de reportes ejecutivos mediante vistas materializadas.) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+0.2796850393700837 Tw
+70.8661417322834666 714.3309448818897636 Td
+(- Desarrollé scripts de automatización con Python para conciliación de datos financieros) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(con manejo de logs.) Tj
+ET
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0. g
+212.3777952755905858 651.9687401574802834 Td
+(HABILIDADES TÉCNICAS) Tj
+ET
+0. G
+1.4173228346456694 w
+56.6929133858267775 646.2994488188976447 m
+538.5826771653544256 646.2994488188976447 l
+S
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+3.2662204724409616 Tw
+56.6929133858267775 623.6222834645668627 Td
+(Lenguajes: Python, SQL, JavaScript ES6+, TypeScript, PowerShell. Backend: Django,) Tj
+2.8374803149606236 Tw
+0. -13.7999999999999989 Td
+(DRF, REST APIs, OAuth2, JWT, Graph API, Node.js. Bases de Datos: MySQL, SQL) Tj
+4.1966404199474967 Tw
+0. -13.7999999999999989 Td
+(Server, PostgreSQL, Optimización, ETL. Data: Pandas, NumPy, Power BI. DevOps:) Tj
+1.0174803149606364 Tw
+0. -13.7999999999999989 Td
+(Docker, Linux, Git, GitHub Actions, Vercel, Azure AD. Frontend: React, Next.js 14, Astro,) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(Tailwind.) Tj
+ET
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0. g
+255.3577952755905756 510.2364566929133503 Td
+(EDUCACIÓN) Tj
+ET
+0. G
+1.4173228346456694 w
+56.6929133858267775 504.5671653543306547 m
+538.5826771653544256 504.5671653543306547 l
+S
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0. g
+56.6929133858267775 481.8899999999999295 Td
+(Corporación Unificada Nacional \(CUN\)) Tj
+ET
+BT
+/F1 14 Tf
+16.0999999999999979 TL
+0. g
+452.2026771653543733 481.8899999999999295 Td
+(\(2023 – 2027\)) Tj
+ET
+BT
+/F1 14 Tf
+16.0999999999999979 TL
+0. g
+56.6929133858267775 467.716771653543276 Td
+(Ingeniería de Sistemas | En curso) Tj
+ET
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0. g
+56.6929133858267775 445.0396062992125508 Td
+(Servicio Nacional de Aprendizaje \(SENA\)) Tj
+ET
+BT
+/F1 14 Tf
+16.0999999999999979 TL
+0. g
+452.2026771653543733 445.0396062992125508 Td
+(\(2024 – 2026\)) Tj
+ET
+BT
+/F1 14 Tf
+16.0999999999999979 TL
+0. g
+56.6929133858267775 430.8663779527558404 Td
+(Análisis y Desarrollo de Software | En curso) Tj
+ET
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0. g
+203.1377952755905483 388.3466929133857661 Td
+(PROYECTOS DESTACADOS) Tj
+ET
+0. G
+1.4173228346456694 w
+56.6929133858267775 382.6774015748030706 m
+538.5826771653544256 382.6774015748030706 l
+S
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0. g
+56.6929133858267775 360.0002362204724022 Td
+(Marketify: SaaS E-commerce Multi-Tenant) Tj
+ET
+BT
+/F1 14 Tf
+16.0999999999999979 TL
+0. g
+56.6929133858267775 345.8270078740156919 Td
+(Stack: Node.js, Astro, React, SQL Server) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+0 Tw
+56.6929133858267775 331.6537795275589815 Td
+(Plataforma con facturación DIAN, arquitectura multi-tenant y carga masiva CSV.) Tj
+ET
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0. g
+56.6929133858267775 303.3073228346455608 Td
+(Identity Digital Pass: Sistema de Carnetización) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+56.6929133858267775 289.1340944881889072 Td
+(Stack: React, Node.js, Microservicios, SQL Server, VPS Ubuntu) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+3.3209763779527637 Tw
+56.6929133858267775 274.9608661417322537 Td
+(Sistema institucional con arquitectura de microservicios y despliegue en VPS Ubuntu) Tj
+0 Tw
+0. -13.7999999999999989 Td
+(Server.) Tj
+ET
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R 5 0 R ]
+/Count 2
+>>
+endobj
+7 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+8 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+9 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+10 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+11 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+12 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+13 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+14 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+15 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+16 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+17 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+18 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+19 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+20 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 7 0 R
+/F2 8 0 R
+/F3 9 0 R
+/F4 10 0 R
+/F5 11 0 R
+/F6 12 0 R
+/F7 13 0 R
+/F8 14 0 R
+/F9 15 0 R
+/F10 16 0 R
+/F11 17 0 R
+/F12 18 0 R
+/F13 19 0 R
+/F14 20 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+21 0 obj
+<<
+/Producer (jsPDF 4.2.1)
+/CreationDate (D:20260503023712-05'00')
+>>
+endobj
+22 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 23
+0000000000 65535 f 
+0000010349 00000 n 
+0000012174 00000 n 
+0000000015 00000 n 
+0000000768 00000 n 
+0000006184 00000 n 
+0000006321 00000 n 
+0000010412 00000 n 
+0000010537 00000 n 
+0000010667 00000 n 
+0000010800 00000 n 
+0000010938 00000 n 
+0000011062 00000 n 
+0000011191 00000 n 
+0000011323 00000 n 
+0000011459 00000 n 
+0000011587 00000 n 
+0000011714 00000 n 
+0000011843 00000 n 
+0000011976 00000 n 
+0000012078 00000 n 
+0000012424 00000 n 
+0000012510 00000 n 
+trailer
+<<
+/Size 23
+/Root 22 0 R
+/Info 21 0 R
+/ID [ <678B6BAFE36466CC118684F224BC42D0> <678B6BAFE36466CC118684F224BC42D0> ]
+>>
+startxref
+12614
+%%EOF
