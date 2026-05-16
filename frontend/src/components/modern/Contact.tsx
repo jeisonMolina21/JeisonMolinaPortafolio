@@ -5,13 +5,11 @@ import { Send, Mail, Linkedin, Github, Copy, Check, MessageSquare, ArrowUpRight,
 
 const Contact = ({ profile }: { profile: any }) => {
   const [copied, setCopied] = useState(false);
-  const [focusedField, setFocusedField] = useState<string | null>(null);
   const email = profile?.email || "andreyyeisonmg@gmail.com";
   const linkedin = profile?.linkedin_url || "https://linkedin.com/in/jeison-molina";
   const github = profile?.github_url || "https://github.com/jeisonMolina21";
   const phone = "+573505498014";
-  const whatsappMsg = encodeURIComponent("Hola Jeison, vi tu portafolio y me gustaría que trabajemos juntos.");
-  const whatsappUrl = `https://wa.me/${phone.replace('+', '')}?text=${whatsappMsg}`;
+  const whatsappUrl = `https://wa.me/${phone.replace('+', '')}?text=Hola%20Jeison,%20vi%20tu%20portafolio...`;
 
   const copyEmail = () => {
     navigator.clipboard.writeText(email);
@@ -20,140 +18,95 @@ const Contact = ({ profile }: { profile: any }) => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-slate-950 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.03] to-transparent" />
+    <section id="contact" className="py-24 bg-black relative overflow-hidden">
+      {/* Texture Background */}
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')] opacity-[0.02] pointer-events-none" />
 
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
-          {/* Left: Info */}
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <motion.h2 
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                className="text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tighter leading-tight"
-              >
-                ¿Hablamos de <br />
-                <span className="text-gradient-primary italic">tu Proyecto?</span>
-              </motion.h2>
-              <p className="text-text-dim text-sm max-w-md leading-relaxed">
-                Disponible para integrarme en equipos de alto rendimiento o liderar proyectos de automatización.
-              </p>
-            </div>
+          {/* Left: Editorial Header */}
+          <div className="lg:col-span-7 space-y-12">
+            <motion.h2 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="text-[12vw] lg:text-[7vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-white"
+            >
+              HABLEMOS <br />
+              <span className="text-primary italic">DEL FUTURO</span>
+            </motion.h2>
 
-            <div className="space-y-4">
-              {/* Copy Email */}
-              <motion.div 
-                whileHover={{ scale: 1.01 }}
-                onClick={copyEmail}
-                className="group flex items-center gap-4 p-5 neo-glass rounded-2xl hover:border-primary/20 transition-all cursor-pointer relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative z-10 w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-400">
-                  {copied ? <Check size={20} /> : <Mail size={20} />}
-                </div>
-                <div className="relative z-10 min-w-0">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-text-muted">Email Directo</p>
-                  <p className="text-white font-bold text-sm md:text-base truncate">{email}</p>
-                </div>
-                <div className="ml-auto relative z-10 opacity-30 group-hover:opacity-100 transition-opacity">
-                  <Copy size={16} className="text-white" />
-                </div>
-              </motion.div>
+            <p className="text-text-dim text-lg font-light max-w-md leading-relaxed border-l border-primary/30 pl-8">
+              Disponible para arquitecturas de alto impacto, <br />
+              automatización inteligente y soluciones <br />
+              escalables de software.
+            </p>
 
-              {/* Social Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                <a href={linkedin} target="_blank" rel="noopener noreferrer" className="group p-5 neo-glass rounded-2xl hover:border-primary/20 transition-all flex flex-col gap-2.5 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="flex justify-between items-start relative z-10">
-                    <Linkedin size={24} className="text-primary" />
-                    <ArrowUpRight size={14} className="text-text-muted group-hover:text-white transition-colors" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
+               <div className="space-y-4">
+                  <span className="text-primary font-mono text-xs font-bold uppercase tracking-[0.3em]">Email Directo</span>
+                  <button 
+                     onClick={copyEmail}
+                     className="text-2xl font-display font-black text-white hover:text-primary transition-colors flex items-center gap-3 group"
+                  >
+                     {email.split('@')[0]}
+                     <ArrowUpRight className="opacity-20 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" size={24} />
+                  </button>
+                  {copied && <span className="text-primary font-mono text-[10px] animate-pulse uppercase tracking-widest">Copiado al portapapeles</span>}
+               </div>
+
+               <div className="space-y-4">
+                  <span className="text-primary font-mono text-xs font-bold uppercase tracking-[0.3em]">Social</span>
+                  <div className="flex gap-6">
+                     <a href={linkedin} className="text-white/40 hover:text-white transition-colors"><Linkedin size={24} /></a>
+                     <a href={github} className="text-white/40 hover:text-white transition-colors"><Github size={24} /></a>
                   </div>
-                  <span className="text-white font-bold text-sm relative z-10">LinkedIn</span>
-                </a>
-                
-                <a href={github} target="_blank" rel="noopener noreferrer" className="group p-5 neo-glass rounded-2xl hover:border-white/10 transition-all flex flex-col gap-2.5 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="flex justify-between items-start relative z-10">
-                    <Github size={24} className="text-white" />
-                    <ArrowUpRight size={14} className="text-text-muted group-hover:text-white transition-colors" />
-                  </div>
-                  <span className="text-white font-bold text-sm relative z-10">GitHub</span>
-                </a>
-              </div>
-
-              {/* WhatsApp CTA */}
-              <a 
-                href={whatsappUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-full p-4 liquid-button rounded-2xl flex items-center justify-center gap-3 text-white font-bold text-sm shadow-xl shadow-primary/15 group"
-              >
-                <MessageSquare size={20} />
-                WhatsApp Directo
-                <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-                  <ArrowRight size={18} />
-                </motion.div>
-              </a>
+               </div>
             </div>
           </div>
 
-          {/* Right: Form */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative p-8 neo-glass rounded-3xl overflow-hidden group"
-          >
-            <div className="absolute -top-16 -right-16 w-48 h-48 bg-primary/8 blur-[80px] rounded-full group-hover:bg-primary/12 transition-colors" />
-            
-            <form className="relative z-10 space-y-5" onSubmit={(e) => e.preventDefault()}>
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted ml-4">Nombre Completo</label>
-                <input 
-                  type="text" 
-                  placeholder="Ej. Juan Pérez" 
-                  onFocus={() => setFocusedField('name')}
-                  onBlur={() => setFocusedField(null)}
-                  className={`w-full px-6 py-4 bg-white/[0.04] border rounded-2xl focus:outline-none transition-all text-white text-sm font-medium placeholder:text-white/15 ${
-                    focusedField === 'name' ? 'border-primary/40 bg-white/[0.06] shadow-[0_0_20px_rgba(14,165,233,0.1)]' : 'border-white/5'
-                  }`}
-                />
-              </div>
-              
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted ml-4">Email</label>
-                <input 
-                  type="email" 
-                  placeholder="juan@empresa.com" 
-                  onFocus={() => setFocusedField('email')}
-                  onBlur={() => setFocusedField(null)}
-                  className={`w-full px-6 py-4 bg-white/[0.04] border rounded-2xl focus:outline-none transition-all text-white text-sm font-medium placeholder:text-white/15 ${
-                    focusedField === 'email' ? 'border-primary/40 bg-white/[0.06] shadow-[0_0_20px_rgba(14,165,233,0.1)]' : 'border-white/5'
-                  }`}
-                />
-              </div>
-              
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted ml-4">Tu Proyecto</label>
-                <textarea 
-                  rows={3} 
-                  placeholder="Cuéntame sobre el sistema que necesitas..." 
-                  onFocus={() => setFocusedField('message')}
-                  onBlur={() => setFocusedField(null)}
-                  className={`w-full px-6 py-4 bg-white/[0.04] border rounded-2xl focus:outline-none transition-all text-white text-sm font-medium placeholder:text-white/15 resize-none ${
-                    focusedField === 'message' ? 'border-primary/40 bg-white/[0.06] shadow-[0_0_20px_rgba(14,165,233,0.1)]' : 'border-white/5'
-                  }`}
-                ></textarea>
-              </div>
+          {/* Right: Technical Form */}
+          <div className="lg:col-span-5 relative">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-white/5 border border-white/5 p-12 space-y-8"
+            >
+              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                <div className="space-y-2 border-b border-white/10 pb-4 focus-within:border-primary transition-colors">
+                  <label className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-primary/40">Nombre</label>
+                  <input 
+                    type="text" 
+                    placeholder="Escribe tu nombre..." 
+                    className="w-full bg-transparent focus:outline-none text-white text-xl font-bold placeholder:text-white/5"
+                  />
+                </div>
+                
+                <div className="space-y-2 border-b border-white/10 pb-4 focus-within:border-primary transition-colors">
+                  <label className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-primary/40">Email</label>
+                  <input 
+                    type="email" 
+                    placeholder="tu@empresa.com" 
+                    className="w-full bg-transparent focus:outline-none text-white text-xl font-bold placeholder:text-white/5"
+                  />
+                </div>
+                
+                <div className="space-y-2 border-b border-white/10 pb-4 focus-within:border-primary transition-colors">
+                  <label className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-primary/40">Proyecto</label>
+                  <textarea 
+                    rows={2} 
+                    placeholder="Describe brevemente el reto..." 
+                    className="w-full bg-transparent focus:outline-none text-white text-lg font-light placeholder:text-white/5 resize-none"
+                  ></textarea>
+                </div>
 
-              <button className="w-full py-4 bg-white text-slate-950 font-bold text-sm rounded-2xl flex items-center justify-center gap-3 hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/30 active:scale-[0.98] transition-all">
-                Enviar Propuesta
-                <Send size={16} />
-              </button>
-            </form>
-          </motion.div>
+                <button className="w-full py-6 bg-primary text-white font-black text-xs uppercase tracking-[0.4em] hover:bg-white hover:text-black transition-all duration-500">
+                  Enviar Propuesta
+                </button>
+              </form>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
