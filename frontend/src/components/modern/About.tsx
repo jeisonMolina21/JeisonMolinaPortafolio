@@ -41,64 +41,70 @@ const specialties = [
 
 const About = () => {
   return (
-    <section id="about" className="section-padding bg-slate-950 relative overflow-hidden">
+    <section id="about" className="py-24 bg-black relative overflow-hidden">
+      {/* Decorative Texture */}
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-secondary/5 skew-x-12 transform origin-top-right -z-10" />
+
       <div className="container-custom">
-        {/* Header */}
-        <div className="text-center mb-12 space-y-3">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 neo-glass rounded-full text-[9px] font-bold uppercase tracking-[0.2em] text-primary"
-          >
-            <TrendingUp size={12} />
-            Impacto medible
-          </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-display font-bold tracking-tighter"
-          >
-            Especialidad en <span className="text-gradient-primary italic">Resultados</span>
-          </motion.h2>
-          <p className="text-text-dim text-sm max-w-lg mx-auto leading-relaxed">
-            No solo escribo código, diseño soluciones que generan impacto medible en la eficiencia operativa.
-          </p>
+        {/* Header - Editorial Style */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
+          <div className="lg:col-span-8">
+            <motion.h2 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="text-[12vw] lg:text-[7vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-white"
+            >
+              IMPACTO <br />
+              <span className="text-primary italic">MEDIBLE</span>
+            </motion.h2>
+          </div>
+          <div className="lg:col-span-4 flex items-end">
+            <p className="text-text-dim text-sm font-sans font-light uppercase tracking-widest leading-relaxed border-l border-primary/30 pl-6">
+              No solo escribo código, diseño arquitecturas <br />
+              que transforman la eficiencia operativa <br />
+              en resultados tangibles.
+            </p>
+          </div>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Technical Luxury Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5">
           {specialties.map((s, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              whileHover={{ y: -4, transition: { duration: 0.25 } }}
-              className={`group relative p-5 neo-glass rounded-2xl overflow-hidden cursor-default beam-border ${
-                s.featured ? 'md:col-span-2 lg:col-span-1' : ''
-              }`}
+              transition={{ delay: i * 0.1 }}
+              className="group relative p-10 bg-black hover:bg-primary/5 transition-all duration-700"
             >
-              {/* Icon */}
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-gradient-to-br ${s.gradient} text-white shadow-lg group-hover:scale-110 transition-transform`}>
+              {/* Technical Detail */}
+              <div className="absolute top-6 right-6">
+                 <span className="text-[10px] font-mono text-primary/40 font-bold uppercase tracking-[0.2em]">0{i+1} // spec</span>
+              </div>
+
+              {/* Icon - Minimalist */}
+              <div className="text-primary mb-12 transform group-hover:scale-110 transition-transform duration-500">
                 {s.icon}
               </div>
 
-              {/* Stat */}
-              <div className="mb-3">
-                <span className="text-2xl font-display font-bold text-white">{s.stat}</span>
-                <span className="text-[10px] text-text-muted font-bold uppercase tracking-wider ml-1.5">{s.statLabel}</span>
+              {/* Metric - Technical Luxury Style */}
+              <div className="space-y-1 mb-8">
+                <div className="text-4xl font-display font-black text-white group-hover:text-primary transition-colors tracking-tighter">
+                   {s.stat}
+                </div>
+                <div className="text-[10px] font-mono font-bold text-white/40 uppercase tracking-[0.2em]">
+                   {s.statLabel}
+                </div>
               </div>
               
-              <h3 className="text-sm font-display font-bold text-white mb-1.5 group-hover:text-primary transition-colors">{s.title}</h3>
-              <p className="text-text-muted text-xs leading-relaxed group-hover:text-text-dim transition-colors">
+              <h3 className="text-lg font-display font-black text-white uppercase tracking-tight mb-4">{s.title}</h3>
+              <p className="text-text-dim text-sm font-light leading-relaxed">
                 {s.description}
               </p>
               
-              {/* Background glow on hover */}
-              <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-primary/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* Highlight bar */}
+              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
             </motion.div>
           ))}
         </div>
