@@ -26,8 +26,12 @@ const { profile, experience, projects } = summaryData || {};
 		<!-- Scroll Progress Bar -->
 		<div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-gradient-to-r from-primary to-secondary z-[100] transition-all duration-75 ease-out"></div>
 
-		<!-- Custom Cursor (desktop only) -->
-		<div id="custom-cursor" class="hidden lg:block fixed w-6 h-6 border border-primary/40 rounded-full pointer-events-none z-[9999] mix-blend-difference transition-transform duration-200 ease-out"></div>
+		<!-- Custom Cursor -->
+		<div id="custom-cursor" class="hidden lg:block fixed pointer-events-none z-[9999] mix-blend-difference transition-transform duration-100 ease-out">
+			<div class="w-8 h-8 border border-primary rounded-full flex items-center justify-center">
+				<div class="w-1 h-1 bg-primary rounded-full"></div>
+			</div>
+		</div>
 
 		<Navbar client:load />
 		
@@ -58,7 +62,22 @@ const { profile, experience, projects } = summaryData || {};
 	const cursor = document.getElementById('custom-cursor');
 	if (cursor) {
 		window.addEventListener('mousemove', (e) => {
-			cursor.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`;
+			cursor.style.left = `${e.clientX}px`;
+			cursor.style.top = `${e.clientY}px`;
+			cursor.style.transform = `translate(-50%, -50%)`;
+		});
+
+		// Hover effects
+		const links = document.querySelectorAll('a, button, [role="button"]');
+		links.forEach(link => {
+			link.addEventListener('mouseenter', () => {
+				cursor.style.transform = `translate(-50%, -50%) scale(2)`;
+				cursor.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+			});
+			link.addEventListener('mouseleave', () => {
+				cursor.style.transform = `translate(-50%, -50%) scale(1)`;
+				cursor.style.borderColor = 'var(--color-primary)';
+			});
 		});
 	}
 
@@ -75,14 +94,24 @@ const { profile, experience, projects } = summaryData || {};
 </script>
 
 <style is:global>
+	:root {
+		--color-primary: #991b1b; /* Crimson fallback if not in global.css */
+	}
+
 	html {
 		scroll-behavior: smooth;
-		cursor: none;
+	}
+
+	/* Only hide cursor on desktop to use the custom one */
+	@media (min-width: 1024px) {
+		html, body, a, button {
+			cursor: none !important;
+		}
 	}
 
 	@media (max-width: 1024px) {
-		html {
-			cursor: auto;
+		#custom-cursor {
+			display: none !important;
 		}
 	}
 
@@ -91,20 +120,21 @@ const { profile, experience, projects } = summaryData || {};
 	}
 
 	::-webkit-scrollbar-track {
-		background: #020617;
+		background: #000000;
 	}
 
 	::-webkit-scrollbar-thumb {
-		background: #1e293b;
+		background: #4a0404;
 		border-radius: 5px;
 	}
 
 	::-webkit-scrollbar-thumb:hover {
-		background: #0ea5e9;
+		background: #991b1b;
 	}
 
 	body {
 		overflow-x: hidden;
 		width: 100vw;
+		background-color: black;
 	}
 </style>
