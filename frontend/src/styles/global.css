@@ -1,27 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@300;400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  /* ── Color System ── */
-  --color-primary: #0ea5e9;
-  --color-primary-bright: #38bdf8;
-  --color-primary-dim: #0284c7;
-  --color-secondary: #8b5cf6;
-  --color-accent: #f43f5e;
+  /* ── Levi Wilson Inspired Color System ── */
+  --color-primary: #991b1b; /* Crimson Red */
+  --color-primary-bright: #ef4444; 
+  --color-primary-dim: #7f1d1d;
+  --color-secondary: #4a0404; /* Vinotinto */
+  --color-accent: #f5f5f4; /* Beige */
   --color-emerald: #10b981;
 
-  --color-midnight: #020617;
-  --color-slate-950: #020617;
-  --color-surface: #0f172a;
-  --color-elevated: #1e293b;
+  --color-midnight: #0a0a0a;
+  --color-slate-950: #0a0a0a;
+  --color-surface: #171717;
+  --color-elevated: #262626;
 
-  --color-text-main: #f1f5f9;
-  --color-text-dim: #94a3b8;
-  --color-text-muted: #475569;
+  --color-text-main: #f5f5f4; /* Beige text for dark mode */
+  --color-text-dim: #a3a3a3;
+  --color-text-muted: #525252;
 
-  /* ── Typography ── */
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui;
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui;
+  /* ── Editorial Typography ── */
+  --font-sans: "Inter", ui-sans-serif, system-ui;
+  --font-display: "Bebas Neue", cursive;
+  --font-mono: "Space Grotesk", monospace;
 
   /* ── Custom Animations ── */
   --animate-glitch: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
