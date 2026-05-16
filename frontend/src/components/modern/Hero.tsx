@@ -70,10 +70,10 @@ const Hero = ({ profile }: { profile: any }) => {
         style={{ opacity }}
         className="container-custom relative z-10 w-full"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
           
           {/* Left: Editorial Content */}
-          <div className="lg:col-span-8 relative z-20">
+          <div className="lg:col-span-7 relative z-20">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -132,40 +132,48 @@ const Hero = ({ profile }: { profile: any }) => {
           </div>
 
           {/* Right: Cinematic Visual */}
-          <div className="lg:col-span-4 relative mt-12 lg:mt-0">
+          <div className="lg:col-span-5 relative mt-16 lg:mt-0 flex justify-center">
             <motion.div 
               style={{ scale }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: 0.9, x: 50 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative aspect-[3/4] lg:aspect-square"
+              className="relative w-full max-w-[500px]"
             >
-              {/* Geometric Accents */}
-              <div className="absolute -top-10 -right-10 w-40 h-40 border-t-2 border-r-2 border-primary/30 z-0" />
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 border-b-2 border-l-2 border-primary/30 z-0" />
+              {/* Geometric Accents - More expansive */}
+              <div className="absolute -top-12 -right-12 w-48 h-48 border-t-2 border-r-2 border-primary/20 z-0" />
+              <div className="absolute -bottom-12 -left-12 w-48 h-48 border-b-2 border-l-2 border-primary/20 z-0" />
               
-              {/* Image Container */}
-              <div className="relative z-10 w-full h-full overflow-hidden border border-white/5 shadow-2xl">
+              {/* Image Container - Larger & Editorial Aspect */}
+              <div className="relative z-10 w-full aspect-[4/5] overflow-hidden border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] bg-midnight">
                 <img 
                   src={profile?.image_url || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800"} 
                   alt="Jeison Molina"
-                  className="w-full h-full object-cover grayscale brightness-75 contrast-125 hover:grayscale-0 hover:brightness-100 transition-all duration-1000"
+                  className="w-full h-full object-cover grayscale brightness-90 contrast-110 hover:grayscale-0 hover:brightness-100 transition-all duration-1000 transform hover:scale-105"
                 />
-                {/* Vinotinto Overlay */}
-                <div className="absolute inset-0 bg-secondary/20 mix-blend-multiply" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                {/* Vinotinto Overlay - Subtle */}
+                <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-60" />
               </div>
 
-              {/* Floating Tech Data (Technical Luxury) */}
-              <div className="absolute bottom-6 -left-12 z-20 hidden xl:block">
-                <div className="bg-black/80 backdrop-blur-xl border border-white/10 p-5 space-y-4">
+              {/* Floating Tech Data - Improved Position & Design */}
+              <div className="absolute -bottom-10 -right-10 lg:-right-16 z-20">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="bg-midnight/40 backdrop-blur-3xl border border-white/10 p-8 space-y-6 shadow-2xl min-w-[200px]"
+                >
                   {metrics.slice(0, 2).map((m, i) => (
-                    <div key={i} className="flex flex-col gap-1">
-                      <span className="text-[9px] font-mono font-bold text-primary uppercase tracking-[0.2em]">{m.label}</span>
-                      <span className="text-2xl font-display font-bold text-text-main">{m.value}</span>
+                    <div key={i} className="flex flex-col gap-2">
+                      <span className="text-[10px] font-mono font-bold text-primary uppercase tracking-[0.3em]">{m.label}</span>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-3xl font-display font-bold text-text-main">{m.value.split(' ')[0]}</span>
+                        <span className="text-sm font-display text-primary uppercase">{m.value.split(' ')[1]}</span>
+                      </div>
                     </div>
                   ))}
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
