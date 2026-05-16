@@ -23,7 +23,7 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   // Header - Title
   doc.setFontSize(12);
   doc.setTextColor(textColor);
-  doc.text('Full Stack Developer | Backend & Data Engineering Specialist', 105, y, { align: 'center' });
+  doc.text('Backend Developer & Automation Engineer | Estudiante de Ingeniería de Sistemas', 105, y, { align: 'center' });
   y += 6;
 
   // Header - Contact Info
@@ -102,8 +102,8 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   // Summary
   sectionTitle(lang === 'es' ? 'Perfil Profesional' : 'Professional Profile');
   const summary = lang === 'es' 
-    ? 'Desarrollador Full Stack con enfoque en arquitectura Backend y automatización de procesos. Experto en integrar ecosistemas empresariales mediante APIs REST (OAuth2/JWT) y optimizar flujos de datos. Especializado en reducir la carga operativa mediante scripts en Python y arquitectura escalable en Node.js.'
-    : 'Full Stack Developer focused on Backend architecture and process automation. Expert in integrating enterprise ecosystems via REST APIs (OAuth2/JWT) and optimizing data flows. Specialized in reducing operational workload through Python scripts and scalable Node.js architecture.';
+    ? 'Ingeniero de software en formación enfocado en arquitectura Backend y automatización avanzada. Experto en diseñar flujos de datos invisibles y pipelines ETL que procesan +50k registros diarios. Especializado en n8n, Python y Node.js para eliminar la carga operativa y transformar la complejidad en rendimiento escalable.'
+    : 'Software Engineer in training focused on Backend architecture and advanced automation. Expert in designing invisible data flows and ETL pipelines processing 50k+ daily records. Specialized in n8n, Python, and Node.js to eliminate operational workload and transform complexity into scalable performance.';
   
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
@@ -117,16 +117,16 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   const experiences = [
     {
       company: 'Fundación Universitaria Horizonte',
-      role: lang === 'es' ? 'Full Stack Developer / Auxiliar de Tecnología' : 'Full Stack Developer',
+      role: lang === 'es' ? 'Backend Developer & Automation Engineer' : 'Backend & Automation Engineer',
       period: '2024 – Actualidad',
       bullets: lang === 'es' ? [
-        'Lideré la migración de sistemas legacy a una arquitectura moderna (Python/React), mejorando el rendimiento en un 60%.',
-        'Automaticé la gestión de +500 identidades en Azure AD usando Microsoft Graph API, eliminando errores manuales.',
-        'Desarrollé un motor ETL con Pandas que procesa 50k+ registros biométricos diarios para auditoría de nómina.'
+        'Orquesté ecosistemas de automatización híbridos (n8n + Python) para sincronizar datos de usuarios entre Q10 y Microsoft 365 (Azure AD).',
+        'Diseñé e implementé pipelines ETL con Pandas que procesan +50k registros biométricos diarios, garantizando 100% de trazabilidad.',
+        'Reduje la carga operativa manual en más de 60 horas mensuales mediante la automatización de flujos de trabajo administrativos.'
       ] : [
-        'Led migration of legacy systems to modern architecture (Python/React), improving performance by 60%.',
-        'Automated 500+ identity management in Azure AD using Microsoft Graph API, eliminating manual errors.',
-        'Developed ETL engine with Pandas processing 50k+ daily biometric records for payroll auditing.'
+        'Orchestrated hybrid automation ecosystems (n8n + Python) to synchronize user data between Q10 and Microsoft 365 (Azure AD).',
+        'Designed and implemented ETL pipelines with Pandas processing 50k+ daily biometric records, ensuring 100% traceability.',
+        'Reduced manual operational workload by over 60 hours per month through administrative workflow automation.'
       ]
     },
     {
@@ -167,17 +167,17 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   // Categorized Skills
   sectionTitle(lang === 'es' ? 'Habilidades Técnicas' : 'Technical Skills');
   const skillGroups = lang === 'es' ? [
-    { label: 'LENGUAJES', items: 'Python (Django/DRF), JavaScript ES6+, TypeScript, SQL, PowerShell' },
-    { label: 'BACKEND & DATA', items: 'Node.js, REST APIs, OAuth2/JWT, Pandas, ETL, Microsoft Graph API' },
+    { label: 'BACKEND', items: 'Node.js, Python (Django/FastAPI), SQL, n8n (Automation Engine)' },
+    { label: 'DATA & ETL', items: 'Pandas, Procesamiento Masivo, Microsoft Graph API, OAuth 2.0' },
     { label: 'BASES DE DATOS', items: 'MySQL, SQL Server, PostgreSQL, Redis, Optimización de Queries' },
-    { label: 'FRONTEND', items: 'React, Next.js 14, Astro, Tailwind CSS, Framer Motion' },
-    { label: 'DEVOPS & TOOLS', items: 'Docker, Git/GitHub, Vercel, Linux (Ubuntu), Azure AD, CI/CD' }
+    { label: 'COMPLEMENTARIOS', items: 'React, Next.js, TypeScript, Tailwind CSS, Linux (Bash)' },
+    { label: 'DEVOPS & TOOLS', items: 'Docker, Git/GitHub, CI/CD, Azure AD, Auditoría de Logs' }
   ] : [
-    { label: 'LANGUAGES', items: 'Python (Django/DRF), JavaScript ES6+, TypeScript, SQL, PowerShell' },
-    { label: 'BACKEND & DATA', items: 'Node.js, REST APIs, OAuth2/JWT, Pandas, ETL, Microsoft Graph API' },
+    { label: 'BACKEND', items: 'Node.js, Python (Django/FastAPI), SQL, n8n (Automation Engine)' },
+    { label: 'DATA & ETL', items: 'Pandas, Mass Processing, Microsoft Graph API, OAuth 2.0' },
     { label: 'DATABASES', items: 'MySQL, SQL Server, PostgreSQL, Redis, Query Optimization' },
-    { label: 'FRONTEND', items: 'React, Next.js 14, Astro, Tailwind CSS, Framer Motion' },
-    { label: 'DEVOPS & TOOLS', items: 'Docker, Git/GitHub, Vercel, Linux (Ubuntu), Azure AD, CI/CD' }
+    { label: 'COMPLEMENTARY', items: 'React, Next.js, TypeScript, Tailwind CSS, Linux (Bash)' },
+    { label: 'DEVOPS & TOOLS', items: 'Docker, Git/GitHub, CI/CD, Azure AD, Log Auditing' }
   ];
 
   skillGroups.forEach(group => {
@@ -198,16 +198,16 @@ export const generateATSPDF = (data: any, lang: 'es' | 'en') => {
   
   const projects = [
     {
-      name: 'Marketify: Multi-Tenant E-commerce',
+      name: 'Sincronización Hermes (n8n + Python)',
       desc: lang === 'es' 
-        ? 'Sistema escalable con aislamiento de datos por cliente, integración de pasarela de pagos y facturación legal automática.'
-        : 'Scalable system with per-client data isolation, payment gateway integration, and automatic legal invoicing.'
+        ? 'Ecosistema de automatización que sincroniza en tiempo real datos de usuarios entre Q10 y Microsoft 365 vía MS Graph API.'
+        : 'Automation ecosystem synchronizing real-time user data between Q10 and Microsoft 365 via MS Graph API.'
     },
     {
-      name: 'Identity Pass: Microservices System',
+      name: 'Task Flow Automator (ETL Engine)',
       desc: lang === 'es'
-        ? 'Arquitectura desacoplada en Node.js que gestiona identidades digitales masivas con alta disponibilidad en VPS.'
-        : 'Decoupled Node.js architecture managing massive digital identities with high availability on VPS.'
+        ? 'Orquestador de tareas asíncronas para procesamiento masivo de datos y generación automática de reportes ejecutivos.'
+        : 'Asynchronous task orchestrator for massive data processing and automatic executive report generation.'
     }
   ];
 
