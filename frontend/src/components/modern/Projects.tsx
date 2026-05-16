@@ -110,7 +110,6 @@ const Projects = ({ projects: propProjects }: { projects?: any[] }) => {
             <ProjectCard key={i} index={i} project={p} onClick={() => setSelectedProject(p)} />
           ))}
         </div>
-      </div>     </div>
       </div>
 
       {/* Modal - Editorial Detail */}
