@@ -191,8 +191,14 @@ const Projects = ({ projects: propProjects }: { projects?: any[] }) => {
                   </div>
 
                   <div className="pt-8 flex gap-4">
-                    <a href={selectedProject.github_url || "#"} className="flex-1 py-4 border border-white/10 text-center text-white text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">Source Code</a>
-                    <a href={selectedProject.demo_url || "#"} className="flex-1 py-4 bg-primary text-center text-white text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">Live Demo</a>
+                    <a href={selectedProject.github_url || "#"} className="flex-1 py-4 border border-primary/20 text-center text-text-main text-[10px] font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
+                       {selectedProject.github_label || "Source Code"}
+                    </a>
+                    {selectedProject.demo_url && (
+                       <a href={selectedProject.demo_url} className="flex-1 py-4 bg-primary text-center text-white text-[10px] font-bold uppercase tracking-widest hover:bg-text-main hover:text-midnight transition-all">
+                          {selectedProject.demo_label || "Live Demo"}
+                       </a>
+                    )}
                   </div>
                 </div>
               </div>

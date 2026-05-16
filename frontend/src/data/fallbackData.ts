@@ -47,21 +47,34 @@ export const fallbackData = {
   projects: [
     {
       id: 1,
-      title: 'Proyecto Kairós',
-      description: 'Automatización de control de accesos mediante lógica en Python para procesar archivos biométricos.',
-      image_url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
-      github_url: 'https://github.com/jeisonmolina',
-      demo_url: null,
-      tech_stack: 'Python, Pandas, ZKTECO API'
+      title: 'Sincronización Hermes',
+      description: 'Ecosistema de automatización híbrido (n8n + Python) que sincroniza en tiempo real datos de usuarios entre la plataforma educativa Q10 y Microsoft 365, gestionando accesos vía Azure AD.',
+      image_url: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=800',
+      github_url: 'https://github.com/jeisonmolina/hermes',
+      demo_url: 'https://github.com/jeisonmolina/hermes#architecture',
+      github_label: 'Source Code',
+      demo_label: 'Architecture Diagram',
+      tech_stack: 'n8n, Python, MS Graph API, OAuth 2.0'
     },
     {
       id: 2,
-      title: 'Proyecto Hermes',
-      description: 'Automatización de cuentas académicas Microsoft 365 mediante scripts en Python.',
-      image_url: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=800',
-      github_url: 'https://github.com/jeisonmolina',
+      title: 'Abogtic Inventory',
+      description: 'Sistema integral de gestión de activos fijos y mantenimiento preventivo para entidades jurídicas.',
+      image_url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
+      github_url: 'https://github.com/jeisonmolina/abogtic',
       demo_url: null,
-      tech_stack: 'Python, Microsoft Graph API'
+      tech_stack: 'Node.js, React, MySQL, Sequelize'
+    },
+    {
+      id: 3,
+      title: 'Task Flow Automator',
+      description: 'Orquestador de tareas asíncronas en segundo plano diseñado para el procesamiento masivo de datos (ETL) y generación automática de reportes ejecutivos.',
+      image_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
+      github_url: 'https://github.com/jeisonmolina/task-flow',
+      demo_url: 'https://github.com/jeisonmolina/task-flow#api-docs',
+      github_label: 'Source Code',
+      demo_label: 'API Documentation',
+      tech_stack: 'Python, Redis, Docker, PostgreSQL'
     }
   ],
   education: [
