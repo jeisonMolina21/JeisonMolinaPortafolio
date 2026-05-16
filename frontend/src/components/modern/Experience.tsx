@@ -3,31 +3,7 @@ import React from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { MapPin, Briefcase, TrendingUp } from 'lucide-react';
 
-const experiences = [
-  {
-    role: "Full Stack & IT Specialist",
-    company: "Fundación U. Horizonte",
-    period: "2022 - Presente",
-    location: "Bogotá",
-    achievement: "60h/sem ahorro",
-    bullets: [
-      "Arquitectura que redujo en **60h/semestre** la creación de cuentas.",
-      "Sistema de **Carnetización Digital** para 5,000+ estudiantes.",
-      "Control total de **Inventario TI** del 100% de activos fijos."
-    ]
-  },
-  {
-    role: "Software Developer Freelance",
-    company: "Independiente",
-    period: "2020 - 2022",
-    location: "Remoto",
-    achievement: "< 1s LCP",
-    bullets: [
-      "Optimización de carga reduciendo el LCP a **< 1 segundo**.",
-      "Integración de pasarelas de pago y gestión de stock tiempo real."
-    ]
-  }
-];
+import { fallbackData } from '../../data/fallbackData';
 
 const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
   return (
@@ -41,7 +17,7 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
             <div className="h-[1px] w-12 bg-primary/30" />
             <div className="mt-4 flex items-center gap-2 text-white/40 text-[10px] font-bold uppercase tracking-widest">
                <MapPin size={10} />
-               {exp.location}
+               {exp.location || 'Colombia'}
             </div>
          </div>
       </div>
@@ -59,7 +35,7 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
           <div className="absolute top-0 right-0 p-6">
              <div className="flex flex-col items-end gap-1">
                 <span className="text-[10px] font-mono text-primary/60 font-bold uppercase tracking-widest">Achievement</span>
-                <span className="text-xl font-display font-black text-white">{exp.achievement}</span>
+                <span className="text-xl font-display font-black text-white">{exp.achievement || 'High Impact'}</span>
              </div>
           </div>
 
@@ -73,7 +49,14 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
           </h3>
           
           <ul className="space-y-6">
-            {exp.bullets.map((b: string, bi: number) => (
+            {exp.description ? (
+               <li className="flex gap-6 group/item">
+                  <span className="text-primary font-mono text-xs mt-1 opacity-40">01</span>
+                  <p className="text-lg text-text-dim leading-relaxed font-light group-hover/item:text-white transition-colors">
+                     {exp.description}
+                  </p>
+               </li>
+            ) : exp.bullets?.map((b: string, bi: number) => (
               <li key={bi} className="flex gap-6 group/item">
                 <span className="text-primary font-mono text-xs mt-1 opacity-40">0{bi+1}</span>
                 <div 
@@ -89,7 +72,9 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
   );
 };
 
-const Experience = () => {
+const Experience = ({ experiences: propExperiences }: { experiences?: any[] }) => {
+  const experiencesList = propExperiences || fallbackData.experience;
+
   return (
     <section id="experience" className="py-24 bg-black relative">
       <div className="container-custom">
@@ -115,7 +100,7 @@ const Experience = () => {
         </div>
 
         <div className="relative">
-          {experiences.map((exp, i) => (
+          {experiencesList.map((exp, i) => (
             <ExperienceItem key={i} exp={exp} index={i} />
           ))}
         </div>

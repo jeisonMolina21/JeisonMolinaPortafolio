@@ -3,38 +3,7 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, CheckCircle2, Target, Lightbulb, X, Layers, Zap, Award, ArrowRight } from 'lucide-react';
 
-const projects = [
-  {
-    num: "01",
-    title: "Carnet Virtual Institucional",
-    stack: ["MySQL", "Node.js", "React", "Docker"],
-    description: "Digitalización total de la identificación para la Fundación Universitaria Horizonte.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800",
-    problem: "Procesos manuales de carnetización lentos y costosos.",
-    solution: "Arquitectura escalable para generación instantánea de carnets digitales con QR.",
-    results: ["Reducción del 90% en tiempos", "5,000+ estudiantes activos", "Auditoría en tiempo real"]
-  },
-  {
-    num: "02",
-    title: "Gestión de Inventario IT",
-    stack: ["Astro", "React", "PostgreSQL", "Linux"],
-    description: "Control exhaustivo de hardware y periféricos institucionales.",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
-    problem: "Pérdida de trazabilidad en equipos asignados.",
-    solution: "Sistema con generación automática de hojas de vida y revisión técnica.",
-    results: ["Control del 100% de activos", "Auditorías instantáneas", "Reportes PDF automáticos"]
-  },
-  {
-    num: "03",
-    title: "RPA: Creación de Correos",
-    stack: ["Python", "Microsoft API", "JSON", "Bash"],
-    description: "Script de alto rendimiento para creación masiva de cuentas institucionales.",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
-    problem: "60+ horas semestrales perdidas en creación manual.",
-    solution: "Script en Python que automatiza la creación y notificación.",
-    results: ["1,000+ cuentas en 5 min", "60h+ liberadas/semestre", "Integridad del 100%"]
-  }
-];
+import { fallbackData } from '../../data/fallbackData';
 
 const ProjectCard = ({ project, index, onClick }: { project: any, index: number, onClick: (e: React.MouseEvent) => void }) => {
   const isLarge = index === 0;
@@ -96,8 +65,18 @@ const ProjectCard = ({ project, index, onClick }: { project: any, index: number,
   );
 };
 
-const Projects = () => {
+const Projects = ({ projects: propProjects }: { projects?: any[] }) => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
+  const projectsList = (propProjects || fallbackData.projects).map((p, i) => ({
+    ...p,
+    num: `0${i + 1}`,
+    // Ensure compatibility between database fields and component expectations
+    image: p.image_url || p.image, 
+    stack: p.tech_stack ? (typeof p.tech_stack === 'string' ? p.tech_stack.split(',').map((s: string) => s.trim()) : p.tech_stack) : (p.stack || []),
+    problem: p.problem || p.description,
+    solution: p.solution || "Arquitectura implementada bajo estándares de alta disponibilidad.",
+    results: p.results || ["Optimización de procesos", "Mejora en la experiencia de usuario"]
+  }));
 
   return (
     <section id="projects" className="py-24 bg-black relative">
@@ -111,7 +90,7 @@ const Projects = () => {
             <motion.h2 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="text-[12vw] lg:text-[8vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-white"
+              className="text-[12vw] lg:text-[7vw] font-display font-black leading-[0.8] tracking-tighter uppercase text-white"
             >
               CASOS <br />
               <span className="text-primary">DE ÉXITO</span>
@@ -127,10 +106,11 @@ const Projects = () => {
 
         {/* Asymmetrical Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
-          {projects.map((p, i) => (
+          {projectsList.map((p, i) => (
             <ProjectCard key={i} index={i} project={p} onClick={() => setSelectedProject(p)} />
           ))}
         </div>
+      </div>     </div>
       </div>
 
       {/* Modal - Editorial Detail */}
