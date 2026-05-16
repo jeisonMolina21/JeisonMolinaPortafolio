@@ -52,10 +52,10 @@ const Hero = ({ profile }: { profile: any }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   const metrics = [
-    { label: "Proyectos", value: "20+", icon: <Rocket size={14} /> },
-    { label: "Usuarios", value: "1000+", icon: <Users size={14} /> },
-    { label: "Horas Ahorradas", value: "60+", icon: <Clock size={14} /> },
-    { label: "Sistemas", value: "5+", icon: <Zap size={14} /> },
+    { label: "Data Pipeline", value: "50K+ /Día", icon: <Rocket size={14} /> },
+    { label: "Ahorro Operativo", value: "60h+ /Mes", icon: <Clock size={14} /> },
+    { label: "Core Stack", value: "Py/Node", icon: <Zap size={14} /> },
+    { label: "Mentalidad", value: "T-Shaped", icon: <Users size={14} /> },
   ];
 
   return (
@@ -91,9 +91,12 @@ const Hero = ({ profile }: { profile: any }) => {
               {/* Massive Editorial Heading */}
               <div className="relative">
                 <h1 className="text-[12vw] lg:text-[10vw] font-display font-black leading-[0.85] text-text-main tracking-[-0.04em] uppercase">
-                  SISTEMAS <br />
-                  <span className="text-primary italic">INVISIBLES</span>
+                  BACKEND & <br />
+                  <span className="text-primary italic">AUTOMATION</span>
                 </h1>
+                <p className="text-primary font-mono text-xs md:text-sm font-bold uppercase tracking-[0.4em] mt-4">
+                   Ingeniería de Sistemas // SENA // Optimizando el Core del Negocio
+                </p>
                 <motion.div 
                   initial={{ width: 0 }}
                   animate={{ width: '100px' }}
@@ -104,7 +107,7 @@ const Hero = ({ profile }: { profile: any }) => {
 
               {/* Description with high-end feel */}
               <p className="max-w-lg text-lg md:text-xl text-text-dim font-sans font-light leading-relaxed">
-                Diseñando el <span className="text-white font-medium italic">futuro de la eficiencia</span> a través de arquitectura de software de alto impacto y automatización inteligente.
+                Diseño arquitecturas escalables y pipelines ETL que procesan <span className="text-text-main font-medium italic">+50k registros diarios</span>. Especialista en Python, Node.js y n8n con mentalidad orientada a resultados técnicos.
               </p>
 
               {/* High-Contrast CTAs */}

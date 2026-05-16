@@ -5,37 +5,32 @@ import { Zap, Code2, Cpu, BrainCircuit, TrendingUp } from 'lucide-react';
 
 const specialties = [
   {
-    title: "Automatización RPA",
-    stat: "60h+",
-    statLabel: "ahorro/semestre",
-    description: "Creación de 1,000 cuentas en 5 min. Liberación de trabajo manual repetitivo.",
+    title: "Backend Core",
+    stat: "Py/Node",
+    statLabel: "stack principal",
+    description: "Desarrollo de servicios robustos y escalables enfocados en la integridad de datos y el rendimiento.",
     icon: <Zap size={22} />,
-    gradient: "from-cyan-500 to-blue-500",
-    featured: true
   },
   {
-    title: "Full Stack Dev",
-    stat: "5K+",
-    statLabel: "usuarios",
-    description: "Sistemas robustos con MySQL, Node.js y React. Escalabilidad y rendimiento.",
-    icon: <Code2 size={22} />,
-    gradient: "from-indigo-500 to-purple-500"
+    title: "ETL & Data",
+    stat: "50K+",
+    statLabel: "registros/día",
+    description: "Diseño de tuberías de datos automatizadas para procesamiento masivo y análisis en tiempo real.",
+    icon: <TrendingUp size={22} />,
   },
   {
-    title: "Activos IT",
-    stat: "100%",
-    statLabel: "trazabilidad",
-    description: "Control total de inventario con generación automática de reportes.",
+    title: "Orquestación",
+    stat: "n8n",
+    statLabel: "automation engine",
+    description: "Automatización de flujos complejos de negocio integrando múltiples APIs y servicios cloud.",
     icon: <Cpu size={22} />,
-    gradient: "from-emerald-500 to-teal-500"
   },
   {
-    title: "Python Scripts",
-    stat: "1K+",
-    statLabel: "cuentas/5min",
-    description: "Scripts especializados para eliminar tareas repetitivas y optimizar procesos.",
+    title: "T-Shaped Dev",
+    stat: "Next.js",
+    statLabel: "complemento front",
+    description: "Capacidad de construir interfaces administrativas modernas para visualizar datos backend.",
     icon: <BrainCircuit size={22} />,
-    gradient: "from-amber-500 to-orange-500"
   }
 ];
 
@@ -60,9 +55,10 @@ const About = () => {
           </div>
           <div className="lg:col-span-4 flex items-end">
             <p className="text-text-dim text-sm font-sans font-light uppercase tracking-widest leading-relaxed border-l border-primary/30 pl-6">
-              No solo escribo código, diseño arquitecturas <br />
-              que transforman la eficiencia operativa <br />
-              en resultados tangibles.
+              Estudiante de Ingeniería de Sistemas & SENA. <br />
+              Mi fuerte es el backend y los datos, con <br />
+              habilidades complementarias en React/Next.js <br />
+              para soluciones integrales (T-Shaped).
             </p>
           </div>
         </div>
