@@ -13,7 +13,7 @@ export const fallbackData = {
     linkedin: 'https://linkedin.com/in/jeisonmolina',
     github: 'https://github.com/jeisonmolina',
     image_url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800',
-    cv_url: 'https://jeison-molina-portafolio.vercel.app/cv.pdf'
+    cv_url: '/cv.pdf'
   },
   skills: [
     { id: 1, name: 'Python', category: 'Programming' },
